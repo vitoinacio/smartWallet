@@ -21,7 +21,7 @@ const Header = () => {
     const newPosition = position; 
     let previousPosition = 0;
 
-    if (newPosition != previousPosition) {
+    if (newPosition !== previousPosition) {
       setHasMenu(false);
     }
     previousPosition = newPosition;
@@ -32,6 +32,8 @@ const Header = () => {
   };
 
   React.useEffect(() => {
+    handleScroll();
+    handleResize();
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
     return () => {
