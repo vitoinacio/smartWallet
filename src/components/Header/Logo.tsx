@@ -1,17 +1,19 @@
+import { twMerge } from "tailwind-merge";
 import Icon from "./Icon"
 
 interface LogoProps{
   display: boolean;
+  className: string;
 }
 
-const Logo = ({display}: LogoProps) => {
+const Logo = ({display, className}: LogoProps) => {
   return (
     <div className="conatiner flex items-center">
       <Icon />
       {display && 
       <>
-        <p className="text-blue-700 font-bold text-2xl ">mart</p>
-        <p className="text-blue-700 text-2xl">Wallet</p>
+        <p className={twMerge('text-blue-700 font-bold text-2xl', className)}>mart</p>
+        <p className={twMerge('text-blue-700 font-bold text-2xl', className)}>Wallet</p>
       </>}
     </div>
   )
