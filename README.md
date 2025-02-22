@@ -28,107 +28,65 @@ SmartWallet é uma dashboard moderna e atraente para gestão financeira. Este pr
 - **⚙️ Configurações**
   - Opção para alterar o tema da aplicação.
 
-## 💻 Tecnologias Utilizadas
+## 🚀 Tecnologias Utilizadas
 
-- **JavaScript**: Utilizado para a lógica de interação da aplicação.
-- **TypeScript**: Adiciona tipagem estática ao JavaScript, facilitando a detecção de erros durante o desenvolvimento.
-- **HTML**: Estrutura de marcação das páginas da aplicação.
-- **CSS**: Estilização e design das páginas, garantindo uma interface moderna e responsiva.
 - **React**: Biblioteca JavaScript para construção de interfaces de usuário.
-- **Vite**: Ferramenta de build rápida para desenvolvimento frontend, utilizada para otimizar o projeto.
 - **Tailwind CSS**: Framework CSS para estilização rápida e eficiente.
-- **Axios**: Cliente HTTP para realizar requisições à API.
-- **React Icons**: Biblioteca de ícones para React.
-- **React Toastify**: Biblioteca para exibir notificações toast.
-
-## 🚀 Dependências
-
-### Dependências de Produção
-- `@tailwindcss/vite`: ^4.0.3
-- `axios`: ^1.7.9
-- `react`: ^18.3.1
-- `react-dom`: ^18.3.1
-- `react-icons`: ^5.4.0
-- `react-toastify`: ^11.0.3
-- `tailwindcss`: ^4.0.3
-
-### Dependências de Desenvolvimento
-- `@eslint/js`: ^9.17.0
-- `@types/react`: ^18.3.18
-- `@types/react-dom`: ^18.3.5
-- `@vitejs/plugin-react`: ^4.3.4
-- `eslint`: ^9.17.0
-- `eslint-plugin-react-hooks`: ^5.0.0
-- `eslint-plugin-react-refresh`: ^0.4.16
-- `globals`: ^15.14.0
-- `typescript`: ~5.6.2
-- `typescript-eslint`: ^8.18.2
-- `vite`: ^6.0.5
+- **Vite**: Ferramenta de build rápida e moderna.
+- **shadcdn**: CDN para carregar componentes de terceiros.
+- **react-hook-form**: Biblioteca para gerenciamento de formulários em React.
+- **react-toastify**: Biblioteca para exibição de notificações.
+- **axios**: Cliente HTTP para realizar requisições à API.
 
 ## 🏗️ Arquitetura do Projeto
 
-O projeto segue uma arquitetura modular que facilita a manutenção e escalabilidade:
+O projeto é desenvolvido utilizando a arquitetura MVVM (Model-View-ViewModel), onde:
 
-- **src/**: Diretório principal contendo o código fonte.
+- **Model**: Representa a lógica de negócio e os dados da aplicação.
+- **View**: Responsável pela interface com o usuário.
+- **ViewModel**: Atua como um intermediário entre o Model e a View, gerenciando a lógica de apresentação.
+
+### Estrutura de Pastas
+
+- **src/**: Contém o código-fonte do projeto.
   - **components/**: Componentes reutilizáveis da aplicação.
+  - **hooks/**: Hooks customizados para lógica de estado e efeitos.
   - **pages/**: Páginas principais da aplicação.
-  - **services/**: Serviços para comunicação com APIs.
-  - **styles/**: Estilos globais e específicos da aplicação.
-  - **utils/**: Funções utilitárias e helpers.
-- **public/**: Arquivos públicos acessíveis diretamente pelo navegador.
-- **node_modules/**: Dependências instaladas via npm.
-- **package.json**: Arquivo de configuração do npm, contendo scripts e dependências do projeto.
+  - **lib/**: Bibliotecas e utilitários específicos do projeto.
+  - **service/**: Serviços para integração com APIs.
 
-## 🛠️ Como Executar o Projeto
+## 🛠️ Como Executar o Projeto Localmente
 
 1. Clone o repositório:
-    ```bash
-    git clone https://github.com/vitoinacio/smartWallet.git
-    ```
-2. Acesse o diretório do projeto:
-    ```bash
-    cd smartWallet
-    ```
+   ```bash
+   git clone https://github.com/vitoinacio/smartWallet.git
+   ```
+2. Navegue até o diretório do projeto:
+   ```bash
+   cd smartWallet
+   ```
 3. Instale as dependências:
-    ```bash
-    npm install
-    ```
-4. Inicie a aplicação:
-    ```bash
-    npm start
-    ```
+   ```bash
+   npm install
+   ```
+4. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
 
-## 🤝 Contribuição
-
-Sinta-se à vontade para contribuir com este projeto. Para isso, siga os seguintes passos:
+## 🤝 Como Contribuir
 
 1. Faça um fork do projeto.
-2. Crie uma branch para sua feature:
-    ```bash
-    git checkout -b minha-feature
-    ```
-3. Commit suas mudanças:
-    ```bash
-    git commit -m 'Adicionei minha feature'
-    ```
-4. Envie para o branch original:
-    ```bash
-    git push origin minha-feature
-    ```
+2. Crie uma nova branch para a sua feature:
+   ```bash
+   git checkout -b minha-feature
+   ```
+3. Faça commit das suas alterações:
+   ```bash
+   git commit -m 'Add minha feature'
+   ```
+4. Envie para a branch principal:
+   ```bash
+   git push origin minha-feature
+   ```
 5. Abra um Pull Request.
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-
-## 📬 Contato
-
-Para mais informações sobre este projeto, entre em contato:
-
-- **Nome**: Victo Hugo Inacio
-- **Email**: <a href="mailto:victor.hugo.ina10@gmail.com" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Gmail&logo=gmail&label=&color=D14836&logoColor=white&labelColor=&style=for-the-badge" height="30" alt="gmail logo"  />
-  </a>
-- **LinkedIn**: [Victor Hugo](https://www.linkedin.com/in/victorhugoinacio/)
