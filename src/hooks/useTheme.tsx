@@ -1,6 +1,11 @@
 import {useEffect, useState } from "react"
 
-const useTheme = () => {
+interface UseThemeReturn {
+    handleTheme: () => void;
+  }
+  
+
+const useTheme = () : UseThemeReturn => {
     const [theme, setTheme] = useState<string>('light')
     const html = document.querySelector('#html')
 
@@ -27,7 +32,7 @@ const useTheme = () => {
                 html.classList.add(themeInitial)
             }
         }
-    })
+    },[html])
 
   return {handleTheme};
 }

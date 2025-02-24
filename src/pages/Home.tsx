@@ -25,7 +25,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { ChartLine, ClipboardPenLine, HandCoins, } from 'lucide-react';
+import { ChartLine, ClipboardPenLine, GithubIcon, HandCoins, LinkedinIcon, Mail, } from 'lucide-react';
 
 const FormSchema = z.object({
   email:  z.string().email("Insira um e-mail válido."),
@@ -102,8 +102,8 @@ const Home = () => {
             <img src="dashboard.svg" alt="" width={500} className='max-md:w-60' />
           </div>
         </section>
-        <section id='oqueOferecemos' className='flex flex-col w-full pt-10 items-center gap-11 scroll-mt-8'>
-          <div className='flex flex-col text-center relative gap-3'>
+        <section id='oqueOferecemos' className='flex flex-col w-full pt-10 pb-10 items-center gap-11 scroll-mt-8'>
+          <div className='flex flex-col text-center relative gap-5'>
               <h2 className='text-4xl font-bold max-md:text-xl  text-blue-800'>O controle total em suas mãos</h2>
               <p className='text-3xl max-md:text-sm'>Com o controle, você está a um passo de suas metas e objetivos !</p>
           </div>
@@ -122,8 +122,11 @@ const Home = () => {
           </div>
         </section>
         <section id="QuemSomos" className='flex flex-col w-full pt-10 items-center gap-11 scroll-mt-8'>
-          <h2 className='text-4xl font-bold text-blue-800'>Quem Somos ?</h2>
-          <div className='flex flex-col gap-5 text-center'>
+          <h2 className='text-4xl font-bold text-blue-800 max-md:text-xl'>Quem Somos ?</h2>
+          <div className='flex flex-col gap-7 text-center'>
+            <div className='flex w-full items-center justify-center'>
+              <img src="logoAzul.svg" alt="logo" width={200}/>
+            </div>
             <p>
               <strong>Bem-vindo à Smart Wallet!</strong> Somos líderes em
               soluções inovadoras para gestão financeira pessoal. Nossa missão é
@@ -154,7 +157,75 @@ const Home = () => {
             </p>
           </div>
         </section>
+        <section id="ConhecaNossoProduto" className='flex flex-col w-full pt-10 pb-20 items-center gap-11 scroll-mt-8'>
+          <div className='flex flex-col text-center gap-7'>
+            <h2 className='text-4xl font-bold text-blue-800 max-md:text-xl pt-10 pb-10'>Gestão de Gastos</h2>
+            <p className='pb-10'>
+              Na Smart Wallet, sabemos que a gestão eficaz dos seus gastos é
+              crucial para uma vida financeira saudável. Nossos dashboards de
+              gastos foram projetados para ajudar você a controlar e otimizar
+              suas despesas de maneira simples e eficiente.
+            </p>
+            <div className='grid grid-cols-2 justify-between max-md:grid-cols-1'>
+              <p>
+                <strong>Análise Detalhada:</strong> Nossos dashboards fornecem
+                uma visão abrangente das suas finanças, categorizando suas
+                despesas e oferecendo insights detalhados sobre onde seu
+                dinheiro está sendo gasto. Com gráficos e relatórios intuitivos,
+                você pode facilmente identificar padrões e áreas onde é possível
+                economizar.
+              </p>
+              <img src="src/img/telaDashboard.png" alt="imagem da dasboard" />
+            </div>
+            <div className='grid grid-cols-2 justify-between max-md:grid-cols-1 max-md:flex max-md:flex-col-reverse'>
+              <img src="src/img/telaPlanejamento.png" alt="imagem da dasboard" />
+              <p>
+                <strong>Controle de Orçamento:</strong> Defina e acompanhe seu
+                orçamento com facilidade. Nossos recursos de planejamento
+                permitem que você estabeleça metas financeiras e monitore seu
+                progresso ao longo do tempo. Ajuste seu orçamento com base em
+                suas necessidades e veja como suas finanças estão se saindo em
+                relação às suas metas.
+              </p>
+            </div>
+            <div className='grid grid-cols-2 justify-between max-md:grid-cols-1'>
+              <p>
+                <strong>Alertas e Notificações:</strong> Mantenha-se informado
+                com alertas personalizados que o ajudam a evitar gastos
+                excessivos. Receba notificações sobre despesas que estão se
+                aproximando dos limites do seu orçamento e ajuste seus hábitos
+                de gasto de acordo.
+              </p>
+              <img src="src/img/telaNotif.png" alt="imagem da dasboard" />
+            </div>
+            <p className='pt-10'>
+              Com a Smart Wallet, a gestão dos seus gastos se torna uma tarefa
+              fácil e agradável. Nossa plataforma foi projetada para fornecer
+              todas as ferramentas necessárias para que você tenha total
+              controle sobre suas finanças e alcance seus objetivos financeiros
+              com confiança.
+            </p>
+          </div>
+        </section>
       </main>
+      <footer className='bg-sidebar dark:bg-popover p-5 flex flex-col items-center justify-around gap-4'>
+        <div className='flex gap-10 justify-around max-md:flex-col max-md:gap-3 max-md:items-center'>
+          <a href="#"><Button className='text-popover dark:text-primary' variant={"link"}>Termos de uso</Button></a>
+          <a href="#"><Button className='text-popover dark:text-primary' variant={"link"}>Politica de privacidade</Button></a>
+          <a href="#"><Button className='text-popover dark:text-primary' variant={"link"}>Fale conosco</Button></a>
+        </div>
+        <div className='flex gap-8 justify-around text-popover dark:text-primary'>
+          <a href="https://github.com/vitoinacio/ProjetoDashboard"><GithubIcon className='hover:scale-125 duration-200 text-popover dark:text-primary'/></a>
+          <a href="https://www.linkedin.com/in/victorhugoinacio/"><LinkedinIcon className='hover:scale-125 duration-200 text-popover dark:text-primary'/></a>
+          <a href="mailto:victor.hugo.ina10@gmail.com"><Mail className='hover:scale-125 duration-200 text-popover dark:text-primary'/></a>
+        </div>
+        <div className='flex flex-col items-center justify-center'>
+          <p className='text-popover dark:text-primary'>
+            &copy; 2025 Smart Wallet
+          </p>
+          <p className='text-popover dark:text-primary'>CNPJ 00.000.000/0000-00</p>
+        </div>
+      </footer>
     </div>
   );
 };
