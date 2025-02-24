@@ -4,7 +4,7 @@ import HeaderIcon from './HeaderIcon';
 import HeaderNav from './HeaderNav';
 import { links } from './HeaderNav';
 import useScroll from '@/hooks/useScroll';
-import { Menu } from 'lucide-react';
+import { Menu, Moon, Sun } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,9 +13,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import Switch from '@/components/ui/switch';
+import useTheme from '@/hooks/useTheme';
 
 const Header = () => {
   const { isScrolled, windowWidth } = useScroll();
+  const {handleTheme} = useTheme();
 
   return (
     <>
@@ -32,7 +35,9 @@ const Header = () => {
                 className={isScrolled ? 'text-popover' : 'text-gray-600'}
               />
             </div>
-            <div className="flex gap-4">
+            
+            <div className="flex gap-4 items-center">
+              <Switch onClick={handleTheme} on={<Moon className="w-4 dark:text-black"/>} off={<Sun className="w-4 dark:text-black"/>}/>
               <Button
                 variant="default"
                 className={
