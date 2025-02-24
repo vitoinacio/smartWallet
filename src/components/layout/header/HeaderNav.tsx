@@ -4,12 +4,12 @@ import { cn } from "@/lib/utils"
 // eslint-disable-next-line react-refresh/only-export-components
 export const links = [
     {
-        title: "Quem somos ?",
-        path: "#"
+        title: "O que oferecemos ?",
+        path: "#oqueOferecemos"
     },
     {
-        title: "O que oferecemos ?",
-        path: "#"
+        title: "Quem somos ?",
+        path: "#QuemSomos"
     },
     {
         title: "Conheça nosso produto",
