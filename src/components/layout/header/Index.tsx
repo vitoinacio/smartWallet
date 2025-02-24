@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import Switch from '../../ui/switch';
+import Switch from '../../Switch';
 import useTheme from '@/hooks/useTheme';
 
 const Header = () => {
