@@ -10,7 +10,7 @@ const useScroll = () => {
   };
 
   const handleResize = () => {
-    setWindowWidth(window.innerWidth < 855);
+    setWindowWidth(window.innerWidth < 1065);
   };
 
   useEffect(() => {
