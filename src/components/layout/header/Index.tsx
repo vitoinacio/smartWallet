@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <>
-      <HeaderContainer clasName={isScrolled ? 'bg-sidebar h-16' : 'bg-popover z-0 h-20'}>
+      <HeaderContainer clasName={isScrolled ? 'bg-sidebar h-16' : 'bg-popover h-20'}>
         {!windowWidth ? (
           <>
             <HeaderIcon
