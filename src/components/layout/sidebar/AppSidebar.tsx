@@ -16,17 +16,17 @@ import {
 const buttonsHeader = [
   {
     title: "Dashboard",
-    url: "#",
+    url: "/dashboard",
     icon: LayoutDashboard,
   },
   {
     title: "Financeiro",
-    url: "#",
+    url: "/financeiro",
     icon: CopySlashIcon,
   },
   {
     title: "Settings",
-    url: "#",
+    url: "/settings",
     icon: Settings,
   },
 ]
