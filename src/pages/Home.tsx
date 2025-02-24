@@ -58,7 +58,7 @@ const Home = () => {
                         <FormControl>
                           <Input placeholder="Email..." {...field} className='max-w-sm' />
                         </FormControl>
-                        <Button type="submit" className='bg-blue-800 dark:text-slate-200 dark:hover:bg-blue-950'>Submit</Button>
+                        <Button type="submit" className='bg-blue-800 dark:text-slate-200 dark:hover:bg-blue-950'>Entrar</Button>
                       </div>
                       <FormDescription>
                         Inscreva-se agora !
