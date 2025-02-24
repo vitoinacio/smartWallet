@@ -33,36 +33,28 @@ const Home = () => {
    
     function onSubmit(data: z.infer<typeof FormSchema>) {
       console.log(data)
-      // toast({
-      //   title: "You submitted the following values:",
-      //   description: (
-      //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-      //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-      //     </pre>
-      //   ),
-      // })
     }
-
-  return (
-    <div className="flex flex-col">
+    
+    return (
+      <div className="flex flex-col">
       <Header />
-      <main className="mt-20 pl-24 pr-24 bg-gray-50 dark:bg-inherit">
-        <section className='flex w-full pt-10 justify-between items-center'>
+      <main className="mt-20 pl-24 pr-24 max-md:pl-10 max-md:pr-10  bg-gray-50 dark:bg-neutral-900">
+        <section className='flex w-full pt-10 justify-between items-center max-md:flex-col-reverse'>
           <div className='flex flex-col gap-9'>
-            <div>
-              <h1 className='text-4xl font-bold text-blue-800 max-md:text-xl'>Gestão e controle financeiro</h1>
+            <div className='max-md:text-center'>
+              <h1 className='text-4xl font-bold text-blue-800 max-md:text-xl max-md:text-center'>Gestão e controle financeiro</h1>
               <p className='text-2xl max-md:text-sm'>Para você, completo e gratuito*</p>
             </div>
-            <div>
+            <div className='max-md:items-center max-md:text-center'>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6 max-md:w-full">
                 <FormField
                   control={form.control}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Maior praticidade para você !</FormLabel>
-                      <div  className='flex items-center max-md:flex-col max-md:items-start'>
+                      <FormLabel className='text-base text-blue-900'>Maior praticidade para você !</FormLabel>
+                      <div  className='flex items-center max-md:items-start'>
                         <FormControl>
                           <Input placeholder="Email..." {...field} className='max-w-sm' />
                         </FormControl>
@@ -80,7 +72,7 @@ const Home = () => {
             </div>
           </div>
           <div className='flex items-center justify-center flex-1 max-md:none'>
-            <img src="dashboard.png" alt="" width={500} />
+            <img src="dashboard.svg" alt="" width={500} className='max-md:w-60' />
           </div>
         </section>
         <p>homne</p>
