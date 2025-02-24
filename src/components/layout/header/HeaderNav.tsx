@@ -13,7 +13,7 @@ export const links = [
     },
     {
         title: "Conheça nosso produto",
-        path: "#"
+        path: "#ConhecaNossoProduto"
     },
 ]
 
