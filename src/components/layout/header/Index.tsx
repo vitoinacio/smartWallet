@@ -68,23 +68,23 @@ const Header = () => {
                 <Menu className={isScrolled ? "text-popover": "text-sidebar"} />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mr-11">
-                <DropdownMenuLabel>Menu</DropdownMenuLabel>
+                <DropdownMenuLabel className='flex justify-between'>Menu  <Switch onClick={handleTheme} on={<Moon className="w-4 dark:text-black"/>} off={<Sun className="w-4 dark:text-black"/>}/></DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {links.map((link, index) => (
                   <a href={link.path} key={index}>
                     <DropdownMenuItem>{link.title}</DropdownMenuItem>
                   </a>
                 ))}
-                <div className="flex gap-3 mt-4">
+                <div className="flex gap-3 mt-4 mb-3">
                   <Button
                     variant="default"
-                    className="bg-sidebar hover:bg-sidebar-foreground"
+                    className="bg-sidebar hover:bg-sidebar-foreground dark:text-blue-800 dark:hover:text-popover"
                   >
                     Criar Conta
                   </Button>
                   <Button
                     variant="secondary"
-                    className="text-sidebar bg-slate-200 hover:bg-sidebar hover:text-popover"
+                    className="text-sidebar bg-slate-200 hover:bg-sidebar hover:text-popover dark:hover:text-blue-800"
                   >
                     Login
                   </Button>
