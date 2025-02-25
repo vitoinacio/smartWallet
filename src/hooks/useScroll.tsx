@@ -1,30 +1,26 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-const useScroll = () => {
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
-  const [windowWidth, setWindowWidth] = useState<boolean>(window.innerWidth < 1024);
+interface UseScrollResult {
+  isScroll: boolean;
+}
 
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY;
-    setIsScrolled(scrollPosition > 100);
+const useScroll = (): UseScrollResult => {
+  const [isScroll, setIsScroll] = useState<boolean>(false);
+
+  const handleScroll = (): void => {
+    const scrollPosition: number = window.scrollY;
+    setIsScroll(scrollPosition > 100);
   };
 
-  const handleResize = () => {
-    setWindowWidth(window.innerWidth < 1065);
-  };
-
-  useEffect(() => {
+  useEffect((): (() => void) => {
     handleScroll();
-    handleResize();
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-    return () => {
+    return (): void => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  return { isScrolled, windowWidth};
+  return { isScroll };
 };
 
 export default useScroll;
