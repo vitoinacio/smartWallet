@@ -15,34 +15,44 @@ import {
 } from '@/components/ui/dropdown-menu';
 import Switch from '../../Switch';
 import useTheme from '@/hooks/useTheme';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Header = () => {
-  const { isScrolled, windowWidth } = useScroll();
-  const {handleTheme} = useTheme();
+  const { isScroll } = useScroll();
+  const { handleTheme } = useTheme();
+  const isMobile = useIsMobile();
 
   return (
     <>
-      <HeaderContainer className={isScrolled ? 'bg-sidebar h-16' : 'bg-popover h-20'}>
-        {!windowWidth ? (
+      <HeaderContainer
+        className={isScroll ? 'bg-sidebar h-16' : 'bg-popover h-20'}
+      >
+        {!isMobile ? (
           <>
             <HeaderIcon
               isLogoName={true}
-              variant={isScrolled ? 'logoBranca' : 'logoAzul'}
-              className={isScrolled ? 'text-popover' : 'text-sidebar dark:text-blue-800'}
+              variant={isScroll ? 'logoBranca' : 'logoAzul'}
+              className={
+                isScroll ? 'text-popover' : 'text-sidebar dark:text-blue-800'
+              }
             />
             <div>
               <HeaderNav
-                className={isScrolled ? 'text-popover' : 'text-gray-600'}
+                className={isScroll ? 'text-popover' : 'text-gray-600'}
               />
             </div>
-            
+
             <div className="flex gap-4 items-center">
-              <Switch onClick={handleTheme} on={<Moon className="w-4 dark:text-black"/>} off={<Sun className="w-4 dark:text-black"/>}/>
+              <Switch
+                onClick={handleTheme}
+                on={<Moon className="w-4 dark:text-black" />}
+                off={<Sun className="w-4 dark:text-black" />}
+              />
               <a href="/cadastro">
                 <Button
                   variant="default"
                   className={
-                    isScrolled
+                    isScroll
                       ? 'text-sidebar hover:text-white bg-slate-200 dark:text-blue-800 dark:hover:bg-blue-900 dark:hover:text-white'
                       : 'bg-sidebar hover:bg-sidebar-foreground dark:bg-slate-200 dark:hover:bg-sidebar-accent dark:hover:text-sidebar-primary'
                   }
@@ -54,7 +64,7 @@ const Header = () => {
                 <Button
                   variant="secondary"
                   className={
-                    isScrolled
+                    isScroll
                       ? 'text-blue-800 hover:bg-blue-950 hover:text-white'
                       : 'text-sidebar bg-slate-200 hover:bg-sidebar hover:text-popover dark:hover:text-sidebar-primary'
                   }
@@ -66,13 +76,24 @@ const Header = () => {
           </>
         ) : (
           <>
-            <HeaderIcon isLogoName={false} variant={isScrolled ? "logoBranca" : "logoAzul"} className={isScrolled ? "text-popover": "text-sidebar"}/>
+            <HeaderIcon
+              isLogoName={false}
+              variant={isScroll ? 'logoBranca' : 'logoAzul'}
+              className={isScroll ? 'text-popover' : 'text-sidebar'}
+            />
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <Menu className={isScrolled ? "text-popover": "text-sidebar"} />
+                <Menu className={isScroll ? 'text-popover' : 'text-sidebar'} />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mr-11 p-2">
-                <DropdownMenuLabel className='flex justify-between'>Menu  <Switch onClick={handleTheme} on={<Moon className="w-4 dark:text-black"/>} off={<Sun className="w-4 dark:text-black"/>}/></DropdownMenuLabel>
+                <DropdownMenuLabel className="flex justify-between">
+                  Menu{' '}
+                  <Switch
+                    onClick={handleTheme}
+                    on={<Moon className="w-4 dark:text-black" />}
+                    off={<Sun className="w-4 dark:text-black" />}
+                  />
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {links.map((link, index) => (
                   <a href={link.path} key={index}>
