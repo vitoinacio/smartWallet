@@ -25,7 +25,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { ChartLine, ClipboardPenLine, GithubIcon, HandCoins, LinkedinIcon, Mail, } from 'lucide-react';
+import { ChartLine, ClipboardPenLine, HandCoins } from 'lucide-react';
+import Footer from '@/components/layout/footer/Footer';
 
 const FormSchema = z.object({
   email:  z.string().email("Insira um e-mail válido."),
@@ -102,7 +103,7 @@ const Home = () => {
             <img src="dashboard.svg" alt="" width={500} className='max-md:w-60' />
           </div>
         </section>
-        <section id='oqueOferecemos' className='flex flex-col w-full pt-10 pb-10 items-center gap-11 scroll-mt-8'>
+        <section id='oqueOferecemos' className='flex flex-col w-full pt-10 pb-10 items-center justify-around gap-11 scroll-mt-8'>
           <div className='flex flex-col text-center relative gap-5'>
               <h2 className='text-4xl font-bold max-md:text-xl  text-blue-800'>O controle total em suas mãos</h2>
               <p className='text-3xl max-md:text-sm'>Com o controle, você está a um passo de suas metas e objetivos !</p>
@@ -208,24 +209,7 @@ const Home = () => {
           </div>
         </section>
       </main>
-      <footer className='bg-sidebar dark:bg-popover p-5 flex flex-col items-center justify-around gap-4'>
-        <div className='flex gap-10 justify-around max-md:flex-col max-md:gap-3 max-md:items-center'>
-          <a href="#"><Button className='text-popover dark:text-primary' variant={"link"}>Termos de uso</Button></a>
-          <a href="#"><Button className='text-popover dark:text-primary' variant={"link"}>Politica de privacidade</Button></a>
-          <a href="#"><Button className='text-popover dark:text-primary' variant={"link"}>Fale conosco</Button></a>
-        </div>
-        <div className='flex gap-8 justify-around text-popover dark:text-primary'>
-          <a href="https://github.com/vitoinacio/ProjetoDashboard"><GithubIcon className='hover:scale-125 duration-200 text-popover dark:text-primary'/></a>
-          <a href="https://www.linkedin.com/in/victorhugoinacio/"><LinkedinIcon className='hover:scale-125 duration-200 text-popover dark:text-primary'/></a>
-          <a href="mailto:victor.hugo.ina10@gmail.com"><Mail className='hover:scale-125 duration-200 text-popover dark:text-primary'/></a>
-        </div>
-        <div className='flex flex-col items-center justify-center'>
-          <p className='text-popover dark:text-primary'>
-            &copy; 2025 Smart Wallet
-          </p>
-          <p className='text-popover dark:text-primary'>CNPJ 00.000.000/0000-00</p>
-        </div>
-      </footer>
+      <Footer fit={true} />
     </div>
   );
 };
