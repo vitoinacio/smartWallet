@@ -1,7 +1,13 @@
+import CadastroForm from '@/components/CadastroForm';
+
 const Cadastro = () => {
   return (
-    <div>Tela de Cadastro</div>
-  )
-}
+    <main>
+      <div className=''>
+        <CadastroForm />
+      </div>
+    </main>
+  );
+};
 
-export default Cadastro
+export default Cadastro;

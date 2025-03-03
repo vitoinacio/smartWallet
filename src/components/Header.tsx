@@ -13,7 +13,7 @@ const Header = ({children, className}: HeaderProps) => {
     useTheme()
 
   return (
-    <HeaderContainer className={cn("bg-sidebar h-14 relative justify-center dark:bg-zinc-900",className)}>
+    <HeaderContainer className={cn("bg-sidebar h-14 justify-center dark:bg-zinc-900 top-0",className)}>
         <HeaderIcon isLogoName={true}  width={30} variant="logoBranca"  className="text-popover dark:text-primary"/>
         {children}
     </HeaderContainer>
