@@ -1,7 +1,15 @@
+import CadastroForm from '@/components/CadastroForm';
+import { ToastContainer } from 'react-toastify';
+
 const Cadastro = () => {
   return (
-    <div>Tela de Cadastro</div>
-  )
-}
+    <main>
+      <div className=''>
+        <CadastroForm />
+      </div>
+      <ToastContainer />
+    </main>
+  );
+};
 
-export default Cadastro
+export default Cadastro;

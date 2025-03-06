@@ -5,20 +5,12 @@ interface UserProviderProps {
   children: ReactNode;
 }
 
-interface User {
-  email: string;
-  password: string;
-}
-
 const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   // Função para verificar se o usuário está logado
   const isLoggedIn = (): boolean => {
     const user = sessionStorage.getItem('UserProvider');
-    if (user) {
-      const parsedUser: User = JSON.parse(user);
-      return !!parsedUser.email && !!parsedUser.password;
-    }
-    return false;
+    // Verifica se o email existe no sessionStorage
+    return !!user;
   };
 
   // Se o usuário não estiver logado, redireciona para a página de login

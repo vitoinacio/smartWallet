@@ -48,7 +48,7 @@ const Header = () => {
                 on={<Moon className="w-4 dark:text-black" />}
                 off={<Sun className="w-4 dark:text-black" />}
               />
-              <a href="/cadastro">
+              <a href="/CreateAccount">
                 <Button
                   variant="default"
                   className={
@@ -101,7 +101,7 @@ const Header = () => {
                   </a>
                 ))}
                 <div className="flex gap-3 mt-4 mb-3">
-                  <a href="/cadastro">
+                  <a href="/CreateAccount">
                     <Button
                       variant="default"
                       className="bg-sidebar hover:bg-sidebar-foreground dark:text-blue-800 dark:hover:text-popover"
