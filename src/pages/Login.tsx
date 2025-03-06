@@ -1,8 +1,14 @@
+import LoginForm from "@/components/LoginForm"
+import { ToastContainer } from "react-toastify"
+
 const Login = () => {
   return (
-    <>
-      Tela de Login
-    </>
+    <main>
+      <div className=''>
+        <LoginForm />
+      </div>
+      <ToastContainer />
+    </main>
   )
 }
 

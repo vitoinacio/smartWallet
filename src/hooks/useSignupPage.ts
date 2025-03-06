@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createAccount } from '@/utils/cognito';
-import { toast } from 'sonner';
+import toast from '@/components/ui/sonner';
 
 export function useSignupPage() {
   const [nome, setNome] = useState<string>('');
@@ -9,13 +9,6 @@ export function useSignupPage() {
   const [email, setEmail] = useState<string>('');
   const [sexo, setSexo] = useState<string>('');
   const [dataNasc, setDataNasc] = useState<string>('');
-  const [cpf, setCpf] = useState<string>('');
-  const [tel, setTel] = useState<string>('');
-  const [cep, setCep] = useState<string>('');
-  const [cidade, setCidade] = useState<string>('');
-  const [bairro, setBairro] = useState<string>('');
-  const [rua, setRua] = useState<string>('');
-  const [numeroCasa, setNumeroCasa] = useState<string>('');
   const [isTermsAccepted, setIsTermsAccepted] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -25,51 +18,121 @@ export function useSignupPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    // Clear previous error message before submitting
+    // Limpa a mensagem de erro anterior
     setErrorMessage(null);
     setIsLoading(true);
 
+    // Validação dos campos obrigatórios
+    if (!nome || !email || !senha || !sexo || !dataNasc) {
+      setErrorMessage('Todos os campos são obrigatórios.');
+      toast({
+        title: 'Todos os campos são obrigatórios.',
+        position: 'bottom-right',
+        type: 'error',
+        autoClose: 3000, // 3 segundos
+        theme: 'light',
+        hideProgressBar: false,
+        pauseOnHover: true,
+        closeOnClick: true,
+        draggable: true,
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    if (!isTermsAccepted) {
+      setErrorMessage('Você precisa aceitar os termos para continuar.');
+      toast({
+        title: 'Por favor, aceite os termos.',
+        position: 'bottom-right',
+        type: 'error',
+        autoClose: 3000, // 3 segundos
+        theme: 'light',
+        hideProgressBar: false,
+        pauseOnHover: true,
+        closeOnClick: true,
+        draggable: true,
+      });
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      await createAccount({
+      // Tenta criar a conta
+      const response = await createAccount({
         nome,
         sexo,
         email,
         senha,
         dataNasc,
-        cpf,
-        tel,
-        cep,
-        cidade,
-        bairro,
-        rua,
-        numeroCasa,
       });
 
-      toast('Cadastro realizado', {
-        description: 'Seu cadastro foi criado com sucesso!',
-      });
-
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
+      // Verifica o status da resposta
+      if (response?.status === 200 || response?.status === 201) {
+        sessionStorage.setItem('UserProvider', email);
+        toast({
+          title: 'Cadastro realizado com sucesso!',
+          position: 'bottom-right',
+          type: 'success',
+          autoClose: 3000, // 3 segundos
+          theme: 'light',
+          hideProgressBar: false,
+          pauseOnHover: true,
+          closeOnClick: true,
+          draggable: true,
+        });
+        navigate('/dashboard');
+      } else {
+        toast({
+          title: 'Erro ao criar o usuário. Tente novamente.',
+          position: 'bottom-right',
+          type: 'error',
+          autoClose: 3000, // 3 segundos
+          theme: 'light',
+          hideProgressBar: false,
+          pauseOnHover: true,
+          closeOnClick: true,
+          draggable: true,
+        });
+      }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const errorType = err.response?.data.__type;
       let message = 'Erro ao criar a conta.';
 
-      // Custom error messages based on error type
-      if (errorType === 'LimitExceededException') {
-        message = 'Você excedeu o número de tentativas. Tente novamente mais tarde.';
-      } else if (errorType === 'InvalidParameterException' && err.response?.data.message === 'nome should be an email.') {
-        message = 'O campo nome deve ser um e-mail válido.';
-      } else if (errorType === 'nomeExistsException') {
-        message = 'O e-mail informado já está registrado.';
-      } else if (errorType === 'UserLambdaValidationException') {
-        message = 'Não é possível criar este usuário.';
+      switch (errorType) {
+        case 'LimitExceededException':
+          message = 'Você excedeu o número de tentativas. Tente novamente mais tarde.';
+          break;
+        case 'InvalidParameterException':
+          if (err.response?.data.message === 'nome should be an email.') {
+            message = 'O campo nome deve ser um e-mail válido.';
+          }
+          break;
+        case 'nomeExistsException':
+          message = 'O e-mail informado já está registrado.';
+          break;
+        case 'UserLambdaValidationException':
+          message = 'Não é possível criar este usuário.';
+          break;
+        default:
+          message = 'Erro inesperado ao criar a conta.';
+          break;
       }
 
       setErrorMessage(message);
-      toast.error(message); // Show error toast
+      toast({
+        title: message,
+        position: 'bottom-right',
+        type: 'error',
+        autoClose: 3000, // 3 segundos
+        theme: 'light',
+        hideProgressBar: false,
+        pauseOnHover: true,
+        closeOnClick: true,
+        draggable: true,
+      });
+    } finally {
       setIsLoading(false);
     }
   };
@@ -85,20 +148,6 @@ export function useSignupPage() {
     setSexo,
     dataNasc,
     setDataNasc,
-    cpf,
-    setCpf,
-    tel,
-    setTel,
-    cep,
-    setCep,
-    cidade,
-    setCidade,
-    bairro,
-    setBairro,
-    rua,
-    setRua,
-    numeroCasa,
-    setNumeroCasa,
     isTermsAccepted,
     setIsTermsAccepted,
     isLoading,

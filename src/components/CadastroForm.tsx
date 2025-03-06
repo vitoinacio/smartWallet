@@ -1,11 +1,5 @@
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { z } from 'zod';
 import {
   Form,
@@ -22,32 +16,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSignupPage } from '@/hooks/useSignupPage';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import Loading from '@/components/Loading';
 import { Eye, EyeClosed } from 'lucide-react';
 
+// Definição do schema de validação com Zod
 const signupSchema = z.object({
   nome: z.string().min(3, 'O nome deve ter pelo menos 3 caracteres.'),
   sexo: z
-    .string({
-      required_error: 'Selecione seu sexo.',
-    })
-    .min(1, 'O sexo é obrigatório'),
+    .string()
+    .min(1, 'O sexo é obrigatório')
+    .refine((val) => val !== '', { message: 'Selecione seu sexo.' }),
   email: z.string().email('Insira um e-mail válido.'),
   senha: z.string().min(8, 'A senha deve ter pelo menos 8 caracteres.'),
   dataNasc: z.string().date('Insira a data de nascimento'),
-  cpf: z.string().min(14, 'Informe um cpf valido'),
-  tel: z.string().min(11, 'Numero invalido'),
-  cep: z.string().min(8, 'Informe um cep valido'),
-  cidade: z.string().min(3, 'Informe sua cidade'),
-  bairro: z.string().min(3, 'Informe seu bairro'),
-  rua: z.string().min(3, 'Informe a rua'),
-  numeroCasa: z.string().min(3, 'Informe O numero da casa'),
-  terms: z.boolean().refine((val) => val === true, {
+  termos: z.boolean().refine((val) => val === true, {
     message: 'Você deve aceitar os termos e condições.',
   }),
 });
@@ -55,66 +42,77 @@ const signupSchema = z.object({
 type SignupFormValues = z.infer<typeof signupSchema>;
 
 const CadastroForm = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [emailPreenchido, setEmailPreenchido] = useState<string | null>(null);
+  const [isEmailLoaded, setIsEmailLoaded] = useState<boolean>(false); // Estado para controlar quando o e-mail é carregado
+
   const {
     setNome,
     setSenha,
     setEmail,
     setSexo,
     setDataNasc,
-    setCpf,
-    setTel,
-    setCep,
-    setCidade,
-    setBairro,
-    setRua,
-    setNumeroCasa,
-    setIsTermsAccepted,
     isLoading,
     handleSubmit,
+    setIsTermsAccepted,
   } = useSignupPage();
 
-  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  // Efeito para verificar se existe um e-mail no localStorage
+  useEffect(() => {
+    const emailStored = localStorage.getItem('emailInputHome');
+    if (emailStored) {
+      setEmailPreenchido(emailStored);
+      setEmail(emailStored); // Preenche o campo de e-mail com o valor armazenado
+      localStorage.removeItem('emailInputHome'); // Remove o item após o preenchimento
+    }
+    setIsEmailLoaded(true); // Marca como carregado após buscar o e-mail
+  }, [setEmail]);
 
+  // Use hook de formulário
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
       nome: '',
       sexo: '',
-      email: '',
+      email: emailPreenchido || '', // Preenche com o e-mail do localStorage se disponível
       senha: '',
       dataNasc: '',
-      cpf: '',
-      tel: '',
-      cep: '',
-      cidade: '',
-      bairro: '',
-      rua: '',
-      numeroCasa: '',
-      terms: false,
+      termos: false,
     },
   });
 
+  // Atualiza os valores do formulário com o email carregado após o efeito
+  useEffect(() => {
+    if (isEmailLoaded && emailPreenchido !== null) {
+      form.reset({
+        ...form.getValues(),
+        email: emailPreenchido, // Atualiza o valor do campo email dinamicamente
+      });
+    }
+  }, [isEmailLoaded, emailPreenchido, form]);
+
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+
+  // Função para envio do formulário
   const onSubmit = (values: SignupFormValues) => {
+    // Atualiza os estados com os valores do formulário
     setNome(values.nome);
     setEmail(values.email);
     setSenha(values.senha);
     setSexo(values.sexo);
     setDataNasc(values.dataNasc);
-    setCpf(values.cpf);
-    setTel(values.tel);
-    setCep(values.cep);
-    setCidade(values.cidade);
-    setBairro(values.bairro);
-    setRua(values.rua);
-    setNumeroCasa(values.numeroCasa);
-    setIsTermsAccepted(true);
+    setIsTermsAccepted(values.termos); // Armazena se o termo foi aceito
 
     handleSubmit({
       preventDefault: () => {},
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
   };
+
+  // Não renderiza o formulário até que o e-mail tenha sido carregado
+  if (!isEmailLoaded) {
+    return <Loading size={20} message="Carregando..." />;
+  }
 
   return (
     <Card className="max-w-[350px]">
@@ -155,34 +153,26 @@ const CadastroForm = () => {
                 name="sexo"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="max-md:hidden text-xs">
-                      Sexo
-                    </FormLabel>
-                    <Controller
-                      name="sexo"
-                      control={form.control}
-                      render={({ field: controllerField }) => (
-                        <Select
-                          value={controllerField.value}
-                          onValueChange={(value) => {
-                            controllerField.onChange(value);
-                            setSexo(value);
-                          }}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Selecione seu Sexo" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="Masculino">Masculino</SelectItem>
-                            <SelectItem value="Feminino">Feminino</SelectItem>
-                            <SelectItem value="LGBTQIAP+">LGBTQIAP+</SelectItem>
-                            <SelectItem value="Outro">Outro</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
+                    <FormLabel className="max-md:hidden text-xs">Sexo</FormLabel>
+                    <Select
+                      value={field.value}
+                      onValueChange={(value) => {
+                        field.onChange(value);
+                        setSexo(value);
+                      }}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione seu Sexo" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="Masculino">Masculino</SelectItem>
+                        <SelectItem value="Feminino">Feminino</SelectItem>
+                        <SelectItem value="LGBTQIAP+">LGBTQIAP+</SelectItem>
+                        <SelectItem value="Outro">Outro</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -193,9 +183,7 @@ const CadastroForm = () => {
                 name="dataNasc"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="max-md:hidden text-xs">
-                      Data de Nascimento
-                    </FormLabel>
+                    <FormLabel className="max-md:hidden text-xs">Data de Nascimento</FormLabel>
                     <FormControl>
                       <Input
                         className="max-md:w-32"
@@ -256,14 +244,36 @@ const CadastroForm = () => {
                         className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
                         onClick={togglePasswordVisibility}
                       >
-                        {showPassword ? (
-                          <EyeClosed size={20} />
-                        ) : (
-                          <Eye size={20} />
-                        )}
+                        {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
                       </div>
                     </div>
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="termos"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-center">
+                    <FormControl>
+                      <Input
+                        className="h-3 flex-[10%] mt-1"
+                        type="checkbox"
+                        checked={field.value || false}
+                        onChange={(e) => {
+                          field.onChange(e.target.checked);
+                          setIsTermsAccepted(e.target.checked);
+                        }}
+                      />
+                    </FormControl>
+                    <FormLabel className="max-md:hidden text-xs flex-[90%]">
+                      Aceito os Termos e política de privacidade
+                    </FormLabel>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -274,13 +284,15 @@ const CadastroForm = () => {
               className="w-full mt-3 flex justify-center items-center bg-sidebar hover:bg-blue-950 dark:bg-blue-900 dark:text-primary dark:hover:bg-blue-950"
               disabled={isLoading}
             >
-              {isLoading ? <Loading size={20} /> : 'Cadastrar'}
+              {isLoading ? <Loading size={20} message="" className="pt-3" /> : 'Finalizar Cadastro'}
             </Button>
 
             <div className="flex items-center justify-center">
               Já tem conta?{' '}
               <a href="/login">
-                <Button variant="link" className='text-blue-700'>Fazer Login</Button>
+                <Button type="button" variant="link" className="text-blue-700">
+                  Fazer Login
+                </Button>
               </a>
             </div>
           </form>

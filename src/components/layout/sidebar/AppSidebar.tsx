@@ -1,5 +1,5 @@
-import { CopySlashIcon, LayoutDashboard, LogOut, Settings } from "lucide-react"
- 
+import { CopySlashIcon, LayoutDashboard, Settings } from 'lucide-react';
+
 import {
   Sidebar,
   SidebarContent,
@@ -7,38 +7,35 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar"
- 
+} from '@/components/ui/sidebar';
+import NavUser from './NavUser';
+import NavPages from './NavPages';
+
 // Menu items.
-const buttonsHeader = [
+const pages = [
   {
-    title: "Dashboard",
-    url: "/dashboard",
+    name: 'Dashboard',
+    url: '/dashboard',
     icon: LayoutDashboard,
   },
   {
-    title: "Financeiro",
-    url: "/financeiro",
+    name: 'Financeiro',
+    url: '/financeiro',
     icon: CopySlashIcon,
   },
   {
-    title: "Settings",
-    url: "/settings",
+    name: 'Settings',
+    url: '/settings',
     icon: Settings,
   },
-]
+];
 
-const buttonsFooter = [
-  {
-    title: "LogOut",
-    url: "#",
-    icon: LogOut,
-  },
-]
- 
+const user = {
+		name: "Smart Wallet",
+		email: "Smartwallet@example.com",
+		avatar: "/avatars/shadcn.jpg",
+};
+
 export function AppSidebar() {
   return (
     <Sidebar>
@@ -46,37 +43,15 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>Smart Wallet</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
-              {buttonsHeader.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
+            <NavPages pages={pages}/>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-      <SidebarGroupContent>
-            <SidebarMenu>
-              {buttonsFooter.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarFooter>
+        <SidebarGroupContent>
+          <NavUser user={user} />
+        </SidebarGroupContent>
+      </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

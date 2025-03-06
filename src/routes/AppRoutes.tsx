@@ -15,7 +15,7 @@ const AppRoutes = () => {
       {/* Rotas publicas */}
       <Route path="/" element={<Home />} />
       <Route
-        path="/cadastro"
+        path="/CreateAccount"
         element={
           <LayoutIndex>
             <Cadastro />

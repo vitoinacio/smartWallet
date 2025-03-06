@@ -1,29 +1,28 @@
-import { useTheme } from "next-themes"
-import { Toaster as Sonner } from "sonner"
+import { toast as Toaster, ToastContainerProps } from 'react-toastify';
 
-type ToasterProps = React.ComponentProps<typeof Sonner>
-
-const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
-
-  return (
-    <Sonner
-      theme={theme as ToasterProps["theme"]}
-      className="toaster group"
-      toastOptions={{
-        classNames: {
-          toast:
-            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
-          description: "group-[.toast]:text-muted-foreground",
-          actionButton:
-            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
-          cancelButton:
-            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
-        },
-      }}
-      {...props}
-    />
-  )
+interface toastProps extends ToastContainerProps {
+  title: string; 
+  position?: 'top-left' | 'top-right' | 'top-center' | 'bottom-left' | 'bottom-right' | 'bottom-center';
+  type?: 'info' | 'success' | 'warning' | 'error' | 'default';
+  theme?: 'light' | 'dark' | 'colored';
+  autoClose?: number; 
+  msTransition?: string;
+  progress?: number;
+  hideProgressBar?: boolean;
+  closeOnClick?: boolean;
+  pauseOnFocusLoss?: boolean;
+  draggable?: boolean;
+  pauseOnHover?: boolean;
+  newestOnTop?: boolean;
+  rtl?: boolean;
 }
 
-export { Toaster }
+// A função de exibição do toast
+const toast = ({ title, ...props }: toastProps) => {
+  Toaster(title, {
+    ...props,
+    type: props.type || 'info',
+  });
+};
+
+export default toast;
