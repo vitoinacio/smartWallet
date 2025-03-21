@@ -1,6 +1,10 @@
+import InfoCards from "@/components/InfoCards"
+
 const Dashboard = () => {
   return (
-    <div>Tela dashboard</div>
+    <main className="w-full mt-10 px-[5%]">
+      <InfoCards />
+    </main>
   )
 }
 
