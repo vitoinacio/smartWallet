@@ -76,3 +76,54 @@ export const login = async (info: InfoCognito) => {
     }
   }
 };
+
+interface InfoDebito {
+  title: string;
+  valor: string;
+  data: string;
+  notifi: string;
+  obs?: string;
+}
+
+export const setDebitosData = async (info: InfoDebito) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  let userID;
+
+  try {
+    const user = sessionStorage.getItem('userData')
+    if(user){
+       userID = JSON.parse(user).id
+    }
+    const response = await axios.post(
+      `${apiUrl}debitos/${userID}`,
+      {
+        title: info.title,
+        valor: info.valor,
+        data: info.data,
+        notifi: info.notifi,
+        obs: info.obs || '',
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    console.log('Dados do Debitos enviados com sucesso', response);
+    return response;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error('Erro ao enviar dados do Debito', error);
+
+    if (error.response) {
+      const errorMessage = error.response?.data || 'Erro desconhecido ao tentar enviar os dados Debito';
+
+      throw new Error(`${errorMessage}`);
+    } else if (error.request) {
+      throw new Error('Sem resposta do servidor. Verifique sua conexão.');
+    } else {
+      throw new Error(`Erro desconhecido ao tentar enviar os dados do Debito: ${error.message}`);
+    }
+  }
+};

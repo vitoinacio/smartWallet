@@ -1,6 +1,10 @@
+import DebitosForm from "@/components/DebitosForm"
+
 const Financeiro = () => {
   return (
-    <div>Tela Financeiro</div>
+    <main className="w-full mt-10 px-[5%]">
+      <DebitosForm />
+    </main>
   )
 }
 

@@ -7,7 +7,7 @@ interface LayoutAppProps {
 
 const LayoutApp = ({children} : LayoutAppProps) => {
   return (
-    <div className='flex items-center'>
+    <div className='flex'>
         <Sidebar children={"Menu"}/>
         {children}
     </div>

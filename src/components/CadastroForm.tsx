@@ -44,8 +44,7 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 const CadastroForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [emailPreenchido, setEmailPreenchido] = useState<string | null>(null);
-  const [isEmailLoaded, setIsEmailLoaded] = useState<boolean>(false); // Estado para controlar quando o e-mail é carregado
-
+  const [isEmailLoaded, setIsEmailLoaded] = useState<boolean>(false);
   const {
     setNome,
     setSenha,
@@ -57,51 +56,46 @@ const CadastroForm = () => {
     setIsTermsAccepted,
   } = useSignupPage();
 
-  // Efeito para verificar se existe um e-mail no localStorage
   useEffect(() => {
     const emailStored = localStorage.getItem('emailInputHome');
     if (emailStored) {
       setEmailPreenchido(emailStored);
-      setEmail(emailStored); // Preenche o campo de e-mail com o valor armazenado
-      localStorage.removeItem('emailInputHome'); // Remove o item após o preenchimento
+      setEmail(emailStored);
+      localStorage.removeItem('emailInputHome');
     }
-    setIsEmailLoaded(true); // Marca como carregado após buscar o e-mail
+    setIsEmailLoaded(true);
   }, [setEmail]);
 
-  // Use hook de formulário
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
       nome: '',
       sexo: '',
-      email: emailPreenchido || '', // Preenche com o e-mail do localStorage se disponível
+      email: emailPreenchido || '',
       senha: '',
       dataNasc: '',
       termos: false,
     },
   });
 
-  // Atualiza os valores do formulário com o email carregado após o efeito
   useEffect(() => {
     if (isEmailLoaded && emailPreenchido !== null) {
       form.reset({
         ...form.getValues(),
-        email: emailPreenchido, // Atualiza o valor do campo email dinamicamente
+        email: emailPreenchido,
       });
     }
   }, [isEmailLoaded, emailPreenchido, form]);
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
-  // Função para envio do formulário
   const onSubmit = (values: SignupFormValues) => {
-    // Atualiza os estados com os valores do formulário
     setNome(values.nome);
     setEmail(values.email);
     setSenha(values.senha);
     setSexo(values.sexo);
     setDataNasc(values.dataNasc);
-    setIsTermsAccepted(values.termos); // Armazena se o termo foi aceito
+    setIsTermsAccepted(values.termos);
 
     handleSubmit({
       preventDefault: () => {},
@@ -109,7 +103,6 @@ const CadastroForm = () => {
     } as any);
   };
 
-  // Não renderiza o formulário até que o e-mail tenha sido carregado
   if (!isEmailLoaded) {
     return <Loading size={20} message="Carregando..." />;
   }
