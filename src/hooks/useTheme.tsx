@@ -2,11 +2,12 @@ import {useEffect, useState } from "react"
 
 interface UseThemeReturn {
     handleTheme: () => void;
+    theme: 'light' | 'dark';
   }
   
 
 const useTheme = () : UseThemeReturn => {
-    const [theme, setTheme] = useState<string>('light')
+    const [theme, setTheme] = useState<'light' | 'dark'>('light')
     const html = document.querySelector('#html')
 
     const handleTheme = () => {
@@ -34,7 +35,7 @@ const useTheme = () : UseThemeReturn => {
         }
     },[html])
 
-  return {handleTheme};
+  return {handleTheme, theme};
 }
 
 export default useTheme;

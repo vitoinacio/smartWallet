@@ -79,9 +79,7 @@ const DebitosForm = () => {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="text-blue-dark flex items-center gap-3 max-md:flex-col">
               <FormField
                 control={form.control}
@@ -89,7 +87,7 @@ const DebitosForm = () => {
                 render={({ field }) => (
                   <FormItem className="space-y-0 max-md:w-full">
                     <FormLabel className="max-md:hidden text-xs">
-                      Title
+                      Título
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -227,7 +225,9 @@ const DebitosForm = () => {
             </div>
 
             {errorMessage && (
-              <div className="text-red-500 text-xs mt-2 text-center w-full">{errorMessage}</div>
+              <div className="text-red-500 text-xs mt-2 text-center w-full">
+                {errorMessage}
+              </div>
             )}
           </form>
         </Form>

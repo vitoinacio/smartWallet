@@ -1,4 +1,4 @@
-import CadastroForm from '@/components/CadastroForm';
+import CadastroForm from '@/components/CadastroComponents/CadastroForm';
 import { ToastContainer } from 'react-toastify';
 
 const Cadastro = () => {

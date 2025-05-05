@@ -1,6 +1,11 @@
+import { ToastContainer } from "react-toastify"
+
 function Settings() {
   return (
-    <div>Tela Settings</div>
+    <div>
+      Tela Settings
+      <ToastContainer />
+    </div>
   )
 }
 

@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { setDebitosData } from '@/utils/cognito';
 import toast from '@/components/ui/sonner';
+import useTheme from './useTheme';
+import { setDebitosData } from '@/service/api/debitos';
 
 export function useDebitosForm() {
   const [title, setTitle] = useState<string>('');
@@ -12,7 +12,7 @@ export function useDebitosForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const navigate = useNavigate();
+  const {theme} = useTheme()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ export function useDebitosForm() {
         position: 'bottom-right',
         type: 'error',
         autoClose: 3000,
-        theme: 'light',
+        theme: theme,
         hideProgressBar: false,
         pauseOnHover: true,
         closeOnClick: true,
@@ -42,31 +42,29 @@ export function useDebitosForm() {
         title,
         valor,
         data,
-        notifi,
+        notifi: notifi === 'Sim' ? true : false,
         obs: obs || '',
       });
 
       if (response?.status === 200 || response?.status === 201) {
-        sessionStorage.setItem('UserProvider', title);
         toast({
-          title: 'Dados financeiros enviados com sucesso!',
+          title: 'Debito adicionado com sucesso!',
           position: 'bottom-right',
           type: 'success',
           autoClose: 3000,
-          theme: 'light',
+          theme: theme,
           hideProgressBar: false,
           pauseOnHover: true,
           closeOnClick: true,
           draggable: true,
         });
-        navigate('/dashboard');
       } else {
         toast({
-          title: 'Erro ao enviar os dados financeiros. Tente novamente.',
+          title: 'Erro ao adicionar o debito, Tente novamente!',
           position: 'bottom-right',
           type: 'error',
           autoClose: 3000,
-          theme: 'light',
+          theme: theme,
           hideProgressBar: false,
           pauseOnHover: true,
           closeOnClick: true,
@@ -76,7 +74,7 @@ export function useDebitosForm() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const errorType = err.response?.data.__type;
-      let message = 'Erro inesperado ao enviar os dados financeiros.';
+      let message = 'Erro inesperado ao adicionar o debito.';
 
       switch (errorType) {
         case 'LimitExceededException':
@@ -86,7 +84,7 @@ export function useDebitosForm() {
           message = 'Parâmetro inválido. Verifique os dados e tente novamente.';
           break;
         default:
-          message = 'Erro ao tentar enviar os dados financeiros.';
+          message = 'Erro ao tentar adicionar o debito.';
           break;
       }
 
@@ -96,7 +94,7 @@ export function useDebitosForm() {
         position: 'bottom-right',
         type: 'error',
         autoClose: 3000,
-        theme: 'light',
+        theme: theme,
         hideProgressBar: false,
         pauseOnHover: true,
         closeOnClick: true,

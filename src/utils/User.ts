@@ -3,9 +3,9 @@ import axios from 'axios';
 const User = async () => {
   const userEmail = sessionStorage.getItem('UserProvider');
   const apiUrl = import.meta.env.VITE_API_URL;
-  
+
   if (!userEmail) {
-    throw new Error("Email do usuário não encontrado no sessionStorage.");
+    throw new Error('Email do usuário não encontrado no sessionStorage.');
   }
 
   try {
@@ -14,13 +14,14 @@ const User = async () => {
         'Content-Type': 'application/json',
       },
     });
-    
-    return response.data; 
-  } catch (error: unknown) { 
+
+    return response.data;
+  } catch (error: unknown) {
     console.error('Erro ao buscar informações do usuário:', error);
 
     if (axios.isAxiosError(error)) {
-      const errorMessage = error.response?.data || 'Erro desconhecido ao buscar as informações';
+      const errorMessage =
+        error.response?.data || 'Erro desconhecido ao buscar as informações';
       throw new Error(`${errorMessage}`);
     } else if (error instanceof Error) {
       throw new Error(`Erro desconhecido: ${error.message}`);
@@ -31,3 +32,51 @@ const User = async () => {
 };
 
 export default User;
+
+interface Financeiro {
+  id: number;
+  idusuarios: number;
+  data_ent: string; 
+  entrada: string;
+}
+
+const financeiroUser = async (): Promise<Financeiro | null> => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const userData = sessionStorage.getItem('userData');
+
+  if (!userData) {
+    console.error('Usuário não encontrado no sessionStorage.');
+    return null;
+  }
+
+  try {
+    const user = JSON.parse(userData);
+    const id = user.id;
+
+    const response = await axios.get<Financeiro>(
+      `${apiUrl}financeiro?id=${id}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    console.error('Erro ao buscar o financeiro:', error);
+
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.response?.data || 'Erro desconhecido ao buscar as informações';
+      throw new Error(errorMessage);
+    } else if (error instanceof Error) {
+      throw new Error(`Erro desconhecido: ${error.message}`);
+    } else {
+      throw new Error('Erro desconhecido ao tentar buscar as informações.');
+    }
+  }
+};
+
+export { financeiroUser };
+
