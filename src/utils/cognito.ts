@@ -77,15 +77,12 @@ export const login = async (info: InfoCognito) => {
   }
 };
 
-interface InfoDebito {
-  title: string;
-  valor: string;
-  data: string;
-  notifi: string;
-  obs?: string;
+
+interface financeiroData{
+  entrada: string;
 }
 
-export const setDebitosData = async (info: InfoDebito) => {
+export const setFinanceiroData = async (data: financeiroData) => {
   const apiUrl = import.meta.env.VITE_API_URL;
   let userID;
 
@@ -95,13 +92,9 @@ export const setDebitosData = async (info: InfoDebito) => {
        userID = JSON.parse(user).id
     }
     const response = await axios.post(
-      `${apiUrl}debitos/${userID}`,
+      `${apiUrl}financeiro/${userID}`,
       {
-        title: info.title,
-        valor: info.valor,
-        data: info.data,
-        notifi: info.notifi,
-        obs: info.obs || '',
+        entrada: data.entrada,
       },
       {
         headers: {
@@ -110,20 +103,20 @@ export const setDebitosData = async (info: InfoDebito) => {
       }
     );
 
-    console.log('Dados do Debitos enviados com sucesso', response);
+    console.log('Entrada adicionada com sucesso', response);
     return response;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.error('Erro ao enviar dados do Debito', error);
+    console.error('Erro ao adicionar entrada', error);
 
     if (error.response) {
-      const errorMessage = error.response?.data || 'Erro desconhecido ao tentar enviar os dados Debito';
+      const errorMessage = error.response?.data || 'Erro desconhecido ao tentar adicionar entrada';
 
       throw new Error(`${errorMessage}`);
     } else if (error.request) {
       throw new Error('Sem resposta do servidor. Verifique sua conexão.');
     } else {
-      throw new Error(`Erro desconhecido ao tentar enviar os dados do Debito: ${error.message}`);
+      throw new Error(`Erro desconhecido ao tentar adicionar entrada: ${error.message}`);
     }
   }
 };

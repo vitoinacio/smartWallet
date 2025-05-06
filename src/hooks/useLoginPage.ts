@@ -2,11 +2,13 @@ import toast from '@/components/ui/sonner';
 import { login } from '@/utils/cognito';
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useTheme from './useTheme';
 
 export function useLoginPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [senha, setSenha] = useState<string>('');
+  const {theme} = useTheme()
 
   const navigate = useNavigate();
 
@@ -26,7 +28,7 @@ export function useLoginPage() {
         position: 'bottom-right',
         type: 'error',
         autoClose: 3000, // 3 segundos
-        theme: 'light',
+        theme: theme,
         hideProgressBar: false,
         pauseOnHover: true,
         closeOnClick: true,
@@ -42,7 +44,7 @@ export function useLoginPage() {
         position: 'bottom-right',
         type: 'error',
         autoClose: 3000, // 3 segundos
-        theme: 'light',
+        theme: theme,
         hideProgressBar: false,
         pauseOnHover: true,
         closeOnClick: true,
@@ -65,7 +67,7 @@ export function useLoginPage() {
           position: 'bottom-right',
           type: 'success',
           autoClose: 3000, // 3 segundos
-          theme: 'light',
+          theme: theme,
           hideProgressBar: false,
           pauseOnHover: true,
           closeOnClick: true,
@@ -82,7 +84,7 @@ export function useLoginPage() {
         position: 'bottom-right',
         type: 'error',
         autoClose: 3000, // 3 segundos
-        theme: 'light',
+        theme: theme,
         hideProgressBar: false,
         pauseOnHover: true,
         closeOnClick: true,

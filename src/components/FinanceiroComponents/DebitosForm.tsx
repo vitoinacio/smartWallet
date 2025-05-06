@@ -20,7 +20,6 @@ import Loading from '@/components/Loading';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useDebitosForm } from '@/hooks/useDebitosForm';
 
 const debitosSchema = z.object({
   title: z.string().min(1, 'Título é obrigatório'),
@@ -32,17 +31,27 @@ const debitosSchema = z.object({
 
 type DebitosFormValues = z.infer<typeof debitosSchema>;
 
-const DebitosForm = () => {
-  const {
-    setTitle,
-    setValor,
-    setData,
-    setNotifi,
-    setObs,
-    isLoading,
-    errorMessage,
-    handleSubmit,
-  } = useDebitosForm();
+interface DebitosFormProps {
+  setTitle: (title: string) => void;
+  setValor: (valor: string) => void;
+  setData: (data: string) => void;
+  setNotifi: (notifi: string) => void;
+  setObs: (obs: string | undefined) => void;
+  isLoading: boolean;
+  errorMessage: string | null;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+}
+
+const DebitosForm = ({
+  setTitle,
+  setValor,
+  setData,
+  setNotifi,
+  setObs,
+  isLoading,
+  errorMessage,
+  handleSubmit,
+}: DebitosFormProps) => {
 
   const form = useForm<DebitosFormValues>({
     resolver: zodResolver(debitosSchema),
@@ -66,6 +75,8 @@ const DebitosForm = () => {
       preventDefault: () => {},
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
+
+    form.reset();
   };
 
   if (isLoading) {
@@ -79,9 +90,7 @@ const DebitosForm = () => {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="text-blue-dark flex items-center gap-3 max-md:flex-col">
               <FormField
                 control={form.control}
@@ -89,7 +98,7 @@ const DebitosForm = () => {
                 render={({ field }) => (
                   <FormItem className="space-y-0 max-md:w-full">
                     <FormLabel className="max-md:hidden text-xs">
-                      Title
+                      Título
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -227,7 +236,9 @@ const DebitosForm = () => {
             </div>
 
             {errorMessage && (
-              <div className="text-red-500 text-xs mt-2 text-center w-full">{errorMessage}</div>
+              <div className="text-red-500 text-xs mt-2 text-center w-full">
+                {errorMessage}
+              </div>
             )}
           </form>
         </Form>

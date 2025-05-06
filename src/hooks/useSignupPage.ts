@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createAccount } from '@/utils/cognito';
 import toast from '@/components/ui/sonner';
+import useTheme from './useTheme';
 
 export function useSignupPage() {
   const [nome, setNome] = useState<string>('');
@@ -12,6 +13,7 @@ export function useSignupPage() {
   const [isTermsAccepted, setIsTermsAccepted] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const {theme} = useTheme()
 
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ export function useSignupPage() {
         position: 'bottom-right',
         type: 'error',
         autoClose: 3000,
-        theme: 'light',
+        theme: theme,
         hideProgressBar: false,
         pauseOnHover: true,
         closeOnClick: true,
@@ -46,7 +48,7 @@ export function useSignupPage() {
         position: 'bottom-right',
         type: 'error',
         autoClose: 3000,
-        theme: 'light',
+        theme: theme,
         hideProgressBar: false,
         pauseOnHover: true,
         closeOnClick: true,
@@ -72,7 +74,7 @@ export function useSignupPage() {
           position: 'bottom-right',
           type: 'success',
           autoClose: 3000,
-          theme: 'light',
+          theme: theme,
           hideProgressBar: false,
           pauseOnHover: true,
           closeOnClick: true,
@@ -85,7 +87,7 @@ export function useSignupPage() {
           position: 'bottom-right',
           type: 'error',
           autoClose: 3000,
-          theme: 'light',
+          theme: theme,
           hideProgressBar: false,
           pauseOnHover: true,
           closeOnClick: true,
@@ -123,7 +125,7 @@ export function useSignupPage() {
         position: 'bottom-right',
         type: 'error',
         autoClose: 3000,
-        theme: 'light',
+        theme: theme,
         hideProgressBar: false,
         pauseOnHover: true,
         closeOnClick: true,
