@@ -57,7 +57,6 @@ export const setDebitosData = async (info: Debitos) => {
       },
     );
 
-    console.log('Dados do Debitos enviados com sucesso', response);
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -74,6 +73,40 @@ export const setDebitosData = async (info: Debitos) => {
     } else {
       throw new Error(
         `Erro desconhecido ao tentar enviar os dados do Debito: ${error.message}`,
+      );
+    }
+  }
+};
+
+export const deleteDebitosData = async (id: number) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  let userID;
+
+  try {
+    const user = sessionStorage.getItem('userData');
+    if (user) {
+      userID = JSON.parse(user).id;
+    }
+    const response = await axios.delete(
+      `${apiUrl}debitos/${userID}/${id}`
+    );
+
+    return response;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error('Erro ao remover Debito', error);
+
+    if (error.response) {
+      const errorMessage =
+        error.response?.data ||
+        'Erro desconhecido ao tentar remover o Debito';
+
+      throw new Error(`${errorMessage}`);
+    } else if (error.request) {
+      throw new Error('Sem resposta do servidor. Verifique sua conexão.');
+    } else {
+      throw new Error(
+        `Erro desconhecido ao tentar remover o Debito: ${error.message}`,
       );
     }
   }

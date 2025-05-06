@@ -1,13 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '../ui/separator';
-import useGetDebitosForm from '@/hooks/useGetDebitos';
 import Loading from '../Loading';
 import ItemListDebito from './ItemListDebito';
+import { DataInfoDebitoType } from '@/types/DebitosTypes';
 
-const ListDebitos = () => {
-  const { debitosList, isLoading } = useGetDebitosForm();
+interface ListDebitosProps {
+  debitosList: DataInfoDebitoType[] | undefined; 
+  isLoading: boolean;
+  deleteDebito: (id: number) => void;
+}
 
-  console.log(debitosList);
+const ListDebitos = ({ debitosList, isLoading, deleteDebito }: ListDebitosProps) => {
 
   return (
     <Card>
@@ -23,7 +26,7 @@ const ListDebitos = () => {
         {isLoading ? (
           <Loading message="Buscando debitos" />
         ) : debitosList && debitosList?.length > 0 ? (
-          <ItemListDebito debitos={debitosList}/>
+          <ItemListDebito deleteDebito={deleteDebito} debitos={debitosList}/>
         ) : (
           <div className="grid grid-cols-7">
             <p className="">Nenhum Debito adicionado !</p>
