@@ -1,68 +1,45 @@
-import toast from '@/components/ui/sonner';
-import { setFinanceiroData } from '@/utils/cognito';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import useTheme from './useTheme';
+import { getFinanceiro, setDashboardData } from '@/service/api/dashboard';
+import { Response } from '@/types/DashboardTypes';
 
 export function useEntrada() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [entrada, setEntrada] = useState<string>('0.00');
+  const [isLoading, setIsLoading] = useState(false);
+  const [entrada, setEntrada] = useState<string>('');
+  const { theme } = useTheme();
 
-  const {theme} = useTheme()
+  useEffect(()=>{
+    const getFinanceiroData = async () => {
+      try {
+        setIsLoading(true)
+        const response : Response = await getFinanceiro(theme)
+        setEntrada(response.data[0].entrada)
+      } catch {
+        setIsLoading(false)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    getFinanceiroData()
+  },[theme])
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setIsLoading(true);
-
-    if (!entrada) {
-      toast({
-        title: 'Preencha a entrada!',
-        position: 'bottom-right',
-        type: 'error',
-        autoClose: 3000, // 3 segundos
-        theme: theme,
-        hideProgressBar: false,
-        pauseOnHover: true,
-        closeOnClick: true,
-        draggable: true,
-      });
-      setIsLoading(false);
-      return;
-    }
+    if (!entrada.trim()) return;
 
     try {
-      const response = await setFinanceiroData({ entrada });
-
-      if (response?.status === 200 || response?.status === 201) {
-        toast({
-          title: 'Entrada adicionada com sucesso!',
-          position: 'bottom-right',
-          type: 'success',
-          autoClose: 3000, // 3 segundos
-          theme: theme,
-          hideProgressBar: false,
-          pauseOnHover: true,
-          closeOnClick: true,
-          draggable: true,
-        });
-      }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      toast({
-        title: error,
-        position: 'bottom-right',
-        type: 'error',
-        autoClose: 3000, // 3 segundos
-        theme: theme,
-        hideProgressBar: false,
-        pauseOnHover: true,
-        closeOnClick: true,
-        draggable: true,
-      });
+      setIsLoading(true);
+      await setDashboardData({ entrada, theme });
     } finally {
       setIsLoading(false);
     }
   };
 
-  return { entrada, setEntrada, handleSubmit, isLoading };
+  return {
+    entrada,
+    setEntrada,
+    handleSubmit,
+    isLoading,
+  };
 }
