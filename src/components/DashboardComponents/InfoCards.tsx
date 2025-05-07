@@ -10,12 +10,11 @@ import {
 } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useEntrada } from '@/hooks/useEntrada';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import Loading from '../Loading';
-import { useEffect, useState } from 'react';
-import { financeiroUser } from '@/utils/User';
+import { FormEvent, useState } from 'react';
+import { formatedBrl } from '@/utils/formatedBrl';
 
 const entradaSchema = z.object({
   entrada: z.string().min(1, 'Informe a entrada'),
@@ -23,9 +22,20 @@ const entradaSchema = z.object({
 
 type EntradaFormValues = z.infer<typeof entradaSchema>;
 
-const InfoCards = () => {
+interface InfoCardsProps {
+  setEntrada: (entrada: string) => void;
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  isLoading: boolean;
+  entrada: string;
+}
+
+const InfoCards = ({
+  setEntrada,
+  handleSubmit,
+  isLoading,
+  entrada,
+}: InfoCardsProps) => {
   const [edit, setEdit] = useState<boolean>(false);
-  const { setEntrada, handleSubmit, isLoading, entrada } = useEntrada();
 
   const form = useForm<EntradaFormValues>({
     resolver: zodResolver(entradaSchema),
@@ -34,25 +44,10 @@ const InfoCards = () => {
     },
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await financeiroUser();
-        if (data) {
-          const entradaUser = data.entrada;
-          setEntrada(entradaUser);
-        }
-      } catch (error) {
-        console.error('Erro ao buscar dados financeiros:', error);
-      }
-    };
-
-    fetchData();
-  }, [setEntrada]);
-
   const onSubmit = (values: EntradaFormValues) => {
     setEntrada(values.entrada);
     setEdit(false);
+    console.log(values.entrada);
 
     handleSubmit({
       preventDefault: () => {},
@@ -70,7 +65,12 @@ const InfoCards = () => {
         </CardHeader>
         <Separator />
         <CardContent
-          onClick={() => setEdit(true)}
+          onClick={() => {
+            if (!edit) {
+              form.setValue('entrada', '');
+              setEdit(true);
+            } 
+          }}
           className="flex w-full justify-between text-center text-xl font-bold text-blue-900 dark:text-blue-600 pt-2 gap-5"
         >
           <p>R$</p>
@@ -78,7 +78,7 @@ const InfoCards = () => {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="text-blue-dark max-md:space-y-4 flex flex-col gap-3"
+                className="text-blue-dark max-md:space-y-4 flex flex-col"
               >
                 <FormField
                   control={form.control}
@@ -91,8 +91,9 @@ const InfoCards = () => {
                           placeholder="Informe a entrada"
                           {...field}
                           onChange={(e) => {
-                            field.onChange(e);
-                            setEntrada(e.target.value);
+                            const valorFormatado = formatedBrl(e.target.value);
+                            field.onChange(valorFormatado);
+                            setEntrada(valorFormatado);
                           }}
                         />
                       </FormControl>
@@ -109,10 +110,8 @@ const InfoCards = () => {
                 </Button>
               </form>
             </Form>
-          ) : entrada ? (
-            entrada
           ) : (
-            '00,00'
+            entrada ? entrada : '0,00'
           )}
         </CardContent>
       </Card>
