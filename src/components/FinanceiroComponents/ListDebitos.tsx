@@ -29,8 +29,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ArrowUpDown, ChevronDown } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
+import { Card, CardContent } from "@/components/ui/card"
 import Loading from "../Loading"
 import { DataInfoDebitoType } from "@/types/DebitosTypes"
 import { formatarDate } from "@/utils/formatedDate"
