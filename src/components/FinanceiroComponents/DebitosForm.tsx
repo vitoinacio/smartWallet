@@ -85,24 +85,24 @@ const DebitosForm = ({
 
   return (
     <Card className="w-full">
-      <CardHeader className="flex text-center max-md:p-6 p-4">
+      <CardHeader className="flex text-center max-xl:p-6 p-4">
         <CardTitle>Dados Financeiros</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="text-blue-dark flex items-center gap-3 max-md:flex-col">
+            <div className="text-blue-dark flex items-center gap-3 max-xl:flex-col">
               <FormField
                 control={form.control}
                 name="title"
                 render={({ field }) => (
-                  <FormItem className="space-y-0 max-md:w-full">
-                    <FormLabel className="max-md:hidden text-xs">
+                  <FormItem className="space-y-0 max-xl:w-full">
+                    <FormLabel className="max-xl:hidden text-xs">
                       Título
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="max-md:text-center"
+                        className="max-xl:text-center"
                         type="text"
                         placeholder="Digite o titulo"
                         {...field}
@@ -121,13 +121,13 @@ const DebitosForm = ({
                 control={form.control}
                 name="obs"
                 render={({ field }) => (
-                  <FormItem className="space-y-0 max-md:w-full">
-                    <FormLabel className="max-md:hidden text-xs">
+                  <FormItem className="space-y-0 max-xl:w-full">
+                    <FormLabel className="max-xl:hidden text-xs">
                       Observação
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="max-md:text-center"
+                        className="max-xl:text-center"
                         type="text"
                         placeholder="Digite a observação"
                         {...field}
@@ -146,13 +146,13 @@ const DebitosForm = ({
                 control={form.control}
                 name="valor"
                 render={({ field }) => (
-                  <FormItem className="space-y-0 max-md:w-full">
-                    <FormLabel className="max-md:hidden text-xs">
+                  <FormItem className="space-y-0 max-xl:w-full">
+                    <FormLabel className="max-xl:hidden text-xs">
                       Valor
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="max-md:text-center"
+                        className="max-xl:text-center"
                         type="text"
                         placeholder="Digite o Valor"
                         {...field}
@@ -171,13 +171,13 @@ const DebitosForm = ({
                 control={form.control}
                 name="data"
                 render={({ field }) => (
-                  <FormItem className="space-y-0 max-md:w-full">
-                    <FormLabel className="max-md:hidden text-xs">
+                  <FormItem className="space-y-0 max-xl:w-full">
+                    <FormLabel className="max-xl:hidden text-xs">
                       Data de Vencimento
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="max-md:text-center"
+                        className="max-xl:text-center"
                         type="date"
                         placeholder="Data"
                         {...field}
@@ -196,8 +196,8 @@ const DebitosForm = ({
                 control={form.control}
                 name="notifi"
                 render={({ field }) => (
-                  <FormItem className="space-y-0 max-md:w-full">
-                    <FormLabel className="max-md:hidden text-xs ">
+                  <FormItem className="space-y-0 max-xl:w-full">
+                    <FormLabel className="max-xl:hidden text-xs ">
                       Notificação
                     </FormLabel>
                     <Select
@@ -224,7 +224,7 @@ const DebitosForm = ({
 
               <Button
                 type="submit"
-                className="mt-5 max-md:w-full flex justify-center items-center bg-sidebar hover:bg-blue-950 dark:bg-blue-900 dark:text-primary dark:hover:bg-blue-950"
+                className="mt-5 max-xl:w-full flex justify-center items-center bg-sidebar hover:bg-blue-950 dark:bg-blue-900 dark:text-primary dark:hover:bg-blue-950"
                 disabled={isLoading}
               >
                 {isLoading ? (
