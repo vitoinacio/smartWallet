@@ -1,15 +1,19 @@
 import { cn } from "@/lib/utils";
-import { ReactElement } from "react"
 
 interface FooterConteinerProps {
-    children: ReactElement,
+    children: React.ReactNode,
     className?: string;
 }
 
 const FooterConteiner = ({children, className}: FooterConteinerProps) => {
   return (
-    <footer className={cn('bg-sidebar dark:bg-popover p-5 flex flex-col items-center justify-around gap-4', className)}>
-        {children}
+    <footer className={cn(
+        "bg-blue-900 dark:bg-neutral-950",
+        className
+    )}>
+        <div className="max-w-7xl mx-auto px-6 py-16">
+            {children}
+        </div>
     </footer>
   )
 }

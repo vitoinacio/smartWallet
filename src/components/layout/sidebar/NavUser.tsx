@@ -17,8 +17,8 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { useNavigate } from 'react-router-dom';
-import useUserInfo from '@/hooks/useUserInfo';
-import Loading from '@/components/Loading';
+import useUserInfo from '@/core/viewModels/useUserInfo';
+import Loading from '@/core/components/Loading';
 
 interface NavUserProps {
   user: {
@@ -57,7 +57,14 @@ const NavUser = ({ user }: NavUserProps) => {
                       src={userData?.foto ? userData?.foto : user.avatar}
                       alt={userData?.nome}
                     />
-                    <AvatarFallback className="rounded-lg">{userData?.nome.split(' ')[0].slice(0,1) +''+ userData?.nome.split(' ')[1].slice(0,1)}</AvatarFallback>
+                    <AvatarFallback className="rounded-lg">
+                      {userData?.nome ? (() => {
+                        const parts = userData.nome.split(' ');
+                        const first = parts[0]?.[0] || '';
+                        const last = parts[1]?.[0] || '';
+                        return (first + last).toUpperCase();
+                      })() : 'U'}
+                    </AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-semibold">
