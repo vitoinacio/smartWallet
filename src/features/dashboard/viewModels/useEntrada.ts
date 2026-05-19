@@ -1,45 +1,80 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import toast from '@/components/ui/sonner';
 import useTheme from '@/core/viewModels/useTheme';
 import { getFinanceiro, setDashboardData } from '@/core/services/api/dashboard';
-import { Response } from '@/core/models/DashboardTypes';
+import { DashboardEntrada } from '../models';
 
 export function useEntrada() {
+  const [entrada, setEntradaState] = useState<DashboardEntrada>({ valor: '' });
   const [isLoading, setIsLoading] = useState(false);
-  const [entrada, setEntrada] = useState<string>('');
+  const [isEditing, setIsEditing] = useState(false);
   const { theme } = useTheme();
 
-  useEffect(()=>{
-    const getFinanceiroData = async () => {
-      try {
-        setIsLoading(true)
-        const response : Response = await getFinanceiro(theme)
-        setEntrada(response.data[0].entrada)
-      } catch {
-        setIsLoading(false)
-      } finally {
-        setIsLoading(false)
-      }
+  const buscarEntrada = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const response = await getFinanceiro(theme);
+      const valor = response.data[0]?.entrada || '0';
+      setEntradaState({ valor });
+    } catch {
+      setEntradaState({ valor: '0' });
+    } finally {
+      setIsLoading(false);
     }
-    getFinanceiroData()
-  },[theme])
+  }, [theme]);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  useEffect(() => {
+    buscarEntrada();
+  }, [buscarEntrada]);
 
-    if (!entrada.trim()) return;
+  const setEntrada = (valor: string) => {
+    setEntradaState({ valor });
+  };
+
+  const atualizarEntrada = async (novoValor: string) => {
+    if (!novoValor.trim()) return;
 
     try {
       setIsLoading(true);
-      await setDashboardData({ entrada, theme });
+      await setDashboardData({ entrada: novoValor, theme });
+      
+      toast({
+        title: 'Entrada atualizada com sucesso!',
+        position: 'bottom-right',
+        type: 'success',
+        autoClose: 3000,
+        theme,
+      });
+
+      setEntradaState({ valor: novoValor });
+      setIsEditing(false);
+    } catch {
+      toast({
+        title: 'Erro ao atualizar entrada',
+        position: 'bottom-right',
+        type: 'error',
+        autoClose: 3000,
+        theme,
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
+  const iniciarEdicao = () => setIsEditing(true);
+  const cancelarEdicao = () => {
+    setIsEditing(false);
+    setEntradaState((prev) => ({ ...prev }));
+  };
+
   return {
     entrada,
-    setEntrada,
-    handleSubmit,
     isLoading,
+    isEditing,
+    setEntrada,
+    atualizarEntrada,
+    iniciarEdicao,
+    cancelarEdicao,
+    buscarEntrada,
   };
 }
