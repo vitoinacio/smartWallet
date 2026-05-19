@@ -8,7 +8,7 @@ export interface InfoCognito {
   dataNasc?: string;
 }
 
-// Usuário mockado para testes em desenvolvimento
+// Usuário mockado para testes
 const MOCK_USER = {
   email: 'teste@gmail.com',
   senha: 'teste123',
@@ -17,14 +17,14 @@ const MOCK_USER = {
   dataNasc: '1990-01-01'
 };
 
-// Verifica se deve usar mock (sem API configurada ou forçado)
-const useMock = import.meta.env.VITE_USE_MOCK === 'true' || !import.meta.env.VITE_API_URL;
+// Verifica se deve forçar uso de mock
+const forceMock = import.meta.env.VITE_USE_MOCK === 'true';
 
 export const createAccount = async (info: InfoCognito) => {
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  // Usa mock se estiver em dev ou se não houver API configurada
-  if (useMock) {
+  // Usa mock forçado
+  if (forceMock || !apiUrl) {
     console.log('Mock: Criando conta');
     return { status: 200, data: { message: 'Conta criada com sucesso (mock)' } };
   }
@@ -51,22 +51,24 @@ export const createAccount = async (info: InfoCognito) => {
   } catch (error: any) {
     console.error('Erro ao criar o usuário', error);
   }
-}
+};
 
 export const login = async (info: InfoCognito) => {
-  // Usa mock se estiver em dev ou se não houver API configurada
-  if (useMock) {
-    if (info.email === MOCK_USER.email && info.senha === MOCK_USER.senha) {
-      console.log('Mock: Login realizado com sucesso');
-      return { 
-        status: 200, 
-        data: { 
-          message: 'Login realizado com sucesso (mock)',
-          user: MOCK_USER 
-        } 
-      };
-    }
-    // Simular erro para credenciais incorretas
+  // Se o usuário for o teste, sempre usa mock (funciona em qualquer ambiente)
+  if (info.email === MOCK_USER.email && info.senha === MOCK_USER.senha) {
+    console.log('Mock: Login do usuário teste realizado com sucesso');
+    return { 
+      status: 200, 
+      data: { 
+        message: 'Login realizado com sucesso (mock)',
+        user: MOCK_USER 
+      } 
+    };
+  }
+
+  // Se não for usuário teste, tenta usar mock forçado ou API
+  if (forceMock || !import.meta.env.VITE_API_URL) {
+    // Usuário não é o teste e está em modo mock
     throw new Error('Credenciais inválidas');
   }
 
