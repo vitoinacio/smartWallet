@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { z } from 'zod';
 import {
   Form,
@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSignupPage } from '../../viewModels/useSignupPage';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -24,7 +24,6 @@ import { Input } from '@/components/ui/input';
 import Loading from '@/core/components/Loading';
 import { Eye, EyeClosed } from 'lucide-react';
 
-// Definição do schema de validação com Zod
 const signupSchema = z.object({
   nome: z.string().min(3, 'O nome deve ter pelo menos 3 caracteres.'),
   sexo: z
@@ -42,92 +41,52 @@ const signupSchema = z.object({
 type SignupFormValues = z.infer<typeof signupSchema>;
 
 const CadastroForm = () => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [emailPreenchido, setEmailPreenchido] = useState<string | null>(null);
-  const [isEmailLoaded, setIsEmailLoaded] = useState<boolean>(false);
-  const {
-    setNome,
-    setSenha,
-    setEmail,
-    setSexo,
-    setDataNasc,
-    isLoading,
-    handleSubmit,
-    setIsTermsAccepted,
-  } = useSignupPage();
+  const [showPassword, setShowPassword] = useState(false);
+  const { setNome, setSexo, setEmail, setSenha, setDataNasc, isLoading, handleSubmit } = useSignupPage();
 
-  useEffect(() => {
-    const emailStored = localStorage.getItem('emailInputHome');
-    if (emailStored) {
-      setEmailPreenchido(emailStored);
-      setEmail(emailStored);
-      localStorage.removeItem('emailInputHome');
-    }
-    setIsEmailLoaded(true);
-  }, [setEmail]);
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
       nome: '',
       sexo: '',
-      email: emailPreenchido || '',
+      email: '',
       senha: '',
       dataNasc: '',
       termos: false,
     },
   });
 
-  useEffect(() => {
-    if (isEmailLoaded && emailPreenchido !== null) {
-      form.reset({
-        ...form.getValues(),
-        email: emailPreenchido,
-      });
-    }
-  }, [isEmailLoaded, emailPreenchido, form]);
-
-  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
-
   const onSubmit = (values: SignupFormValues) => {
     setNome(values.nome);
+    setSexo(values.sexo);
     setEmail(values.email);
     setSenha(values.senha);
-    setSexo(values.sexo);
     setDataNasc(values.dataNasc);
-    setIsTermsAccepted(values.termos);
-
     handleSubmit({
       preventDefault: () => {},
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
   };
 
-  if (!isEmailLoaded) {
-    return <Loading size={20} message="Carregando..." />;
-  }
-
   return (
-    <Card className="max-w-[350px]">
-      <CardHeader className="flex text-center max-md:p-6 p-4">
-        <CardTitle>Cadastre-se</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <Card className="w-full border-0 shadow-2xl bg-white dark:bg-neutral-800">
+      <CardContent className="px-8 pb-8 pt-6">
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="text-blue-dark max-md:space-y-4"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="nome"
               render={({ field }) => (
-                <FormItem className="space-y-0">
-                  <FormLabel className="max-md:hidden text-xs">Nome</FormLabel>
+                <FormItem>
+                  <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Nome completo
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="text"
-                      placeholder="Digite seu nome"
+                      placeholder="Digite seu nome completo"
+                      className="h-12 bg-gray-50 dark:bg-neutral-700 border-gray-200 dark:border-neutral-600 focus:ring-2 focus:ring-blue-500"
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);
@@ -140,13 +99,15 @@ const CadastroForm = () => {
               )}
             />
 
-            <div className="flex gap-2">
+            <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
                 name="sexo"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="max-md:hidden text-xs">Sexo</FormLabel>
+                    <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Sexo
+                    </FormLabel>
                     <Select
                       value={field.value}
                       onValueChange={(value) => {
@@ -155,8 +116,8 @@ const CadastroForm = () => {
                       }}
                     >
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione seu Sexo" />
+                        <SelectTrigger className="h-12 bg-gray-50 dark:bg-neutral-700 border-gray-200 dark:border-neutral-600">
+                          <SelectValue placeholder="Selecione" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -176,11 +137,13 @@ const CadastroForm = () => {
                 name="dataNasc"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="max-md:hidden text-xs">Data de Nascimento</FormLabel>
+                    <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Data de nasc.
+                    </FormLabel>
                     <FormControl>
                       <Input
-                        className="max-md:w-32"
                         type="date"
+                        className="h-12 bg-gray-50 dark:bg-neutral-700 border-gray-200 dark:border-neutral-600 focus:ring-2 focus:ring-blue-500"
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
@@ -199,11 +162,14 @@ const CadastroForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="max-md:hidden text-xs">Email</FormLabel>
+                  <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    E-mail
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="Digite seu Email"
+                      placeholder="seu@email.com"
+                      className="h-12 bg-gray-50 dark:bg-neutral-700 border-gray-200 dark:border-neutral-600 focus:ring-2 focus:ring-blue-500"
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);
@@ -221,26 +187,30 @@ const CadastroForm = () => {
               name="senha"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="max-md:hidden text-xs">Senha</FormLabel>
-                  <FormControl>
-                    <div className="relative">
+                  <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Senha
+                  </FormLabel>
+                  <div className="relative">
+                    <FormControl>
                       <Input
                         type={showPassword ? 'text' : 'password'}
-                        placeholder="Digite sua Senha"
+                        placeholder="••••••••"
+                        className="h-12 pr-12 bg-gray-50 dark:bg-neutral-700 border-gray-200 dark:border-neutral-600 focus:ring-2 focus:ring-blue-500"
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
                           setSenha(e.target.value);
                         }}
                       />
-                      <div
-                        className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
-                        onClick={togglePasswordVisibility}
-                      >
-                        {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
-                      </div>
-                    </div>
-                  </FormControl>
+                    </FormControl>
+                    <button
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      {showPassword ? <EyeClosed className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -250,44 +220,39 @@ const CadastroForm = () => {
               control={form.control}
               name="termos"
               render={({ field }) => (
-                <FormItem>
-                  <div className="flex items-center">
-                    <FormControl>
-                      <Input
-                        className="h-3 flex-[10%] mt-1"
-                        type="checkbox"
-                        checked={field.value || false}
-                        onChange={(e) => {
-                          field.onChange(e.target.checked);
-                          setIsTermsAccepted(e.target.checked);
-                        }}
-                      />
-                    </FormControl>
-                    <FormLabel className="max-md:hidden text-xs flex-[90%]">
-                      Aceito os Termos e política de privacidade
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormControl>
+                    <input
+                      type="checkbox"
+                      checked={field.value}
+                      onChange={field.onChange}
+                      className="w-4 h-4 mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel className="text-sm text-gray-600 dark:text-gray-400">
+                      Eu aceito os{' '}
+                      <a href="/termos" className="text-blue-700 hover:underline" target="_blank">
+                        Termos de Uso
+                      </a>{' '}
+                      e a{' '}
+                      <a href="/privacidade" className="text-blue-700 hover:underline" target="_blank">
+                        Política de Privacidade
+                      </a>
                     </FormLabel>
+                    <FormMessage />
                   </div>
-                  <FormMessage />
                 </FormItem>
               )}
             />
 
             <Button
               type="submit"
-              className="w-full mt-3 flex justify-center items-center bg-sidebar hover:bg-blue-950 dark:bg-blue-900 dark:text-primary dark:hover:bg-blue-950"
+              className="w-full h-12 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-lg transition-colors"
               disabled={isLoading}
             >
-              {isLoading ? <Loading size={20} message="" className="pt-3" /> : 'Finalizar Cadastro'}
+              {isLoading ? <Loading size={20} message="" className="pt-3" /> : 'Criar conta'}
             </Button>
-
-            <div className="flex items-center justify-center">
-              Já tem conta?{' '}
-              <a href="/login">
-                <Button type="button" variant="link" className="text-blue-700">
-                  Fazer Login
-                </Button>
-              </a>
-            </div>
           </form>
         </Form>
       </CardContent>

@@ -3,8 +3,7 @@ import Home from '@/features/home/views/HomePage';
 import Dashboard from '@/features/dashboard/views/DashboardPage';
 import Financeiro from '@/features/financeiro/views/FinanceiroPage';
 import Settings from '@/features/dashboard/views/SettingsPage';
-import Cadastro from '@/features/auth/views/CadastroPage';
-import Login from '@/features/auth/views/LoginPage';
+import AuthPage from '@/features/auth/views/AuthPage';
 import TermosDeUso from '@/features/pages-legais/views/TermosPage';
 import PoliticaPrivacidade from '@/features/pages-legais/views/PrivacidadePage';
 import FaleConosco from '@/features/pages-legais/views/FaleConoscoPage';
@@ -16,8 +15,8 @@ const AppRoutes = () => {
     <Routes>
       {/* Rotas publicas */}
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/CreateAccount" element={<Cadastro />} />
+      <Route path="/login" element={<AuthPage />} />
+      <Route path="/CreateAccount" element={<AuthPage />} />
       <Route path="/termos" element={<TermosDeUso />} />
       <Route path="/privacidade" element={<PoliticaPrivacidade />} />
       <Route path="/fale-conosco" element={<FaleConosco />} />

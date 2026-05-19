@@ -1,8 +1,11 @@
-import { Wallet, ArrowLeft, Shield, Eye, Lock, Database, Bell, UserCheck } from "lucide-react"
+import { Wallet, ArrowLeft, Shield, Eye, Lock, Database, Bell, UserCheck, Sun, Moon } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
+import useTheme from "@/core/viewModels/useTheme"
 
 const PoliticaPrivacidade = () => {
+  const { handleTheme, theme } = useTheme()
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-neutral-900">
       {/* Header */}
@@ -16,12 +19,17 @@ const PoliticaPrivacidade = () => {
               Smart<span className="text-blue-700 dark:text-blue-400">Wallet</span>
             </span>
           </Link>
-          <Link to="/">
-            <Button variant="ghost" className="gap-2">
-              <ArrowLeft className="w-4 h-4" />
-              Voltar
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" onClick={handleTheme} className="dark:text-white">
+              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>
-          </Link>
+            <Link to="/">
+              <Button variant="ghost" className="gap-2">
+                <ArrowLeft className="w-4 h-4" />
+                Voltar
+              </Button>
+            </Link>
+          </div>
         </div>
       </header>
 

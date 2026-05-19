@@ -17,15 +17,15 @@ const MOCK_USER = {
   dataNasc: '1990-01-01'
 };
 
-// Verifica se está em modo de desenvolvimento
-const isDev = import.meta.env.DEV;
+// Verifica se deve usar mock (sem API configurada ou forçado)
+const useMock = import.meta.env.VITE_USE_MOCK === 'true' || !import.meta.env.VITE_API_URL;
 
 export const createAccount = async (info: InfoCognito) => {
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  // Mock em desenvolvimento
-  if (isDev) {
-    console.log('Mock: Criando conta em modo desenvolvimento');
+  // Usa mock se estiver em dev ou se não houver API configurada
+  if (useMock) {
+    console.log('Mock: Criando conta');
     return { status: 200, data: { message: 'Conta criada com sucesso (mock)' } };
   }
 
@@ -54,8 +54,8 @@ export const createAccount = async (info: InfoCognito) => {
 }
 
 export const login = async (info: InfoCognito) => {
-  // Mock em desenvolvimento - verificar credenciais
-  if (isDev) {
+  // Usa mock se estiver em dev ou se não houver API configurada
+  if (useMock) {
     if (info.email === MOCK_USER.email && info.senha === MOCK_USER.senha) {
       console.log('Mock: Login realizado com sucesso');
       return { 
@@ -66,8 +66,8 @@ export const login = async (info: InfoCognito) => {
         } 
       };
     }
-    // Simular erro para credenciais incorretas em dev
-    throw new Error('Credenciais inválidas (modo desenvolvimento)');
+    // Simular erro para credenciais incorretas
+    throw new Error('Credenciais inválidas');
   }
 
   const apiUrl = import.meta.env.VITE_API_URL;

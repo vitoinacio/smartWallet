@@ -237,7 +237,7 @@ const Home = () => {
         </section>
 
         {/* Stats Section */}
-        <section className="bg-blue-700 dark:bg-blue-900 py-12">
+        <section id="numeros" className="bg-blue-700 dark:bg-blue-900 py-12">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div className="text-white">
@@ -314,7 +314,7 @@ const Home = () => {
         </section>
 
         {/* Funcionalidades Grid */}
-        <section className="py-20 px-6 bg-gray-50 dark:bg-neutral-900">
+        <section id="funcionalidades" className="py-20 px-6 bg-gray-50 dark:bg-neutral-900">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <Badge
@@ -513,7 +513,7 @@ const Home = () => {
         </section>
 
         {/* CTA Final */}
-        <section className="py-20 px-6">
+        <section id="cta" className="py-20 px-6">
           <div className="max-w-4xl mx-auto">
             <Card className="bg-gradient-to-r from-blue-700 to-blue-600 dark:from-blue-800 dark:to-blue-900 p-8 md:p-12 text-center rounded-3xl">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -545,7 +545,7 @@ const Home = () => {
         </section>
 
         {/* Features Detail */}
-        <section className="py-20 px-6 bg-gray-50 dark:bg-neutral-900">
+        <section id="como-funciona" className="py-20 px-6 bg-gray-50 dark:bg-neutral-900">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <Badge

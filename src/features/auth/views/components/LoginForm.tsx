@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { z } from 'zod';
 import {
   Form,
@@ -49,15 +49,7 @@ const LoginForm = () => {
 
   return (
     <Card className="border-0 shadow-2xl bg-white dark:bg-neutral-800">
-      <CardHeader className="text-center pb-2 pt-8">
-        <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
-          Bem-vindo de volta
-        </CardTitle>
-        <CardDescription className="text-gray-500 dark:text-gray-400">
-          Entre com suas credenciais para continuar
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="px-8 pb-8 pt-4">
+      <CardContent className="px-8 pb-8 pt-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
@@ -145,20 +137,8 @@ const LoginForm = () => {
                 </>
               )}
             </Button>
-          </form>
-        </Form>
-
-        <div className="mt-6 text-center">
-          <p className="text-gray-600 dark:text-gray-400">
-            Não tem uma conta?{' '}
-            <Link
-              to="/CreateAccount"
-              className="text-blue-700 font-semibold hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-            >
-              Criar conta
-            </Link>
-          </p>
-        </div>
+</form>
+          </Form>
       </CardContent>
     </Card>
   );

@@ -1,4 +1,4 @@
-import { Wallet, ArrowLeft, Mail, Phone, MapPin, Clock, MessageSquare, Headphones, Briefcase, Heart, Send } from "lucide-react"
+import { Wallet, ArrowLeft, Mail, Phone, MapPin, Clock, MessageSquare, Headphones, Briefcase, Heart, Send, Sun, Moon } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,8 +12,10 @@ import {
 } from "@/components/ui/select"
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
+import useTheme from "@/core/viewModels/useTheme"
 
 const FaleConosco = () => {
+  const { handleTheme, theme } = useTheme()
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
@@ -51,9 +53,9 @@ const FaleConosco = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-neutral-950">
+    <div className="min-h-screen bg-gray-50 dark:bg-neutral-900">
       {/* Header */}
-      <header className="bg-white dark:bg-neutral-900 border-b border-gray-200 dark:border-neutral-800">
+      <header className="bg-white dark:bg-neutral-800 border-b border-gray-200 dark:border-neutral-800">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 group">
             <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -63,12 +65,17 @@ const FaleConosco = () => {
               Smart<span className="text-blue-600">Wallet</span>
             </span>
           </Link>
-          <Link to="/">
-            <Button variant="ghost" size="sm" className="gap-2">
-              <ArrowLeft className="w-4 h-4" />
-              Voltar
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" onClick={handleTheme} className="dark:text-white">
+              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>
-          </Link>
+            <Link to="/">
+              <Button variant="ghost" size="sm" className="gap-2">
+                <ArrowLeft className="w-4 h-4" />
+                Voltar
+              </Button>
+            </Link>
+          </div>
         </div>
       </header>
 

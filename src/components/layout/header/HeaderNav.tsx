@@ -7,12 +7,20 @@ export const links = [
         path: "#recursos"
     },
     {
+        title: "Funcionalidades",
+        path: "#funcionalidades"
+    },
+    {
         title: "Benefícios",
         path: "#beneficios"
     },
     {
         title: "Sobre Nós",
         path: "#sobre"
+    },
+    {
+        title: "Como Funciona",
+        path: "#como-funciona"
     },
 ]
 
