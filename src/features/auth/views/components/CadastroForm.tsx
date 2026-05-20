@@ -63,15 +63,8 @@ const CadastroForm = ({ onVoltarLogin: _onVoltarLogin }: CadastroFormProps) => {
     },
   });
 
-  const onSubmit = (values: SignupFormValues) => {
-    setNome(values.nome);
-    setSexo(values.sexo);
-    setEmail(values.email);
-    setSenha(values.senha);
-    setDataNasc(values.dataNasc);
-    handleSubmit({
-      preventDefault: () => {},
-    } as any);
+  const onSubmit = () => {
+    handleSubmit();
   };
 
   return (

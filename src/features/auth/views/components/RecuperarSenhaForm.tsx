@@ -34,7 +34,7 @@ export function RecuperarSenhaForm() {
     },
   });
 
-  const onSubmit = async (_values: RecuperarSenhaFormValues) => {
+  const onSubmit = async () => {
     setStatus('loading');
     setErrorMessage('');
 

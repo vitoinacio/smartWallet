@@ -17,8 +17,10 @@ export function useSignupPage() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: FormEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
 
     setErrorMessage(null);
     setIsLoading(true);
