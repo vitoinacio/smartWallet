@@ -1,4 +1,4 @@
-export * from './ResumoCards';
-export * from './TransacaoForm';
-export * from './TransacaoLista';
-export * from './FiltrosBar';
+export { ResumoCards } from './ResumoCards';
+export { TransacaoForm } from './TransacaoForm';
+export { TransacaoLista } from './TransacaoLista';
+export { FiltrosBar } from './FiltrosBar';

@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 export type TipoTransacao = 'receita' | 'despesa';
 
 export type StatusPagamento = 'pago' | 'pendente' | 'vencido';
@@ -30,6 +32,26 @@ export interface TransacaoFormData {
   observacao?: string;
   notificar: boolean;
 }
+
+export const TRANSACAO_SCHEMA = z.object({
+  descricao: z.string().min(1, 'Descrição é obrigatória'),
+  valor: z.string().min(1, 'Valor é obrigatório'),
+  tipo: z.enum(['receita', 'despesa']),
+  categoria: z.string().min(1, 'Categoria é obrigatória'),
+  data: z.string().min(1, 'Data é obrigatória'),
+  observacao: z.string().optional(),
+  notificar: z.boolean(),
+});
+
+export const TRANSACAO_DEFAULT: TransacaoFormData = {
+  descricao: '',
+  valor: '',
+  tipo: 'despesa',
+  categoria: '',
+  data: '',
+  observacao: '',
+  notificar: true,
+};
 
 export interface FiltrosTransacao {
   periodo: 'semana' | 'mes' | 'ano' | 'custom';

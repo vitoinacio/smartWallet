@@ -40,7 +40,11 @@ const signupSchema = z.object({
 
 type SignupFormValues = z.infer<typeof signupSchema>;
 
-const CadastroForm = () => {
+interface CadastroFormProps {
+  onVoltarLogin?: () => void;
+}
+
+const CadastroForm = ({ onVoltarLogin }: CadastroFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const { setNome, setSexo, setEmail, setSenha, setDataNasc, isLoading, handleSubmit } = useSignupPage();
 

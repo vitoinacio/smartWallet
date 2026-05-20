@@ -24,7 +24,11 @@ const signupSchema = z.object({
 
 type SignupFormValues = z.infer<typeof signupSchema>;
 
-const LoginForm = () => {
+interface LoginFormProps {
+  onEsqueceuSenha?: () => void;
+}
+
+const LoginForm = ({ onEsqueceuSenha }: LoginFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { setSenha, setEmail, isLoading, handleSubmit } = useLoginPage();
@@ -44,7 +48,7 @@ const LoginForm = () => {
     setSenha(values.senha);
     handleSubmit({
       preventDefault: () => {},
-    } as any);
+    } as React.FormEvent);
   };
 
   return (
@@ -88,7 +92,7 @@ const LoginForm = () => {
                       Senha
                     </FormLabel>
                     <Link
-                      to="#"
+                      to="/recuperar"
                       className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400"
                     >
                       Esqueceu a senha?
@@ -137,8 +141,8 @@ const LoginForm = () => {
                 </>
               )}
             </Button>
-</form>
-          </Form>
+          </form>
+        </Form>
       </CardContent>
     </Card>
   );
