@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import toast from '@/components/ui/sonner';
+import { toast } from '@/components/ui/sonner';
 import useTheme from '@/core/viewModels/useTheme';
 import useUserInfo from '@/core/viewModels/useUserInfo';
 import { AppSettings, SettingsTab } from '../models';
@@ -27,34 +27,22 @@ export function useSettings() {
         handleTheme();
       }
     }
-  }, []);
+  }, [theme, handleTheme]);
 
   const updateAppSettings = useCallback((key: keyof AppSettings, value: boolean | string) => {
     const newSettings = { ...appSettings, [key]: value };
     setAppSettings(newSettings);
     localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(newSettings));
 
-    if (key === 'tema' && value !== theme) {
-      handleTheme();
-    }
+if (key === 'tema' && value !== theme) {
+        handleTheme();
+      }
 
-    toast({
-      title: 'Configuração salva',
-      position: 'bottom-right',
-      type: 'success',
-      autoClose: 2000,
-      theme,
-    });
+    toast.success('Configuração salva');
   }, [appSettings, theme, handleTheme]);
 
   const exportData = useCallback(async () => {
-    toast({
-      title: 'Preparando exportação...',
-      position: 'bottom-right',
-      type: 'info',
-      autoClose: 2000,
-      theme,
-    });
+    toast.info('Preparando exportação...');
 
     setTimeout(() => {
       const data = {
@@ -71,32 +59,20 @@ export function useSettings() {
       a.click();
       URL.revokeObjectURL(url);
 
-      toast({
-        title: 'Dados exportados com sucesso!',
-        position: 'bottom-right',
-        type: 'success',
-        autoClose: 3000,
-        theme,
-      });
+      toast.success('Dados exportados com sucesso!');
     }, 1000);
-  }, [userData, appSettings, theme]);
+  }, [userData, appSettings]);
 
   const clearAllData = useCallback(async () => {
     localStorage.clear();
     sessionStorage.clear();
     
-    toast({
-      title: 'Dados limpos com sucesso',
-      position: 'bottom-right',
-      type: 'success',
-      autoClose: 3000,
-      theme,
-    });
+    toast.success('Dados limpos com sucesso');
 
     setTimeout(() => {
       window.location.href = '/';
     }, 2000);
-  }, [theme]);
+  }, []);
 
   const logout = useCallback(() => {
     sessionStorage.removeItem('UserProvider');

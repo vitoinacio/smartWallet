@@ -1,6 +1,5 @@
 export interface DashboardData {
   entrada: string;
-  theme: 'light' | 'dark';
 }
 
 export interface ErrorResponse {
@@ -10,12 +9,6 @@ export interface ErrorResponse {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   request?: any;
   message: string;
-}
-
-export interface ShowToastProps {
-  message: string;
-  type: 'success' | 'error';
-  theme: 'light' | 'dark';
 }
 
 interface ResponseData {

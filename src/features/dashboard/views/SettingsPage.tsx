@@ -1,4 +1,3 @@
-import { ToastContainer } from 'react-toastify';
 import { useSettings } from '../viewModels';
 import { SettingsNav, SettingsPerfil, SettingsApp, SettingsSeguranca, SettingsDados, SettingsSobre } from './components';
 
@@ -73,7 +72,6 @@ const SettingsPage = () => {
         </div>
       </div>
 
-      <ToastContainer />
     </main>
   );
 };

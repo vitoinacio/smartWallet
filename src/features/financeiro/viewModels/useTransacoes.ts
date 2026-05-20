@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import toast from '@/components/ui/sonner';
-import useTheme from '@/core/viewModels/useTheme';
+import { toast } from '@/components/ui/sonner';
 import {
   getDebitosData,
   setDebitosData,
@@ -24,7 +23,6 @@ export function useTransacoes() {
   const [transacoes, setTransacoes] = useState<Transacao[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { theme } = useTheme();
 
   const buscarTransacoes = useCallback(async () => {
     try {
@@ -45,17 +43,11 @@ export function useTransacoes() {
       
       setTransacoes(transacoesMapeadas);
     } catch {
-      toast({
-        title: 'Erro ao buscar transações',
-        position: 'bottom-right',
-        type: 'error',
-        autoClose: 3000,
-        theme,
-      });
+      toast.error('Erro ao buscar transações');
     } finally {
       setIsLoading(false);
     }
-  }, [theme]);
+  }, []);
 
   useEffect(() => {
     buscarTransacoes();
@@ -74,25 +66,13 @@ export function useTransacoes() {
         obs: data.observacao || '',
       });
 
-      toast({
-        title: 'Transação adicionada com sucesso!',
-        position: 'bottom-right',
-        type: 'success',
-        autoClose: 3000,
-        theme,
-      });
+      toast.success('Transação adicionada com sucesso!');
 
       await buscarTransacoes();
     } catch {
       const message = 'Erro ao adicionar transação';
       setError(message);
-      toast({
-        title: message,
-        position: 'bottom-right',
-        type: 'error',
-        autoClose: 3000,
-        theme,
-      });
+      toast.error('Erro ao adicionar transação');
     } finally {
       setIsLoading(false);
     }
@@ -104,23 +84,11 @@ export function useTransacoes() {
     try {
       await deleteDebitosData(id);
       
-      toast({
-        title: 'Transação excluída com sucesso!',
-        position: 'bottom-right',
-        type: 'success',
-        autoClose: 3000,
-        theme,
-      });
+      toast.success('Transação excluída com sucesso!');
 
       await buscarTransacoes();
     } catch {
-      toast({
-        title: 'Erro ao excluir transação',
-        position: 'bottom-right',
-        type: 'error',
-        autoClose: 3000,
-        theme,
-      });
+      toast.error('Erro ao excluir transação');
     } finally {
       setIsLoading(false);
     }

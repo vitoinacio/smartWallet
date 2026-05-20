@@ -1,4 +1,3 @@
-import { ToastContainer } from 'react-toastify';
 import { useTransacoes, useResumo, useFiltros } from '../viewModels';
 import {
   ResumoCards,
@@ -54,7 +53,6 @@ const Financeiro = () => {
         </div>
       </div>
 
-      <ToastContainer />
     </main>
   );
 };

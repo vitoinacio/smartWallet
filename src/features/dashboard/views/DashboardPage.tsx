@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { ToastContainer } from 'react-toastify';
 import { useEntrada, useResumo, useTransacoesRecentes } from '../viewModels';
 import {
   SaudacaoUsuario,
@@ -55,7 +54,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <ToastContainer />
     </main>
   );
 };

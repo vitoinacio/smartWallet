@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import toast from '@/components/ui/sonner';
-import useTheme from '@/core/viewModels/useTheme';
+import { toast } from '@/components/ui/sonner';
 import { getFinanceiro, setDashboardData } from '@/core/services/api/dashboard';
 import { DashboardEntrada } from '../models';
 
@@ -8,12 +7,11 @@ export function useEntrada() {
   const [entrada, setEntradaState] = useState<DashboardEntrada>({ valor: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const { theme } = useTheme();
 
   const buscarEntrada = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await getFinanceiro(theme);
+      const response = await getFinanceiro();
       const valor = response.data[0]?.entrada || '0';
       setEntradaState({ valor });
     } catch {
@@ -21,7 +19,7 @@ export function useEntrada() {
     } finally {
       setIsLoading(false);
     }
-  }, [theme]);
+  }, []);
 
   useEffect(() => {
     buscarEntrada();
@@ -36,26 +34,14 @@ export function useEntrada() {
 
     try {
       setIsLoading(true);
-      await setDashboardData({ entrada: novoValor, theme });
+      await setDashboardData({ entrada: novoValor });
       
-      toast({
-        title: 'Entrada atualizada com sucesso!',
-        position: 'bottom-right',
-        type: 'success',
-        autoClose: 3000,
-        theme,
-      });
+      toast.success('Entrada atualizada com sucesso!');
 
       setEntradaState({ valor: novoValor });
       setIsEditing(false);
     } catch {
-      toast({
-        title: 'Erro ao atualizar entrada',
-        position: 'bottom-right',
-        type: 'error',
-        autoClose: 3000,
-        theme,
-      });
+      toast.error('Erro ao atualizar entrada');
     } finally {
       setIsLoading(false);
     }

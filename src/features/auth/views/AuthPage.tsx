@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import type { Transition } from 'framer-motion';
-import { ToastContainer } from 'react-toastify';
 import LoginForm from '../views/components/LoginForm';
 import CadastroForm from '../views/components/CadastroForm';
 import { RecuperarSenhaForm } from '../views/components/RecuperarSenhaForm';
@@ -128,7 +127,6 @@ export default function AuthPage() {
   return (
     <div className="relative flex min-h-screen overflow-hidden bg-gray-50 dark:bg-neutral-900">
       <AuthContent />
-      <ToastContainer />
     </div>
   );
 }

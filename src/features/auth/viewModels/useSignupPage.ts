@@ -1,8 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createAccount } from '@/core/utils/cognito';
-import toast from '@/components/ui/sonner';
-import useTheme from '@/core/viewModels/useTheme';
+import { toast } from '@/components/ui/sonner';
 
 export function useSignupPage() {
   const [nome, setNome] = useState<string>('');
@@ -13,7 +12,6 @@ export function useSignupPage() {
   const [isTermsAccepted, setIsTermsAccepted] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const {theme} = useTheme()
 
   const navigate = useNavigate();
 
@@ -25,37 +23,16 @@ export function useSignupPage() {
     setErrorMessage(null);
     setIsLoading(true);
 
-    // Validação dos campos obrigatórios
     if (!nome || !email || !senha || !sexo || !dataNasc) {
       setErrorMessage('Todos os campos são obrigatórios.');
-      toast({
-        title: 'Todos os campos são obrigatórios.',
-        position: 'bottom-right',
-        type: 'error',
-        autoClose: 3000,
-        theme: theme,
-        hideProgressBar: false,
-        pauseOnHover: true,
-        closeOnClick: true,
-        draggable: true,
-      });
+      toast.error('Todos os campos são obrigatórios.');
       setIsLoading(false);
       return;
     }
 
     if (!isTermsAccepted) {
       setErrorMessage('Você precisa aceitar os termos para continuar.');
-      toast({
-        title: 'Por favor, aceite os termos.',
-        position: 'bottom-right',
-        type: 'error',
-        autoClose: 3000,
-        theme: theme,
-        hideProgressBar: false,
-        pauseOnHover: true,
-        closeOnClick: true,
-        draggable: true,
-      });
+      toast.error('Por favor, aceite os termos.');
       setIsLoading(false);
       return;
     }
@@ -71,30 +48,10 @@ export function useSignupPage() {
 
       if (response?.status === 200 || response?.status === 201) {
         sessionStorage.setItem('UserProvider', email);
-        toast({
-          title: 'Cadastro realizado com sucesso!',
-          position: 'bottom-right',
-          type: 'success',
-          autoClose: 3000,
-          theme: theme,
-          hideProgressBar: false,
-          pauseOnHover: true,
-          closeOnClick: true,
-          draggable: true,
-        });
+        toast.success('Cadastro realizado com sucesso!');
         navigate('/dashboard');
       } else {
-        toast({
-          title: 'Erro ao criar o usuário. Tente novamente.',
-          position: 'bottom-right',
-          type: 'error',
-          autoClose: 3000,
-          theme: theme,
-          hideProgressBar: false,
-          pauseOnHover: true,
-          closeOnClick: true,
-          draggable: true,
-        });
+        toast.error('Erro ao criar o usuário. Tente novamente.');
       }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
@@ -122,17 +79,7 @@ export function useSignupPage() {
       }
 
       setErrorMessage(message);
-      toast({
-        title: message,
-        position: 'bottom-right',
-        type: 'error',
-        autoClose: 3000,
-        theme: theme,
-        hideProgressBar: false,
-        pauseOnHover: true,
-        closeOnClick: true,
-        draggable: true,
-      });
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }

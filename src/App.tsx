@@ -1,4 +1,5 @@
 import { BrowserRouter} from 'react-router-dom';
+import { Toaster } from '@/components/ui/sonner';
 import './App.css';
 import AppRoutes from './routes/AppRoutes';
 
@@ -8,6 +9,7 @@ function App() {
       <BrowserRouter>
         <AppRoutes/>
       </BrowserRouter>
+      <Toaster position="top-right" richColors />
     </>
   );
 }

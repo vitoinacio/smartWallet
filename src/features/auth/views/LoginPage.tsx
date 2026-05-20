@@ -1,5 +1,4 @@
 import LoginForm from "../views/components/LoginForm"
-import { ToastContainer } from "react-toastify"
 import { Wallet, TrendingUp, PiggyBank } from "lucide-react"
 
 const Login = () => {
@@ -65,8 +64,6 @@ const Login = () => {
           <LoginForm />
         </div>
       </div>
-      
-      <ToastContainer />
     </div>
   )
 }

@@ -1,5 +1,4 @@
 import CadastroForm from '../views/components/CadastroForm';
-import { ToastContainer } from 'react-toastify';
 
 const Cadastro = () => {
   return (
@@ -7,7 +6,6 @@ const Cadastro = () => {
       <div className=''>
         <CadastroForm />
       </div>
-      <ToastContainer />
     </main>
   );
 };
