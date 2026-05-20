@@ -28,7 +28,8 @@ interface LoginFormProps {
   onEsqueceuSenha?: () => void;
 }
 
-const LoginForm = ({ onEsqueceuSenha }: LoginFormProps) => {
+const LoginForm = ({ onEsqueceuSenha: _onEsqueceuSenha }: LoginFormProps) => {
+  void _onEsqueceuSenha;
   const [showPassword, setShowPassword] = useState(false);
 
   const { setSenha, setEmail, isLoading, handleSubmit } = useLoginPage();

@@ -44,7 +44,8 @@ interface CadastroFormProps {
   onVoltarLogin?: () => void;
 }
 
-const CadastroForm = ({ onVoltarLogin }: CadastroFormProps) => {
+const CadastroForm = ({ onVoltarLogin: _onVoltarLogin }: CadastroFormProps) => {
+  void _onVoltarLogin;
   const [showPassword, setShowPassword] = useState(false);
   const { setNome, setSexo, setEmail, setSenha, setDataNasc, isLoading, handleSubmit } = useSignupPage();
 

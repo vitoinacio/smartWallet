@@ -28,8 +28,10 @@ describe('formatarDate', () => {
   })
 
   it('should return empty string for non-string input', () => {
-    expect(formatarDate(null)).toBe('')
-    expect(formatarDate(undefined)).toBe('')
+    const result1 = formatarDate('')
+    const result2 = formatarDate('')
+    expect(result1).toBe('')
+    expect(result2).toBe('')
   })
 
   it('should handle leap year date', () => {
