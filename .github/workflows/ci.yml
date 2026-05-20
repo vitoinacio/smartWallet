@@ -88,8 +88,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright with dependencies
-        run: npx playwright install --with-deps
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Verify browser installation
+        run: npx playwright show-browsers || ls -la ~/.cache/ms-playwright/ || ls -la /root/.cache/ms-playwright/
 
       - name: Run E2E tests
         run: npm run test:e2e
