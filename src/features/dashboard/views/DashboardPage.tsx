@@ -6,12 +6,27 @@ import {
   EntradaEditor,
   TransacoesRecentes,
   AcoesRapidas,
+  GraficoRosca,
+  GraficoBarras,
 } from './components';
+
+const CORES_CATEGORIAS: Record<string, string> = {
+  salario: '#22c55e',
+  investimento: '#3b82f6',
+  freelance: '#14b8a6',
+  alimentacao: '#f59e0b',
+  transporte: '#f97316',
+  moradia: '#8b5cf6',
+  lazer: '#ec4899',
+  saude: '#ef4444',
+  educacao: '#6366f1',
+  contas: '#6b7280',
+};
 
 const Dashboard = () => {
   const { entrada, isLoading, isEditing, atualizarEntrada, iniciarEdicao, cancelarEdicao } =
     useEntrada();
-  const { transacoes, isLoading: isLoadingTransacoes } = useTransacoesRecentes(5);
+  const { transacoes, isLoading: isLoadingTransacoes } = useTransacoesRecentes(4);
 
   const entradaNumerica = useMemo(() => {
     const valor = entrada.valor.replace(/[^0-9]/g, '');
@@ -19,6 +34,39 @@ const Dashboard = () => {
   }, [entrada.valor]);
 
   const resumoCalculado = useResumo({ entrada: entradaNumerica, transacoes });
+
+  const dadosRosca = useMemo(() => {
+    const agrupado: Record<string, number> = {};
+    transacoes.forEach((t) => {
+      const cat = t.categoria || 'outros';
+      agrupado[cat] = (agrupado[cat] || 0) + t.valor;
+    });
+    return Object.entries(agrupado).map(([nome, valor]) => ({
+      nome: nome.charAt(0).toUpperCase() + nome.slice(1),
+      valor,
+      cor: CORES_CATEGORIAS[nome] || '#6b7280',
+    }));
+  }, [transacoes]);
+
+  const dadosBarras = useMemo(() => {
+    const meses: Record<string, { receitas: number; despesas: number }> = {};
+    transacoes.forEach((t) => {
+      const data = new Date(t.data);
+      const mes = data.toLocaleDateString('pt-BR', { month: 'short' });
+      if (!meses[mes]) {
+        meses[mes] = { receitas: 0, despesas: 0 };
+      }
+      if (t.tipo === 'receita') {
+        meses[mes].receitas += t.valor;
+      } else {
+        meses[mes].despesas += t.valor;
+      }
+    });
+    return Object.entries(meses).map(([mes, valores]) => ({
+      mes: mes.charAt(0).toUpperCase() + mes.slice(1),
+      ...valores,
+    }));
+  }, [transacoes]);
 
   return (
     <main className="w-full mt-6 px-4 lg:px-6 pb-8 max-w-[1600px] mx-auto">
@@ -51,6 +99,11 @@ const Dashboard = () => {
               isLoading={isLoadingTransacoes}
             />
           </section>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <GraficoRosca dados={dadosRosca} />
+          <GraficoBarras dados={dadosBarras} />
         </div>
       </div>
 

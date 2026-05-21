@@ -3,6 +3,8 @@ export * from './EntradaEditor';
 export * from './TransacoesRecentes';
 export * from './AcoesRapidas';
 export * from './SaudacaoUsuario';
+export * from './GraficoRosca';
+export * from './GraficoBarras';
 export * from './SettingsNav';
 export * from './SettingsPerfil';
 export * from './SettingsApp';

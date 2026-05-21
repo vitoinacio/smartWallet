@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { toast } from '@/components/ui/sonner';
 import { getFinanceiro, setDashboardData } from '@/core/services/api/dashboard';
+import { mockService } from '@/mocks/transacoes';
+import { isTestUser } from '@/core/utils/isTestUser';
 import { DashboardEntrada } from '../models';
 
 export function useEntrada() {
@@ -11,6 +13,13 @@ export function useEntrada() {
   const buscarEntrada = useCallback(async () => {
     try {
       setIsLoading(true);
+
+      if (isTestUser()) {
+        const valor = mockService.getEntrada();
+        setEntradaState({ valor });
+        return;
+      }
+
       const response = await getFinanceiro();
       const valor = response.data[0]?.entrada || '0';
       setEntradaState({ valor });
@@ -34,6 +43,15 @@ export function useEntrada() {
 
     try {
       setIsLoading(true);
+
+      if (isTestUser()) {
+        mockService.setEntrada(novoValor);
+        toast.success('Entrada atualizada com sucesso!');
+        setEntradaState({ valor: novoValor });
+        setIsEditing(false);
+        return;
+      }
+
       await setDashboardData({ entrada: novoValor });
       
       toast.success('Entrada atualizada com sucesso!');

@@ -27,7 +27,8 @@ export function useSettings() {
         handleTheme();
       }
     }
-  }, [theme, handleTheme]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateAppSettings = useCallback((key: keyof AppSettings, value: boolean | string) => {
     const newSettings = { ...appSettings, [key]: value };

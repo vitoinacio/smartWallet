@@ -1,9 +1,13 @@
-import { useTransacoes, useResumo, useFiltros } from '../viewModels';
+import { useTransacoes, useResumo, useFiltros, useBudget, useRecorrencia } from '../viewModels';
 import {
   ResumoCards,
   TransacaoForm,
   TransacaoLista,
   FiltrosBar,
+  BudgetForm,
+  BudgetProgressList,
+  RecorrenciaForm,
+  RecorrenciaList,
 } from './components';
 
 const Financeiro = () => {
@@ -12,6 +16,19 @@ const Financeiro = () => {
   const resumo = useResumo(transacoes);
   const { filtros, transacoesFiltradas, definirPeriodo, filtrarPorTipo, limparFiltros } =
     useFiltros(transacoes);
+  const {
+    budgets,
+    progressos,
+    categoriasDisponiveis,
+    adicionarBudget,
+    removerBudget,
+  } = useBudget(transacoes);
+  const {
+    recorrencias,
+    criarRecorrencia,
+    excluirRecorrencia,
+    toggleRecorrencia,
+  } = useRecorrencia();
 
   const temFiltros = filtros.tipo !== undefined || filtros.categoria !== undefined;
 
@@ -22,6 +39,22 @@ const Financeiro = () => {
           <h2 className="text-2xl font-bold mb-4">Resumo Financeiro</h2>
           <ResumoCards resumo={resumo} />
         </section>
+
+        <BudgetForm
+          categorias={categoriasDisponiveis}
+          budgetsExistentes={budgets}
+          onAdicionar={adicionarBudget}
+        />
+
+        <BudgetProgressList progressos={progressos} onRemover={removerBudget} />
+
+        <RecorrenciaForm onCriar={criarRecorrencia} />
+
+        <RecorrenciaList
+          recorrencias={recorrencias}
+          onToggle={toggleRecorrencia}
+          onExcluir={excluirRecorrencia}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <section className="lg:col-span-1">

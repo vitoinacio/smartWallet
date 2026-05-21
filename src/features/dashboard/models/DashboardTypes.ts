@@ -15,6 +15,7 @@ export interface TransacaoRecente {
   descricao: string;
   valor: number;
   tipo: 'receita' | 'despesa';
+  categoria?: string;
   data: string;
   status: 'pago' | 'pendente' | 'vencido';
 }

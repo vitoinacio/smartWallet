@@ -5,6 +5,8 @@ import {
   setDebitosData,
   deleteDebitosData,
 } from '@/core/services/api/debitos';
+import { mockService } from '@/mocks/transacoes';
+import { isTestUser } from '@/core/utils/isTestUser';
 import {
   Transacao,
   TransacaoFormData,
@@ -27,6 +29,12 @@ export function useTransacoes() {
   const buscarTransacoes = useCallback(async () => {
     try {
       setIsLoading(true);
+
+      if (isTestUser()) {
+        setTransacoes(mockService.getTransacoes());
+        return;
+      }
+
       const response = await getDebitosData();
       
       const transacoesMapeadas: Transacao[] = response.data.map((item) => ({
@@ -58,6 +66,22 @@ export function useTransacoes() {
     setIsLoading(true);
 
     try {
+      if (isTestUser()) {
+        mockService.criarTransacao({
+          descricao: data.descricao,
+          valor: parseFloat(data.valor.replace(',', '.')) || 0,
+          tipo: data.tipo,
+          categoria: data.categoria,
+          data: data.data,
+          status: 'pendente',
+          observacao: data.observacao,
+          notificar: data.notificar,
+        });
+        toast.success('Transação adicionada com sucesso!');
+        await buscarTransacoes();
+        return;
+      }
+
       await setDebitosData({
         title: data.descricao,
         valor: data.valor,
@@ -67,7 +91,6 @@ export function useTransacoes() {
       });
 
       toast.success('Transação adicionada com sucesso!');
-
       await buscarTransacoes();
     } catch {
       const message = 'Erro ao adicionar transação';
@@ -82,10 +105,16 @@ export function useTransacoes() {
     setIsLoading(true);
 
     try {
+      if (isTestUser()) {
+        mockService.excluirTransacao(id);
+        toast.success('Transação excluída com sucesso!');
+        await buscarTransacoes();
+        return;
+      }
+
       await deleteDebitosData(id);
       
       toast.success('Transação excluída com sucesso!');
-
       await buscarTransacoes();
     } catch {
       toast.error('Erro ao excluir transação');
