@@ -35,3 +35,4 @@ playwright/.cache/
 #agents
 .synapos/
 .opencode/
+docs/
