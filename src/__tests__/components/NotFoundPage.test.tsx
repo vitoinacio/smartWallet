@@ -4,6 +4,23 @@ import { MemoryRouter } from 'react-router-dom';
 import { NotFoundPage } from '@/features/not-found/views/NotFoundPage';
 import { AuthProvider } from '@/core/viewModels/AuthContext';
 
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string) => {
+      const map: Record<string, string> = {
+        pageNotFound: 'Página não encontrada',
+        pageNotFoundHint: 'A página que você procura não existe',
+        back: 'Voltar',
+        homePage: 'Página Inicial',
+        goToDashboard: 'Ir para o Dashboard',
+      };
+      return map[key] ?? key;
+    },
+    i18n: { language: 'pt-BR', changeLanguage: vi.fn() },
+  }),
+  initReactI18next: { type: '3rdParty', init: vi.fn() },
+}));
+
 describe('NotFoundPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
