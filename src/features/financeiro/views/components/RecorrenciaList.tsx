@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -13,31 +14,22 @@ interface RecorrenciaListProps {
   onExcluir: (id: string) => void;
 }
 
-function getFrequenciaLabel(freq: string): string {
-  const labels: Record<string, string> = {
-    semanal: 'Semanal',
-    mensal: 'Mensal',
-    trimestral: 'Trimestral',
-    anual: 'Anual',
-  };
-  return labels[freq] || freq;
-}
-
 export function RecorrenciaList({ recorrencias, onToggle, onExcluir }: RecorrenciaListProps) {
+  const { t } = useTranslation('financeiro');
   if (recorrencias.length === 0) {
     return (
       <Card>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
             <Repeat className="w-5 h-5" />
-            Transações Recorrentes
+            {t('recorrencia.titulo')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <EmptyState
             icon={CalendarClock}
-            title="Nenhuma recorrência cadastrada"
-            description="Crie transações recorrentes para automatizar seu controle financeiro"
+            title={t('recorrencia.empty')}
+            description={t('recorrencia.emptyHint')}
           />
         </CardContent>
       </Card>
@@ -49,7 +41,7 @@ export function RecorrenciaList({ recorrencias, onToggle, onExcluir }: Recorrenc
       <CardHeader>
         <CardTitle className="text-lg flex items-center gap-2">
           <Repeat className="w-5 h-5" />
-          Transações Recorrentes ({recorrencias.length})
+          {t('recorrencia.titulo')} ({recorrencias.length})
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -69,14 +61,14 @@ export function RecorrenciaList({ recorrencias, onToggle, onExcluir }: Recorrenc
                     <div className="flex items-center gap-2">
                       <span className="font-medium">{rec.descricao}</span>
                       <Badge variant={rec.tipo === 'receita' ? 'default' : 'destructive'} className="text-xs">
-                        {rec.tipo === 'receita' ? 'Receita' : 'Despesa'}
+                        {rec.tipo === 'receita' ? t('recorrencia.receita') : t('recorrencia.despesa')}
                       </Badge>
                       <Badge variant="outline" className="text-xs">
-                        {getFrequenciaLabel(rec.frequencia)}
+                        {t(`recorrencia.${rec.frequencia}`)}
                       </Badge>
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      {categoria?.nome || rec.categoria} · Dia {rec.diaVencimento} · R$ {formatedBrl(rec.valor.toString())}
+                      {categoria?.nome || rec.categoria} · {t('recorrencia.diaVencimento')} {rec.diaVencimento} · R$ {formatedBrl(rec.valor.toString())}
                     </div>
                   </div>
                 </div>
@@ -95,8 +87,8 @@ export function RecorrenciaList({ recorrencias, onToggle, onExcluir }: Recorrenc
                     )}
                   </Button>
                   <ConfirmDialog
-                    title="Excluir Recorrência"
-                    description={`Tem certeza que deseja excluir a recorrência "${rec.descricao}"? Esta ação não pode ser desfeita.`}
+                    title={t('recorrencia.excluir')}
+                    description={t('recorrencia.excluirConfirm', { descricao: rec.descricao })}
                     onConfirm={() => onExcluir(rec.id)}
                   >
                     <Button

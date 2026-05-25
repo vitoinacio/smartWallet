@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import { useMetas } from '../viewModels';
 import { MetaCard, MetaForm, SkeletonMetas } from './components';
 import { formatedBrl } from '@/core/utils/formatedBrl';
 import { Target, AlertCircle } from 'lucide-react';
 
 const MetasPage = () => {
+  const { t } = useTranslation('metas');
   const {
     progressos,
     isLoading,
@@ -43,10 +45,10 @@ const MetasPage = () => {
         <section>
           <div className="flex items-center gap-3 mb-1">
             <Target className="w-6 h-6 text-primary" />
-            <h2 className="text-2xl font-bold">Metas de Economia</h2>
+            <h2 className="text-2xl font-bold">{t('title')}</h2>
           </div>
           <p className="text-sm text-muted-foreground">
-            Defina metas de economia e acompanhe seu progresso
+            {t('subtitle')}
           </p>
         </section>
 
@@ -54,19 +56,19 @@ const MetasPage = () => {
           <section>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="rounded-xl border bg-card p-4">
-                <p className="text-sm text-muted-foreground">Total Economizado</p>
+                <p className="text-sm text-muted-foreground">{t('totalEconomizado')}</p>
                 <p className="text-2xl font-bold text-green-600">
                   R$ {formatedBrl(totalEconomizado.toString())}
                 </p>
               </div>
               <div className="rounded-xl border bg-card p-4">
-                <p className="text-sm text-muted-foreground">Total Alvo</p>
+                <p className="text-sm text-muted-foreground">{t('totalAlvo')}</p>
                 <p className="text-2xl font-bold text-blue-600">
                   R$ {formatedBrl(totalAlvo.toString())}
                 </p>
               </div>
               <div className="rounded-xl border bg-card p-4">
-                <p className="text-sm text-muted-foreground">Metas Ativas</p>
+                <p className="text-sm text-muted-foreground">{t('metasAtivas')}</p>
                 <p className="text-2xl font-bold text-purple-600">
                   {ativas.length}
                 </p>
@@ -89,9 +91,9 @@ const MetasPage = () => {
                 <div className="flex flex-col items-center justify-center gap-4 py-16 border rounded-xl bg-card">
                   <Target className="w-16 h-16 text-muted-foreground/40" />
                   <div className="text-center">
-                    <p className="text-lg font-medium">Nenhuma meta definida</p>
+                    <p className="text-lg font-medium">{t('empty')}</p>
                     <p className="text-sm text-muted-foreground">
-                      Crie sua primeira meta de economia para começar
+                      {t('emptyHint')}
                     </p>
                   </div>
                 </div>

@@ -1,0 +1,28 @@
+{
+  "title": "Extrato Mensal",
+  "subtitle": "Visualize e exporte suas transações por mês",
+  "resumo": {
+    "receitas": "Receitas",
+    "despesas": "Despesas",
+    "saldo": "Saldo",
+    "negativo": "(negativo)"
+  },
+  "tabela": {
+    "empty": "Nenhuma transação no período",
+    "emptyHint": "Selecione outro mês ou adicione transações no Financeiro",
+    "data": "Data",
+    "descricao": "Descrição",
+    "categoria": "Categoria",
+    "valor": "Valor",
+    "status": "Status",
+    "pago": "Pago",
+    "pendente": "Pendente",
+    "vencido": "Vencido",
+    "encontradas": "{{count}} transação encontrada",
+    "encontradas_plural": "{{count}} transações encontradas",
+    "gerando": "Gerando...",
+    "csv": "CSV",
+    "excel": "Excel",
+    "pdf": "PDF"
+  }
+}

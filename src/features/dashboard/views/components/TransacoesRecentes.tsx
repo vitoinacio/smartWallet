@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -13,6 +14,7 @@ interface TransacoesRecentesProps {
 }
 
 const StatusBadge = ({ status }: { status: string }) => {
+  const { t } = useTranslation('dashboard');
   const colors = {
     pago: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300',
     pendente: 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300',
@@ -21,12 +23,13 @@ const StatusBadge = ({ status }: { status: string }) => {
 
   return (
     <span className={`px-2 py-1 rounded-full text-xs font-medium ${colors[status as keyof typeof colors]}`}>
-      {status === 'pago' ? 'Pago' : status === 'pendente' ? 'Pendente' : 'Vencido'}
+      {status === 'pago' ? t('transacoesRecentes.pago') : status === 'pendente' ? t('transacoesRecentes.pendente') : t('transacoesRecentes.vencido')}
     </span>
   );
 };
 
 export function TransacoesRecentes({ transacoes, isLoading }: TransacoesRecentesProps) {
+  const { t } = useTranslation('dashboard');
   if (isLoading) {
     return (
       <Card className="w-full">
@@ -68,11 +71,11 @@ export function TransacoesRecentes({ transacoes, isLoading }: TransacoesRecentes
       <CardHeader className="flex flex-row items-center justify-between pb-4">
         <CardTitle className="text-lg flex items-center gap-2">
           <Receipt className="w-5 h-5" />
-          Transações Recentes
+          {t('transacoesRecentes.title')}
         </CardTitle>
         <Link to="/financeiro">
           <Button variant="ghost" size="sm" className="text-muted-foreground">
-            Ver todas <ArrowRight className="w-4 h-4 ml-1" />
+            {t('transacoesRecentes.verTodas')} <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
         </Link>
       </CardHeader>
@@ -80,8 +83,8 @@ export function TransacoesRecentes({ transacoes, isLoading }: TransacoesRecentes
         {transacoes.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
             <TrendingDown className="w-12 h-12 mx-auto mb-3 opacity-50" />
-            <p>Nenhuma transação recente</p>
-            <p className="text-sm">Adicione suas despesas no módulo financeiro</p>
+            <p>{t('transacoesRecentes.empty')}</p>
+            <p className="text-sm">{t('transacoesRecentes.emptyHint')}</p>
           </div>
         ) : (
           <div className="space-y-3">

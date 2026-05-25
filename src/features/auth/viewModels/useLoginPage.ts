@@ -1,10 +1,12 @@
 import { login } from '@/core/utils/cognito';
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { toast } from '@/components/ui/sonner';
 import { getRedirectAfterLogin } from '@/core/utils/redirectAfterLogin';
 
 export function useLoginPage() {
+  const { t } = useTranslation('auth');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [senha, setSenha] = useState<string>('');
@@ -20,12 +22,12 @@ export function useLoginPage() {
     setIsLoading(true);
 
     if (!email || !senha) {
-      toast.error('Preencha todos os campos!');
+      toast.error(t('login.preenchaCampos'));
       setIsLoading(false);
       return;
     }
     if (!isValidEmail(email)) {
-      toast.error('Por favor, insira um e-mail válido.');
+      toast.error(t('login.emailInvalido'));
       setIsLoading(false);
       return;
     }
@@ -34,12 +36,12 @@ export function useLoginPage() {
       const response = await login({ email, senha });
       if (response?.status === 200 || response?.status === 201) {
         sessionStorage.setItem('UserProvider', email);
-        toast.success('Login realizado com sucesso!');
+        toast.success(t('login.sucesso'));
         navigate(getRedirectAfterLogin());
       }
     } catch (error: unknown) {
       const err = error as { message?: string }
-      const errorMessage = err?.message || 'Erro ao tentar fazer login';
+      const errorMessage = err?.message || t('login.erro');
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);

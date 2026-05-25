@@ -1,30 +1,32 @@
+import { useTranslation } from 'react-i18next';
 import { cn } from "@/lib/utils"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const links = [
     {
-        title: "Recursos",
+        title: "header.nav.recursos",
         path: "#recursos"
     },
     {
-        title: "Funcionalidades",
+        title: "header.nav.funcionalidades",
         path: "#funcionalidades"
     },
     {
-        title: "Benefícios",
+        title: "header.nav.beneficios",
         path: "#beneficios"
     },
     {
-        title: "Sobre Nós",
+        title: "header.nav.sobre",
         path: "#sobre"
     },
     {
-        title: "Como Funciona",
+        title: "header.nav.comoFunciona",
         path: "#como-funciona"
     },
 ]
 
 const HeaderNav = ({className}:{className?:string}) => {
+  const { t } = useTranslation('layout');
   return (
     <nav className="hidden md:flex items-center gap-1">
         {links.map((link, index) => (
@@ -36,7 +38,7 @@ const HeaderNav = ({className}:{className?:string}) => {
                     className
                 )}
             >
-                {link.title}
+                {t(link.title)}
             </a>
         ))}
     </nav>

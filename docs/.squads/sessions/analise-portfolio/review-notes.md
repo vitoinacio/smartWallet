@@ -1,70 +1,28 @@
-# Review Notes: analise-portfolio
+# Review Notes — Onboarding Multi-Step
 
-> Notas de revisão de todos os roles. Append-only.
+**Data:** 2026-05-25
+**Reviewer:** Renata Revisão
 
-## 2026-05-20 — Revisão Pós-Execução
+## Resumo
+- BLOCKERs: 3 (resolvidos)
+- SUGGESTIONs: 4 (2 resolvidos, 2 pendentes)
+- QUESTIONs: 1 (esclarecido)
+- PRAISEs: 3
 
-### Build
-- ✅ `npm run build` (tsc -b && vite build) — passou sem erros
-- ⚠️ 6 warnings de fast-refresh (shadcn/ui components) — não bloqueia
+## BLOCKERs Resolvidos
 
-### Lint
-- ✅ `npm run lint` — 0 errors, 6 warnings
-- Warnings são do react-refresh/only-export-components em arquivos shadcn/ui
+### BLOCKER 1: skip reference antes da declaração
+**Arquivo:** `src/features/onboarding/viewModels/useOnboarding.ts`
+**Correção:** Reordenado `finishOnboarding` antes de `skip`. `finishOnboarding` adicionado às dependências de `skip` no `useCallback`.
 
-### Tests
-- ✅ 33 unit tests passing (5 files)
-- ✅ 9 E2E tests configurados (Playwright)
+### BLOCKER 2: Erros de validação engolidos
+**Arquivo:** `src/features/onboarding/viewModels/useOnboarding.ts`
+**Correção:** Adicionado estado `StepErrors` com mensagens granulares por campo. ZodError.issues mapeado para erros específicos (nome, rendaMensal, categoriasInteresse, metaValor, metaPrazo). Props de erro conectadas aos componentes.
 
-### Code Quality
-- ✅ Sem `any` types (exceto catch blocks com eslint-disable)
-- ✅ Sem regras ESLint desabilitadas
-- ✅ Sonner nativo do shadcn/ui (sem wrapper customizado)
-- ✅ Componentes shadcn/ui usados como padrão (badge, progress, card, etc.)
+### BLOCKER 3: Upload de avatar inacessível por teclado
+**Arquivo:** `src/features/onboarding/views/components/StepWelcome/StepWelcome.tsx`
+**Correção:** Substituído `<Label>` por `<Button>` com `aria-label`, `sr-only` no input file com `ref` programático. Botão focalizável e acionável por teclado.
 
-### Architecture
-- ✅ Feature-based architecture mantida
-- ✅ MVVM pattern preservado
-- ✅ Mock system com detecção automática de usuário teste
-- ✅ localStorage para persistência de mock e orçamentos
-
-### CI/CD
-- ✅ ci.yml: 4 jobs (lint, typecheck, test, e2e)
-- ✅ deploy.yml: Vercel CLI
-- ✅ playwright.config.ts: Chrome do sistema local, Playwright Chromium no CI
-
----
-
-## 2026-05-20 — Revisão Fase 2.3 (Transações Recorrentes)
-
-### Build
-- ✅ `npm run build` — passou sem erros
-- ⚠️ 6 warnings de fast-refresh (shadcn/ui) — não bloqueia
-
-### Lint
-- ✅ `npm run lint` — 0 errors, 6 warnings
-
-### Tests
-- ✅ 33 unit tests passing
-- ✅ 9 E2E tests passing (Playwright com Chrome do sistema)
-
-### Funcionalidades adicionadas
-- Recorrências com geração automática mensal
-- 10 templates pré-configurados
-- Toggle ativar/pausar recorrências
-- Formulário com tipo, frequência, dia de vencimento
-- Persistência em localStorage
-
-### Issues corrigidos
-1. Playwright E2E falhando — caminho hardcoded de chromium-148 removido
-2. Agora usa Chrome do sistema local para testes E2E
-3. No CI continua usando `npx playwright install chromium`
-
-### Issues Corrigidos Durante Execução
-1. react-toastify → Sonner (shadcn/ui nativo)
-2. useToast hook removido (redundante com Sonner)
-3. Playwright hardcoded path → detecção automática CI
-4. useSettings infinite loop → useEffect sem dependências reativas
-5. Recharts ResponsiveContainer → altura fixa em pixels
-6. ShowToastProps removido de DashboardTypes (não usado)
-7. theme removido de DashboardData (não necessário com Sonner)
+## SUGGESTIONs Pendentes
+- **Focus management entre steps:** autoFocus adicionado no input de nome. Demais steps podem ser melhorados com foco programático.
+- **Renda input UX:** `QUESTION` sobre notação de centavos para renda mensal — comportamento intencional (entrada em centavos como o resto do app).

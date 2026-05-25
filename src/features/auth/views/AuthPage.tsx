@@ -5,6 +5,7 @@ import CadastroForm from '../views/components/CadastroForm';
 import { RecuperarSenhaForm } from '../views/components/RecuperarSenhaForm';
 import { AuthPainelBlue } from './components/AuthPainelBlue';
 import { AuthFormContainer } from './components/AuthFormContainer';
+import { useTranslation } from 'react-i18next';
 import { useAuthPage } from '../viewModels/useAuthPage';
 import {
   useAuthAnimation,
@@ -25,6 +26,7 @@ function AuthContent() {
     goToCriar,
     goToRecuperar,
   } = useAuthPage();
+  const { t } = useTranslation('auth');
 
   const { animationKey, transitionConfig } = useAuthAnimation();
 
@@ -54,8 +56,8 @@ function AuthContent() {
               />
 
               <AuthFormContainer
-                title="Bem-vindo de volta"
-                subtitle="Entre com suas credenciais para continuar"
+                title={t('login.title')}
+                subtitle={t('login.subtitle')}
               >
                 <LoginForm onEsqueceuSenha={goToRecuperar} />
               </AuthFormContainer>
@@ -76,8 +78,8 @@ function AuthContent() {
           >
             <div className="pointer-events-auto flex min-h-screen w-full">
               <AuthFormContainer
-                title="Crie sua conta"
-                subtitle="Preencha seus dados para começar"
+                title={t('cadastro.title')}
+                subtitle={t('cadastro.subtitle')}
               >
                 <CadastroForm onVoltarLogin={goToLogin} />
               </AuthFormContainer>
@@ -110,8 +112,8 @@ function AuthContent() {
               />
 
               <AuthFormContainer
-                title="Recuperar senha"
-                subtitle="Informe seu e-mail para continuar"
+                title={t('recuperar.title')}
+                subtitle={t('recuperar.subtitle')}
               >
                 <RecuperarSenhaForm />
               </AuthFormContainer>

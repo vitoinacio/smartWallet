@@ -1,10 +1,12 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { createAccount } from '@/core/utils/cognito';
 import { toast } from '@/components/ui/sonner';
 import { getRedirectAfterLogin } from '@/core/utils/redirectAfterLogin';
 
 export function useSignupPage() {
+  const { t } = useTranslation('auth');
   const [nome, setNome] = useState<string>('');
   const [senha, setSenha] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -21,14 +23,14 @@ export function useSignupPage() {
     setIsLoading(true);
 
     if (!nome || !email || !senha || !sexo || !dataNasc) {
-      setErrorMessage('Todos os campos são obrigatórios.');
-      toast.error('Todos os campos são obrigatórios.');
+      setErrorMessage(t('cadastro.camposObrigatorios'));
+      toast.error(t('cadastro.camposObrigatorios'));
       setIsLoading(false);
       return;
     }
     if (!isTermsAccepted) {
-      setErrorMessage('Você precisa aceitar os termos para continuar.');
-      toast.error('Por favor, aceite os termos.');
+      setErrorMessage(t('cadastro.aceitarTermosErro'));
+      toast.error(t('cadastro.aceitarTermosToast'));
       setIsLoading(false);
       return;
     }
@@ -37,10 +39,10 @@ export function useSignupPage() {
       const response = await createAccount({ nome, sexo, email, senha, dataNasc });
       if (response?.status === 200 || response?.status === 201) {
         sessionStorage.setItem('UserProvider', email);
-        toast.success('Cadastro realizado com sucesso!');
+        toast.success(t('cadastro.sucesso'));
         navigate(getRedirectAfterLogin());
       } else {
-        toast.error('Erro ao criar o usuário. Tente novamente.');
+        toast.error(t('cadastro.erro'));
       }
     } catch {
       // error já tratado no fluxo da UI

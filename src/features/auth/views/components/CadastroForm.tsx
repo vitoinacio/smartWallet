@@ -23,22 +23,7 @@ import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import Loading from '@/core/components/Loading';
 import { Eye, EyeClosed } from 'lucide-react';
-
-const signupSchema = z.object({
-  nome: z.string().min(3, 'O nome deve ter pelo menos 3 caracteres.'),
-  sexo: z
-    .string()
-    .min(1, 'O sexo é obrigatório')
-    .refine((val) => val !== '', { message: 'Selecione seu sexo.' }),
-  email: z.string().email('Insira um e-mail válido.'),
-  senha: z.string().min(8, 'A senha deve ter pelo menos 8 caracteres.'),
-  dataNasc: z.string().date('Insira a data de nascimento'),
-  termos: z.boolean().refine((val) => val === true, {
-    message: 'Você deve aceitar os termos e condições.',
-  }),
-});
-
-type SignupFormValues = z.infer<typeof signupSchema>;
+import { useTranslation, Trans } from 'react-i18next';
 
 interface CadastroFormProps {
   onVoltarLogin?: () => void;
@@ -46,6 +31,24 @@ interface CadastroFormProps {
 
 const CadastroForm = ({ onVoltarLogin: _onVoltarLogin }: CadastroFormProps) => {
   void _onVoltarLogin;
+  const { t } = useTranslation('auth');
+
+  const signupSchema = z.object({
+    nome: z.string().min(3, t('cadastro.nome')),
+    sexo: z
+      .string()
+      .min(1, t('cadastro.sexo'))
+      .refine((val) => val !== '', { message: t('cadastro.selecione') }),
+    email: z.string().email(t('cadastro.email')),
+    senha: z.string().min(8, t('cadastro.senha')),
+    dataNasc: z.string().date(t('cadastro.dataNasc')),
+    termos: z.boolean().refine((val) => val === true, {
+      message: t('cadastro.aceitarTermos'),
+    }),
+  });
+
+  type SignupFormValues = z.infer<typeof signupSchema>;
+
   const [showPassword, setShowPassword] = useState(false);
   const { setNome, setSexo, setEmail, setSenha, setDataNasc, isLoading, handleSubmit } = useSignupPage();
 
@@ -78,12 +81,12 @@ const CadastroForm = ({ onVoltarLogin: _onVoltarLogin }: CadastroFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Nome completo
+                    {t('cadastro.nome')}
                   </FormLabel>
                   <FormControl>
                     <Input
                       type="text"
-                      placeholder="Digite seu nome completo"
+                      placeholder={t('cadastro.nomePlaceholder')}
                       className="h-12 bg-gray-50 dark:bg-neutral-700 border-gray-200 dark:border-neutral-600 focus:ring-2 focus:ring-blue-500"
                       {...field}
                       onChange={(e) => {
@@ -104,7 +107,7 @@ const CadastroForm = ({ onVoltarLogin: _onVoltarLogin }: CadastroFormProps) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      Sexo
+                      {t('cadastro.sexo')}
                     </FormLabel>
                     <Select
                       value={field.value}
@@ -115,14 +118,14 @@ const CadastroForm = ({ onVoltarLogin: _onVoltarLogin }: CadastroFormProps) => {
                     >
                       <FormControl>
                         <SelectTrigger className="h-12 bg-gray-50 dark:bg-neutral-700 border-gray-200 dark:border-neutral-600">
-                          <SelectValue placeholder="Selecione" />
+                          <SelectValue placeholder={t('cadastro.selecione')} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="Masculino">Masculino</SelectItem>
-                        <SelectItem value="Feminino">Feminino</SelectItem>
-                        <SelectItem value="LGBTQIAP+">LGBTQIAP+</SelectItem>
-                        <SelectItem value="Outro">Outro</SelectItem>
+                        <SelectItem value="Masculino">{t('cadastro.masculino')}</SelectItem>
+                        <SelectItem value="Feminino">{t('cadastro.feminino')}</SelectItem>
+                        <SelectItem value="LGBTQIAP+">{t('cadastro.lgbtqiap')}</SelectItem>
+                        <SelectItem value="Outro">{t('cadastro.outro')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -136,7 +139,7 @@ const CadastroForm = ({ onVoltarLogin: _onVoltarLogin }: CadastroFormProps) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      Data de nasc.
+                      {t('cadastro.dataNasc')}
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -161,12 +164,12 @@ const CadastroForm = ({ onVoltarLogin: _onVoltarLogin }: CadastroFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    E-mail
+                    {t('cadastro.email')}
                   </FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="seu@email.com"
+                      placeholder={t('login.emailPlaceholder')}
                       className="h-12 bg-gray-50 dark:bg-neutral-700 border-gray-200 dark:border-neutral-600 focus:ring-2 focus:ring-blue-500"
                       {...field}
                       onChange={(e) => {
@@ -186,7 +189,7 @@ const CadastroForm = ({ onVoltarLogin: _onVoltarLogin }: CadastroFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Senha
+                    {t('cadastro.senha')}
                   </FormLabel>
                   <div className="relative">
                     <FormControl>
@@ -229,14 +232,14 @@ const CadastroForm = ({ onVoltarLogin: _onVoltarLogin }: CadastroFormProps) => {
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel className="text-sm text-gray-600 dark:text-gray-400">
-                      Eu aceito os{' '}
-                      <a href="/termos" className="text-blue-700 hover:underline" target="_blank">
-                        Termos de Uso
-                      </a>{' '}
-                      e a{' '}
-                      <a href="/privacidade" className="text-blue-700 hover:underline" target="_blank">
-                        Política de Privacidade
-                      </a>
+                      <Trans
+                        t={t}
+                        i18nKey="cadastro.aceitarTermos"
+                        components={[
+                          <a href="/termos" className="text-blue-700 hover:underline" target="_blank">x</a>,
+                          <a href="/privacidade" className="text-blue-700 hover:underline" target="_blank">x</a>,
+                        ]}
+                      />
                     </FormLabel>
                     <FormMessage />
                   </div>
@@ -249,7 +252,7 @@ const CadastroForm = ({ onVoltarLogin: _onVoltarLogin }: CadastroFormProps) => {
               className="w-full h-12 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-lg transition-colors"
               disabled={isLoading}
             >
-              {isLoading ? <Loading size={20} message="" className="pt-3" /> : 'Criar conta'}
+              {isLoading ? <Loading size={20} message="" className="pt-3" /> : t('cadastro.criarConta')}
             </Button>
           </form>
         </Form>

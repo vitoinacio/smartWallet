@@ -25,7 +25,7 @@ export interface DataManagement {
 
 export const SETTINGS_TABS = [
   { id: 'perfil', label: 'Perfil', icon: 'User' },
-  { id: 'app', label: 'Aplicativo', icon: 'Smartphone' },
+  { id: 'aplicativo', label: 'Aplicativo', icon: 'Smartphone' },
   { id: 'seguranca', label: 'Segurança', icon: 'Shield' },
   { id: 'dados', label: 'Dados', icon: 'Database' },
   { id: 'sobre', label: 'Sobre', icon: 'Info' },

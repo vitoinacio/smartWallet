@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -11,6 +12,7 @@ interface SettingsDadosProps {
 }
 
 export function SettingsDados({ onExport, onClearData }: SettingsDadosProps) {
+  const { t } = useTranslation('settings');
   const [termoExportacao, setTermoExportacao] = useState(false);
   const [termoLimpeza, setTermoLimpeza] = useState(false);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
@@ -21,19 +23,19 @@ export function SettingsDados({ onExport, onClearData }: SettingsDadosProps) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Database className="h-5 w-5" />
-            Exportar Dados
+            {t('dados.exportar')}
           </CardTitle>
           <CardDescription>
-            Baixe uma cópia de todos os seus dados
+            {t('dados.exportarDesc')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-start gap-3 p-4 rounded-lg bg-muted/30">
             <FileJson className="h-5 w-5 text-muted-foreground mt-0.5" />
             <div>
-              <Label className="font-medium">Arquivo JSON</Label>
+              <Label className="font-medium">{t('dados.json')}</Label>
               <p className="text-sm text-muted-foreground">
-                Exporta todas as suas transações, configurações e dados do perfil
+                {t('dados.jsonDesc')}
               </p>
             </div>
           </div>
@@ -45,7 +47,7 @@ export function SettingsDados({ onExport, onClearData }: SettingsDadosProps) {
               onCheckedChange={(checked) => setTermoExportacao(checked as boolean)}
             />
             <Label htmlFor="termo-export" className="text-sm">
-              Confirmo que os dados exportados são apenas para uso pessoal
+              {t('dados.confirmar')}
             </Label>
           </div>
 
@@ -56,7 +58,7 @@ export function SettingsDados({ onExport, onClearData }: SettingsDadosProps) {
             disabled={!termoExportacao}
           >
             <Download className="h-4 w-4 mr-2" />
-            Baixar Dados
+            {t('dados.baixar')}
           </Button>
         </CardContent>
       </Card>
@@ -66,10 +68,10 @@ export function SettingsDados({ onExport, onClearData }: SettingsDadosProps) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-red-600">
               <Trash2 className="h-5 w-5" />
-              Limpar Todos os Dados
+              {t('dados.limpar')}
             </CardTitle>
             <CardDescription>
-              Esta ação é irreversível
+              {t('dados.limparWarning')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -79,7 +81,7 @@ export function SettingsDados({ onExport, onClearData }: SettingsDadosProps) {
               onClick={() => setShowClearConfirm(true)}
             >
               <Trash2 className="h-4 w-4 mr-2" />
-              Limpar Dados
+              {t('dados.limparDados')}
             </Button>
           </CardContent>
         </Card>
@@ -88,14 +90,13 @@ export function SettingsDados({ onExport, onClearData }: SettingsDadosProps) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-red-600">
               <AlertTriangle className="h-5 w-5" />
-              Confirmar Limpeza
+              {t('dados.confirmarLimpeza')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="p-4 rounded-lg bg-red-50 dark:bg-red-950/30">
               <p className="text-sm text-red-800 dark:text-red-200">
-                Todos os seus dados serão excluídos permanentemente. 
-                Esta ação não pode ser desfeita.
+                {t('dados.limparDesc')}
               </p>
             </div>
 
@@ -106,7 +107,7 @@ export function SettingsDados({ onExport, onClearData }: SettingsDadosProps) {
                 onCheckedChange={(checked) => setTermoLimpeza(checked as boolean)}
               />
               <Label htmlFor="termo-limpar" className="text-sm">
-                Eu entendo que esta ação é irreversível
+                {t('dados.entendo')}
               </Label>
             </div>
 
@@ -119,7 +120,7 @@ export function SettingsDados({ onExport, onClearData }: SettingsDadosProps) {
                   setTermoLimpeza(false);
                 }}
               >
-                Cancelar
+                {t('dados.cancelar')}
               </Button>
               <Button 
                 variant="destructive" 
@@ -127,7 +128,7 @@ export function SettingsDados({ onExport, onClearData }: SettingsDadosProps) {
                 disabled={!termoLimpeza}
                 onClick={onClearData}
               >
-                Confirmar
+                {t('dados.confirmar')}
               </Button>
             </div>
           </CardContent>

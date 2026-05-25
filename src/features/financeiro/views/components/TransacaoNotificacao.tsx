@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { UseFormReturn } from 'react-hook-form';
 import { TransacaoFormData } from '../../models';
 
@@ -6,6 +7,7 @@ interface TransacaoNotificacaoProps {
 }
 
 export function TransacaoNotificacao({ form }: TransacaoNotificacaoProps) {
+  const { t } = useTranslation('financeiro');
   return (
     <div className="flex items-center gap-2">
       <input
@@ -16,7 +18,7 @@ export function TransacaoNotificacao({ form }: TransacaoNotificacaoProps) {
         className="w-4 h-4"
       />
       <label htmlFor="notificar" className="text-sm text-muted-foreground">
-        Notificar quando estiver próxima do vencimento
+        {t('form.notificar')}
       </label>
     </div>
   );

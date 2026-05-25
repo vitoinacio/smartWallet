@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,6 +7,7 @@ import { Shield, Lock, Key, Smartphone, AlertTriangle } from 'lucide-react';
 import { useState } from 'react';
 
 export function SettingsSeguranca() {
+  const { t } = useTranslation('settings');
   const [senhaAtual, setSenhaAtual] = useState('');
   const [novaSenha, setNovaSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
@@ -28,23 +30,23 @@ export function SettingsSeguranca() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Shield className="h-5 w-5" />
-            Autenticação
+            {t('seguranca.title')}
           </CardTitle>
-          <CardDescription>Gerencie a segurança da sua conta</CardDescription>
+          <CardDescription>{t('seguranca.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between p-4 rounded-lg border bg-muted/30">
             <div className="flex items-center gap-3">
               <Smartphone className="h-5 w-5 text-muted-foreground" />
               <div>
-                <Label className="font-medium">Autenticação em 2 Fatores</Label>
+                <Label className="font-medium">{t('seguranca.twoFactor')}</Label>
                 <p className="text-sm text-muted-foreground">
-                  Adicione uma camada extra de segurança
+                  {t('seguranca.twoFactorDesc')}
                 </p>
               </div>
             </div>
             <Button variant="outline" size="sm">
-              Configurar
+              {t('seguranca.configurar')}
             </Button>
           </div>
         </CardContent>
@@ -54,13 +56,13 @@ export function SettingsSeguranca() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Lock className="h-5 w-5" />
-            Alterar Senha
+            {t('seguranca.alterarSenha')}
           </CardTitle>
-          <CardDescription>Atualize sua senha de acesso</CardDescription>
+          <CardDescription>{t('seguranca.alterarSenhaDesc')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-2">
-            <Label>Senha Atual</Label>
+            <Label>{t('seguranca.senhaAtual')}</Label>
             <Input 
               type="password" 
               placeholder="••••••••"
@@ -70,7 +72,7 @@ export function SettingsSeguranca() {
           </div>
 
           <div className="grid gap-2">
-            <Label>Nova Senha</Label>
+            <Label>{t('seguranca.novaSenha')}</Label>
             <Input 
               type="password" 
               placeholder="••••••••"
@@ -78,12 +80,12 @@ export function SettingsSeguranca() {
               onChange={(e) => setNovaSenha(e.target.value)}
             />
             <p className="text-xs text-muted-foreground">
-              Mínimo de 8 caracteres com letras e números
+              {t('seguranca.novaSenhaHint')}
             </p>
           </div>
 
           <div className="grid gap-2">
-            <Label>Confirmar Nova Senha</Label>
+            <Label>{t('seguranca.confirmarSenha')}</Label>
             <Input 
               type="password" 
               placeholder="••••••••"
@@ -98,7 +100,7 @@ export function SettingsSeguranca() {
             disabled={!senhaAtual || !novaSenha || !confirmarSenha}
           >
             <Key className="h-4 w-4 mr-2" />
-            Alterar Senha
+            {t('seguranca.alterar')}
           </Button>
         </CardContent>
       </Card>
@@ -107,14 +109,13 @@ export function SettingsSeguranca() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-amber-600">
             <AlertTriangle className="h-5 w-5" />
-            Sessões Ativas
+            {t('seguranca.sessoesAtivas')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="p-4 rounded-lg bg-amber-50 dark:bg-amber-950/30">
             <p className="text-sm text-amber-800 dark:text-amber-200">
-              Você está conectado neste dispositivo. Para sair de todos os dispositivos, 
-              clique em "Sair da Conta" na seção Perfil.
+              {t('seguranca.sessoesDesc')}
             </p>
           </div>
         </CardContent>

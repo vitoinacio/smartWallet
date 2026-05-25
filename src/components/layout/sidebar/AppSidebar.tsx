@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Wallet, LayoutDashboard, TrendingUp, Target, FileText, Settings, LogOut, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -16,14 +17,14 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { title: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { title: 'Financeiro', href: '/financeiro', icon: TrendingUp },
-  { title: 'Metas', href: '/metas', icon: Target },
-  { title: 'Extrato', href: '/extrato', icon: FileText },
+  { title: 'sidebar.nav.dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { title: 'sidebar.nav.financeiro', href: '/financeiro', icon: TrendingUp },
+  { title: 'sidebar.nav.metas', href: '/metas', icon: Target },
+  { title: 'sidebar.nav.extrato', href: '/extrato', icon: FileText },
 ];
 
 const bottomNavItems: NavItem[] = [
-  { title: 'Configurações', href: '/settings', icon: Settings },
+  { title: 'sidebar.nav.configuracoes', href: '/settings', icon: Settings },
 ];
 
 function isMobile(): boolean {
@@ -31,6 +32,7 @@ function isMobile(): boolean {
 }
 
 export function AppSidebar() {
+  const { t } = useTranslation('layout');
   const { isCollapsed, setIsCollapsed } = useSidebarState();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
@@ -91,8 +93,8 @@ export function AppSidebar() {
           </div>
           {(!isCollapsed || isOverlay) && (
             <div className="flex flex-col">
-              <span className="text-base font-bold">SmartWallet</span>
-              <span className="text-xs text-sidebar-foreground/70">Gestão Financeira</span>
+              <span className="text-base font-bold">{t('sidebar.title')}</span>
+              <span className="text-xs text-sidebar-foreground/70">{t('sidebar.subtitle')}</span>
             </div>
           )}
         </div>
@@ -123,10 +125,10 @@ export function AppSidebar() {
                   : "hover:bg-sidebar-accent hover:text-sidebar-foreground text-sidebar-foreground/80",
                 (isCollapsed || isOverlay) && !isMobileView && "justify-center px-0"
               )}
-              title={isCollapsed && !isOverlay && !isMobileView ? item.title : undefined}
+              title={isCollapsed && !isOverlay && !isMobileView ? t(item.title) : undefined}
             >
               <item.icon className="h-5 w-5 shrink-0" />
-              {(!isCollapsed || isOverlay) && <span>{item.title}</span>}
+              {(!isCollapsed || isOverlay) && <span>{t(item.title)}</span>}
             </button>
           );
         })}
@@ -146,10 +148,10 @@ export function AppSidebar() {
                   : "hover:bg-sidebar-accent hover:text-sidebar-foreground text-sidebar-foreground/80",
                 (isCollapsed || isOverlay) && !isMobileView && "justify-center px-0"
               )}
-              title={isCollapsed && !isOverlay && !isMobileView ? item.title : undefined}
+              title={isCollapsed && !isOverlay && !isMobileView ? t(item.title) : undefined}
             >
               <item.icon className="h-5 w-5 shrink-0" />
-              {(!isCollapsed || isOverlay) && <span>{item.title}</span>}
+              {(!isCollapsed || isOverlay) && <span>{t(item.title)}</span>}
             </button>
           );
         })}
@@ -178,7 +180,7 @@ export function AppSidebar() {
             {(!isCollapsed || isOverlay) && (
               <div className="flex-1 min-w-0">
                 <p className="truncate text-sm font-medium text-sidebar-foreground">
-                  {userData?.nome || 'Usuário'}
+                  {userData?.nome || t('sidebar.user')}
                 </p>
                 <p className="truncate text-xs text-sidebar-foreground/70">
                   {userData?.email || 'usuario@email.com'}
@@ -188,9 +190,9 @@ export function AppSidebar() {
             
             {(!isCollapsed || isOverlay) && (
             <ConfirmDialog
-              title="Sair da Conta"
-              description="Tem certeza que deseja sair da sua conta?"
-              confirmText="Sair"
+              title={t('navUser.sairConfirmTitle')}
+              description={t('navUser.sairConfirmMessage')}
+              confirmText={t('navUser.sair')}
               confirmClassName="bg-red-600 hover:bg-red-700"
               onConfirm={logout}
             >
@@ -198,7 +200,7 @@ export function AppSidebar() {
                 variant="ghost"
                 size="icon"
                 className="h-8 w-8 shrink-0 text-red-500 hover:text-red-600 hover:bg-red-50"
-                title="Sair"
+                title={t('navUser.sair')}
               >
                 <LogOut className="h-4 w-4" />
               </Button>

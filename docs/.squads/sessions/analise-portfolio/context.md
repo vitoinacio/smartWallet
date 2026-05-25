@@ -1,67 +1,51 @@
 # Contexto: analise-portfolio
 
-> Arquivo central da feature. Lido por todos os roles antes de executar qualquer step.
-> Atualizado pelo role que fizer discovery/investigação.
-
 ## O que é
-Análise completa do projeto SmartWallet como tech lead, avaliando funcionalidades essenciais, diferenciais de portfólio, telas, UX, regras de negócio e roadmap priorizado para tornar o projeto mais completo e atrativo para recrutadores.
+Implementar fluxo de onboarding multi-step para novos usuários do SmartWallet. Três etapas: perfil, renda, meta de economia. Experiência guiada com progresso visual.
 
 ## Por que existe
-O usuário (Victor Oliveira) deseja transformar este projeto em um case forte para seu portfólio, destacando suas habilidades como desenvolvedor. O objetivo é tornar a aplicação mais completa, sólida, bem estruturada e alinhada às melhores práticas de desenvolvimento.
+Melhorar a primeira experiência do usuário, aumentar retenção e guiar o cadastro de informações financeiras iniciais de forma amigável. Sem onboarding, o usuário cai em um dashboard vazio sem contexto.
 
 ## Decisões tomadas
-- Squad: analise-wallet-001 (Squad Engineer)
-- Modo: complete (execução completa com ADRs e contexto)
-- Domínio: engineer (foco em análise técnica e arquitetura)
-- Usuário de teste: `teste@gmail.com` → mock interativo via localStorage
-- Demais usuários → API real
+- Onboarding como feature isolada em `src/features/onboarding/`
+- Estado via Context (completion status) + localStorage (dados do usuário)
+- Barra de progresso entre steps
+- Validação Zod por step
+- Skip automático se onboarding já completo
+- Redirecionar para onboarding após cadastro/login primeiro acesso
+
+## Status
+FASE 1 (Onboarding Multi-Step) — **Concluída ✅**
+- Implementado, revisado por Renata, 3 BLOCKERs resolvidos
+- Pronto para FASE 2 (Backend Real)
+
+## Resultados
+- 20+ arquivos criados/modificados
+- 0 erros TypeScript, 0 erros ESLint
+- 3 ADRs documentados e seguidos
+- Todos os componentes acessíveis por teclado (BLOCKER 3 resolvido)
+- Validação Zod com feedback granular (BLOCKER 2 resolvido)
+- Closure ordering corrigido (BLOCKER 1 resolvido)
+
+## Estrutura final
+```
+src/features/onboarding/
+├── views/
+│   ├── OnboardingPage.tsx       → container com step router
+│   ├── components/
+│   │   ├── StepWelcome.tsx      → boas-vindas + nome/foto
+│   │   ├── StepIncome.tsx       → renda + categorias
+│   │   ├── StepGoal.tsx         → meta de economia
+│   │   └── OnboardingProgress.tsx → barra de progresso
+├── viewModels/
+│   ├── useOnboarding.ts        → estado dos steps
+│   └── useOnboardingForm.ts    → formulário por step
+└── models/
+    └── OnboardingTypes.ts      → tipos e schemas Zod
+```
 
 ## O que não fazer
-- Não criar backend real (manter mock atual)
-- Não modificar a stack principal (React/TypeScript/Vite)
-- Não usar `any` types (exceto catch blocks com eslint-disable)
-- Não desabilitar regras do ESLint
-- Não criar wrappers customizados quando o shadcn/ui já tem o componente nativo
-
-## Fases implementadas
-
-### Fase 1.1 — Testes Automatizados
-- Vitest + Testing Library (33 testes unitários)
-- Playwright E2E (9 testes)
-- Configuração de CI para testes
-
-### Fase 1.2 — CI/CD Pipeline
-- GitHub Actions: lint, typecheck, unit tests, E2E tests
-- Deploy automático via Vercel CLI
-- Playwright configurado para CI (sem caminho hardcoded)
-
-### Fase 1.3 — Refatorações de Qualidade
-- ToastContainer centralizado em App.tsx (removido de 6 páginas)
-- react-toastify → Sonner (shadcn/ui nativo)
-- Hook useToast removido (redundante)
-- ViewModels atualizados para usar toast nativo
-
-### Fase 2.1 — Gráficos Interativos
-- Recharts instalado
-- GraficoRosca (despesas por categoria)
-- GraficoBarras (receitas vs despesas mensal)
-- Integrados no Dashboard
-
-### Fase 2.2 — Orçamentos e Metas
-- Budget mensal por categoria
-- Barras de progresso com status (ok/warning/excedido)
-- Alertas automáticos ao atingir 80% e 100%
-- CRUD completo via localStorage
-
-### Fase 2.3 — Transações Recorrentes
-- Recorrências com frequência (semanal, mensal, trimestral, anual)
-- 10 templates pré-configurados (Netflix, Spotify, Aluguel, etc)
-- Geração automática de instâncias no início do mês
-- Toggle ativar/pausar, excluir
-- Playwright E2E corrigido — usa Chrome do sistema local (9/9 passando)
-
-### Mock Interativo
-- Detecção automática por email (`teste@gmail.com`)
-- 19 transações realistas pré-carregadas
-- CRUD completo: adicionar/excluir transações e renda mensal
-- Persistência em localStorage
+- Não criar mais de 3 steps (manter onboarding rápido)
+- Não pedir dados complexos (só o essencial)
+- Não bloquear o usuário (permitir pular)
+- Não remover rota de login atual

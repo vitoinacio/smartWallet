@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ResumoFinanceiro } from '../../models';
 import { formatedBrl } from '@/core/utils/formatedBrl';
@@ -8,13 +9,14 @@ interface ResumoCardsProps {
 }
 
 export function ResumoCards({ resumo }: ResumoCardsProps) {
+  const { t } = useTranslation('financeiro');
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <Card className="border-l-4 border-l-green-500">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
             <TrendingUp className="w-4 h-4 text-green-500" />
-            Receitas
+            {t('resumo.receitas')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -28,7 +30,7 @@ export function ResumoCards({ resumo }: ResumoCardsProps) {
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
             <TrendingDown className="w-4 h-4 text-red-500" />
-            Despesas
+            {t('resumo.despesas')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -42,7 +44,7 @@ export function ResumoCards({ resumo }: ResumoCardsProps) {
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
             <Wallet className="w-4 h-4 text-blue-500" />
-            Saldo
+            {t('resumo.saldo')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -60,7 +62,7 @@ export function ResumoCards({ resumo }: ResumoCardsProps) {
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
             <AlertCircle className="w-4 h-4 text-amber-500" />
-            Pendências
+            {t('resumo.pendencias')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -70,14 +72,14 @@ export function ResumoCards({ resumo }: ResumoCardsProps) {
           <p className="text-xs text-muted-foreground mt-1">
             {resumo.transacoesVencidas > 0 && (
               <span className="text-red-500">
-                {resumo.transacoesVencidas} vencida(s)
+                {t('resumo.vencida', { count: resumo.transacoesVencidas })}
               </span>
             )}
             {resumo.transacoesVencidas > 0 &&
               resumo.transacoesPendentes > 0 &&
               ', '}
             {resumo.transacoesPendentes > 0 && (
-              <span>{resumo.transacoesPendentes} pendente(s)</span>
+              <span>{t('resumo.pendente', { count: resumo.transacoesPendentes })}</span>
             )}
           </p>
         </CardContent>

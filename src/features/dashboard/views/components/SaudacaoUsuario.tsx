@@ -1,16 +1,18 @@
+import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton';
 import useUserInfo from '@/core/viewModels/useUserInfo';
 import { Card, CardContent } from '@/components/ui/card';
 import { User, Calendar } from 'lucide-react';
 
 export function SaudacaoUsuario() {
+  const { t } = useTranslation('dashboard');
   const { userData, loading } = useUserInfo();
 
   const getSaudacao = () => {
     const hora = new Date().getHours();
-    if (hora < 12) return 'Bom dia';
-    if (hora < 18) return 'Boa tarde';
-    return 'Boa noite';
+    if (hora < 12) return t('saudacao.bomDia');
+    if (hora < 18) return t('saudacao.boaTarde');
+    return t('saudacao.boaNoite');
   };
 
   const getDataFormatada = () => {
@@ -43,7 +45,7 @@ export function SaudacaoUsuario() {
     );
   }
 
-  const nome = userData?.nome || 'Usuário';
+  const nome = userData?.nome || t('saudacao.usuario');
 
   return (
     <Card className="bg-gradient-to-r from-blue-600 to-blue-700 text-white overflow-hidden relative">
@@ -56,7 +58,7 @@ export function SaudacaoUsuario() {
               {getSaudacao()}, {nome.split(' ')[0]}!
             </h2>
             <p className="text-blue-100 mt-1">
-              Aqui está o resumo das suas finanças
+              {t('saudacao.subtitle')}
             </p>
           </div>
           <div className="hidden sm:flex items-center gap-4 text-blue-100">

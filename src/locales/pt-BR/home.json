@@ -1,0 +1,96 @@
+{
+  "hero": {
+    "title": "Gestão financeira simplificada",
+    "subtitle": "Tenha controle total das suas finanças em um só lugar",
+    "cta": "Comece agora mesmo",
+    "emailPlaceholder": "Seu melhor email",
+    "start": "Começar",
+    "freeTag": "É rápido e gratuito. Sem compromisso.",
+    "noCard": "Sem cartão",
+    "noMonthly": "Sem mensalidade",
+    "noAds": "Sem anúncios",
+    "free": "100% Gratuito",
+    "emailInvalid": "Insira um e-mail válido.",
+    "dashboardAlt": "Dashboard SmartWallet"
+  },
+  "features": {
+    "title": "Recursos Principais",
+    "subtitle": "Tudo que você precisa para controlar seu dinheiro",
+    "analiseCategorias": "Análise de Categorias",
+    "analiseDesc": "Identifique onde você mais gasta",
+    "controleTotal": "Controle Total",
+    "controleDesc": "Simplifique a gestão do seu dinheiro",
+    "planejamento": "Planejamento Financeiro",
+    "planejamentoDesc": "Orçamentos personalizados",
+    "badge": "Recursos Principais",
+    "highlight1": "Identifique onde você mais gasta",
+    "highlight2": "Simplifique a gestão do seu dinheiro",
+    "highlight3": "Orçamentos personalizados"
+  },
+  "funcionalidades": {
+    "title": "Por que escolher a gente?",
+    "subtitle": "Funcionalidades que fazem a diferença",
+    "dashboard": "Dashboard Interativo",
+    "debitos": "Controle de Débitos",
+    "notificacoes": "Notificações Inteligentes",
+    "dadosSeguros": "Dados Seguros",
+    "acessoMobile": "Acesso Mobile",
+    "gratuito": "Gratuito",
+    "badge": "Por que escolher a gente?",
+    "dashboardDesc": "Visualize seus gastos em gráficos claros e intuitivos",
+    "debitosDesc": "Gerencie suas contas a pagar com alertas de vencimento",
+    "notificacoesDesc": "Receba alertas sobre despesas próximas do limite",
+    "dadosSegurosDesc": "Sua informação protegida com segurança AWS",
+    "acessoMobileDesc": "Use em qualquer dispositivo, a qualquer hora",
+    "gratuitoDesc": "Todas as funcionalidades sem custo algum"
+  },
+  "comoFunciona": {
+    "title": "Como Funciona",
+    "subtitle": "Recursos em destaque",
+    "controleDebitos": "Controle de Débitos",
+    "controleDebitosDesc": "Adicione, edite e acompanhe todas as suas contas a pagar. Nunca mais perca uma data de vencimento.",
+    "dashboardCompleto": "Dashboard Completo",
+    "dashboardCompletoDesc": "Visualize suas entradas, saídas e restante em um único painel. Gráficos claros para melhores decisões.",
+    "alertasVencimento": "Alertas de Vencimento",
+    "alertasVencimentoDesc": "Receba notificações sobre contas próximas do vencimento. Configure alertas personalizados."
+  },
+  "beneficios": {
+    "title": "Benefícios",
+    "badge": "Benefícios",
+    "subtitle": "Por que usar o SmartWallet?",
+    "planoGratuito": "Plano Gratuito",
+    "planoDesc": "Use todas as funcionalidades",
+    "paraSempre": "Para sempre",
+    "cta": "Começar Gratuitamente",
+    "item1": "Visualização completa das suas finanças",
+    "item2": "Organização automática por categorias",
+    "item3": "Alertas de contas a pagar",
+    "item4": "Metas de economia personalizadas",
+    "item5": "Relatórios detalhados de gastos",
+    "item6": "Interface simples e intuitiva"
+  },
+  "cta": {
+    "title": "Pronto para controlar suas finanças?",
+    "subtitle": "Junte-se a milhares de usuários que já transformaram sua vida financeira",
+    "criarConta": "Criar Conta Grátis",
+    "jaTenhoConta": "Já tenho conta"
+  },
+  "sobre": {
+    "title": "Sobre Nós",
+    "subtitle": "Quem somos",
+    "welcome": "Bem-vindo à Smart Wallet!",
+    "equipe": "Nossa Equipe",
+    "missao": "Nossa Missão",
+    "fundado": "Founded",
+    "gratuito": "Gratuito",
+    "paragrafo1": "Somos líderes em soluções inovadoras para gestão financeira pessoal. Nossa missão é capacitar você a tomar decisões financeiras mais inteligentes e informadas.",
+    "paragrafo2": "Entendemos que a gestão de despesas pode ser um desafio. Por isso, desenvolvemos ferramentas que tornam o acompanhamento dos seus gastos simples e direto, oferecendo uma visão clara e detalhada de suas finanças.",
+    "quote": "\"Transformando a forma como você gerencia suas finanças pessoais\""
+  },
+  "stats": {
+    "usuarios": "Usuários",
+    "gerenciados": "Gerenciados",
+    "debitosControlados": "Débitos Controlados",
+    "avaliacao": "Avaliação"
+  }
+}

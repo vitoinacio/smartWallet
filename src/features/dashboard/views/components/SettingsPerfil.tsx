@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
@@ -20,6 +21,7 @@ interface SettingsPerfilProps {
 }
 
 export function SettingsPerfil({ userData, loading, onLogout }: SettingsPerfilProps) {
+  const { t } = useTranslation('settings');
   if (loading) {
     return (
       <div className="space-y-6">
@@ -69,8 +71,8 @@ export function SettingsPerfil({ userData, loading, onLogout }: SettingsPerfilPr
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Informações do Perfil</CardTitle>
-          <CardDescription>Visualize suas informações pessoais</CardDescription>
+          <CardTitle>{t('perfil.title')}</CardTitle>
+          <CardDescription>{t('perfil.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex items-center gap-4">
@@ -81,8 +83,8 @@ export function SettingsPerfil({ userData, loading, onLogout }: SettingsPerfilPr
               </AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="text-lg font-semibold">{userData?.nome || 'Usuário'}</h3>
-              <p className="text-sm text-muted-foreground">{userData?.email || 'Email não cadastrado'}</p>
+              <h3 className="text-lg font-semibold">{userData?.nome || t('perfil.usuario')}</h3>
+              <p className="text-sm text-muted-foreground">{userData?.email || t('perfil.emailNaoCadastrado')}</p>
             </div>
           </div>
 
@@ -90,7 +92,7 @@ export function SettingsPerfil({ userData, loading, onLogout }: SettingsPerfilPr
             <div className="grid gap-2">
               <Label className="flex items-center gap-2">
                 <User className="h-4 w-4" />
-                Nome
+                {t('perfil.nome')}
               </Label>
               <Input 
                 value={userData?.nome || ''} 
@@ -102,7 +104,7 @@ export function SettingsPerfil({ userData, loading, onLogout }: SettingsPerfilPr
             <div className="grid gap-2">
               <Label className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                Email
+                {t('perfil.email')}
               </Label>
               <Input 
                 value={userData?.email || ''} 
@@ -114,7 +116,7 @@ export function SettingsPerfil({ userData, loading, onLogout }: SettingsPerfilPr
             <div className="grid gap-2">
               <Label className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
-                Data de Nascimento
+                {t('perfil.dataNascimento')}
               </Label>
               <Input 
                 value={userData?.datanasc || ''} 
@@ -125,21 +127,21 @@ export function SettingsPerfil({ userData, loading, onLogout }: SettingsPerfilPr
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Para alterar informações do perfil, entre em contato com o suporte.
+            {t('perfil.alterarInfo')}
           </p>
         </CardContent>
       </Card>
 
       <Card className="border-red-200 dark:border-red-900">
         <CardHeader>
-          <CardTitle className="text-red-600">Zona de Perigo</CardTitle>
-          <CardDescription>Ações irreversíveis</CardDescription>
+          <CardTitle className="text-red-600">{t('perfil.zonaPerigo')}</CardTitle>
+          <CardDescription>{t('perfil.acoesIrreversiveis')}</CardDescription>
         </CardHeader>
         <CardContent>
           <ConfirmDialog
-            title="Sair da Conta"
-            description="Tem certeza que deseja sair da sua conta?"
-            confirmText="Sair"
+            title={t('perfil.sairConta')}
+            description={t('perfil.sairConfirm')}
+            confirmText={t('perfil.sair')}
             confirmClassName="bg-red-600 hover:bg-red-700"
             onConfirm={onLogout}
           >
@@ -148,7 +150,7 @@ export function SettingsPerfil({ userData, loading, onLogout }: SettingsPerfilPr
               className="w-full border-red-300 text-red-600 hover:bg-red-50 hover:text-red-700"
             >
               <LogOut className="h-4 w-4 mr-2" />
-              Sair da Conta
+              {t('perfil.sairConta')}
             </Button>
           </ConfirmDialog>
         </CardContent>

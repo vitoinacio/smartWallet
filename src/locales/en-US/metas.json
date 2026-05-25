@@ -1,0 +1,46 @@
+{
+  "title": "Savings Goals",
+  "subtitle": "Set savings goals and track your progress",
+  "totalEconomizado": "Total Saved",
+  "totalAlvo": "Total Target",
+  "metasAtivas": "Active Goals",
+  "empty": "No goals set",
+  "emptyHint": "Create your first savings goal to get started",
+  "card": {
+    "emAndamento": "In progress",
+    "quaseLa": "Almost there",
+    "atingida": "Achieved!",
+    "excluir": "Delete Goal",
+    "excluirConfirm": "Are you sure you want to delete this goal?",
+    "estender": "+ Extend",
+    "restante": "Remaining:",
+    "economizado": "Saved:",
+    "addValor": "Add saved amount",
+    "novoAlvo": "New target ($):",
+    "salvar": "Save"
+  },
+  "form": {
+    "novaMeta": "New Savings Goal",
+    "definir": "Set New Goal",
+    "nome": "Goal Name",
+    "nomePlaceholder": "e.g. Emergency fund",
+    "valorAlvo": "Target Amount ($)",
+    "tipo": "Type",
+    "mensal": "Monthly",
+    "anual": "Yearly",
+    "categoria": "Category (optional)",
+    "selecione": "Select a category",
+    "criar": "Create Goal",
+    "cancelar": "Cancel",
+    "sugestao": "Suggestion:"
+  },
+  "dashboardCard": {
+    "title": "Savings Goals",
+    "verTodas": "View all",
+    "emptyCtaBefore": "No goals yet.",
+    "emptyCtaLink": "Create goal",
+    "atingidas": "goals achieved",
+    "total": "Total:",
+    "restantes": "goals remaining"
+  }
+}

@@ -1,90 +1,95 @@
-# Plano: analise-portfolio
+# Plan: SmartWallet — Roadmap de Evolução
 
-> Gerado em: 2026-05-24 | Squad: frontend-001 (Ana Arquitetura)
-> Artefato estático de referência humana — progresso real é rastreado em state.json.
-
----
-
-## Roadmap Priorizado — SmartWallet
-
-### P0 — Essenciais (MVP+)
-
-| # | Funcionalidade | Esforço | Depende de |
-|---|---------------|---------|------------|
-| 1 | **Metas de Economia com progresso visual** | 2 dias | Nenhuma |
-| 2 | **Extrato mensal + exportação CSV** | 2 dias | Transações existentes |
-| 3 | **Estado vazio (empty states) em listas** | 0.5 dia | Nenhuma |
-| 4 | **Skeleton loading em todas as páginas** | 0.5 dia | shadcn Skeleton |
-| 5 | **Página 404 + redirect** | 0.5 dia | Nenhuma |
-| 6 | **Confirmação ao excluir (AlertDialog)** | 0.5 dia | shadcn AlertDialog |
-| 7 | **Lazy loading (React.lazy + Suspense)** | 0.5 dia | Nenhuma |
-| 8 | **UserProvider com redirect salvo** | 0.5 dia | Nenhuma |
-
-### P1 — Diferenciais Técnicos
-
-| # | Funcionalidade | Esforço | Depende de |
-|---|---------------|---------|------------|
-| 9 | **Calculadora de Investimentos (juros compostos)** | 3 dias | Nenhuma |
-| 10 | **Filtro full-text + valor min/max** | 1 dia | useFiltros |
-| 11 | **Animações de transição (framer-motion)** | 1 dia | framer-motion |
-| 12 | **Responsividade mobile (tabela → cards)** | 2 dias | shadcn Card |
-| 13 | **Categorização inteligente por palavra-chave** | 1 dia | Transações |
-| 14 | **Onboarding interativo (tour guiado)** | 2 dias | framer-motion |
-| 15 | **Testes de integração (Playwright fluxo completo)** | 2 dias | Features |
-| 16 | **Tooltips informativos no Dashboard** | 0.5 dia | shadcn Tooltip |
-
-### P2 — Diferenciais de Mercado
-
-| # | Funcionalidade | Esforço | Dep. técnica |
-|---|---------------|---------|-------------|
-| 17 | **PWA (manifest + service worker)** — vite-plugin-pwa | 1 dia | Lib externa |
-| 18 | **Temas customizáveis (paletas)** | 2 dias | next-themes |
-| 19 | **Internacionalização pt-BR + en-US** — react-i18next | 3 dias | Lib externa |
-| 20 | **Performance monitoring + Lighthouse CI** | 1 dia | GitHub Actions |
-| 21 | **Atalhos de teclado** (Ctrl+N, Ctrl+F, Escape) | 1 dia | Nenhuma |
-| 22 | **Orçamento com rollover mensal** | 1 dia | useBudget |
-| 23 | **Importar extrato bancário (CSV)** | 3 dias | Nenhuma |
-| 24 | **Relatórios Detalhados (página nova)** | 3 dias | Transações |
+> Leia `context.md` e `architecture.md` antes de trabalhar em qualquer fase.
+> Atualize este arquivo ao concluir cada fase — marque tarefas e adicione comentários.
 
 ---
 
-## Melhorias de UX/UI (transversais)
+## FASE 1: Onboarding Multi-Step [Concluída ✅]
+> Agents: ana-arquitetura-fe → rodrigo-react → renata-revisao-fe
+> Skill: nenhuma
+> Estimativa: ~2h (real: ~3h com revisão)
 
-Aplicar durante qualquer implementação:
+Implementar fluxo de onboarding para novos usuários com 3 etapas:
+1. Boas-vindas + perfil (nome, foto)
+2. Renda mensal + categorias de interesse
+3. Meta de economia inicial
 
-1. **Empty states** em todas as listas (TransacaoEmpty já existe — verificar uso)
-2. **Feedback visual** em ações críticas (loading state + toast)
-3. **Responsividade mobile** (sidebar colapsa, tabela → cards)
-4. **Skeleton loading** (shadcn Skeleton já existe)
-5. **Validação inline** nos formulários (React Hook Form + Zod já configurados)
-6. **Animações de rota** (framer-motion AnimatePresence)
-7. **Tooltips informativos** (shadcn Tooltip já existe)
-8. **Atalhos de teclado**
+### Tarefa 1.1: Arquitetura do Onboarding [Concluída ✅]
+- Criado `src/features/onboarding/` com estrutura de componentes
+- Definidos tipos, estados e contratos em `models/OnboardingTypes.ts`
+- Decidido estado: localStorage (mock) + rota guard OnboardingGuard
+
+### Tarefa 1.2: Implementação dos Steps [Concluída ✅]
+- StepWelcome, StepIncome, StepGoal implementados
+- ProgressIndicator com barra de progresso + labels
+- Validação com Zod por step (schemas separados)
+- Salvamento no localStorage via onboarding.service.ts
+- Skip permitido em todos os steps
+
+### Tarefa 1.3: Integração com Auth [Concluída ✅]
+- OnboardingGuard redireciona onboardados para /dashboard
+- OnboardingGuard protege rota /onboarding
+- Skip total marca como completo com dados default
+- AuthRedirect e OnboardingGuard funcionam em cascata sem loop
+
+### Pontos de Atenção (pós-review)
+- finishOnboarding deve ser declarado antes de skip (closure ordering)
+- Erros Zod propagados individualmente por campo (não engolidos)
+- Upload de avatar acessível por teclado (Button + ref programático)
+- FileReader abort-safe com mountedRef em caso de unmount
 
 ---
 
-## Regras de Negócio a Implementar
+## FASE 2: Backend Real [Não Iniciada ⏳]
+> Agents: a definir
+> Estimativa: ~8h
+> Depende de: FASE 1
 
-1. Saldo nunca negativo sem alerta
-2. Orçamento por categoria (com rollover opcional)
-3. Transações recorrentes com pausa por período
-4. Status automático: vencido (data passou), pendente (futuro)
-5. Meta de economia com sugestão de 10% da renda
-6. Categorias vinculadas a tipo (receita/despesa)
-7. Cache local com timestamps de validade (30 min)
-8. Proteção de rotas com redirect salvo
-9. Reset de dados na conta demo (UI em Settings)
+### Mock Removal
+- Substituir mocks de transações por API real
+- Substituir mock de auth por JWT
+- Substituir mock de usuário por banco
 
 ---
 
-## Refatorações Técnicas (contínuas)
+## FASE 3: PWA + Offline [Não Iniciada ⏳]
+> Estimativa: ~3h
+> Depende de: FASE 2
 
-- [ ] Renomear `package.json` de `teste-shadcdn` → `smartwallet`
-- [ ] Padronizar barrel files: usar `index.ts` (não `Index.tsx`)
-- [ ] Migrar tipos de transação de `id: number` para `id: string` (UUID)
-- [ ] Adicionar try/catch em `getUserId()` (dashboard service)
-- [ ] Centralizar entrada mensal em hook compartilhado
-- [ ] Usar `Intl.DateTimeFormat` para datas locais
-- [ ] Extrair service layer (MockTransactionService / ApiTransactionService)
-- [ ] Migrar lista de transações para `@tanstack/react-table`
-- [ ] Reutilizar Zod schemas com `z.infer` em vez de interfaces manuais
+---
+
+## FASE 4: Relatórios Anuais [Não Iniciada ⏳]
+> Estimativa: ~4h
+> Depende de: FASE 2
+
+---
+
+## FASE 5: i18n pt-BR + en-US [Concluída ✅]
+> Estimativa: ~3h (real: ~1h com task agents)
+> Depende de: Frontend puro (sem backend)
+> Libs: i18next, react-i18next, i18next-browser-languagedetector
+
+### Infraestrutura
+- `src/lib/i18n.ts` — configuração i18next com 11 namespaces
+- `src/locales/pt-BR/` — 11 arquivos JSON (common, layout, home, auth, onboarding, dashboard, financeiro, metas, extrato, settings, legal)
+- `src/locales/en-US/` — mesmos 11 arquivos com traduções para inglês
+- Language detector via localStorage + navigator
+- Seletor de idioma em Settings → Aplicativo
+
+### Escopo
+- ~65+ arquivos .tsx modificados
+- ~600+ strings substituídas por `t('namespace:key')`
+- Namespaces por feature (common, layout, home, auth, onboarding, dashboard, financeiro, metas, extrato, settings, legal)
+- pt-BR como fallback padrão
+- Idioma detectado do navegador e persistido em localStorage
+
+### Observações
+- FASE 5 não depende de backend — foi executada diretamente sobre a FASE 1
+- 0 erros TypeScript, 0 erros ESLint (apenas warnings pré-existentes)
+- Legal pages (Termos/Privacidade) com seções traduzidas (conteúdo jurídico extenso manteria ambos idiomas)
+
+---
+
+## FASE 6: Acessibilidade WCAG AA [Não Iniciada ⏳]
+> Estimativa: ~3h

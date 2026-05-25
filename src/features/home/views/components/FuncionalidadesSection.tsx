@@ -1,26 +1,28 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TrendingUp, PiggyBank, Bell, Shield, Smartphone, Wallet } from 'lucide-react';
 
-const funcionalidades = [
-  { icon: <TrendingUp className="w-6 h-6" />, title: 'Dashboard Interativo', description: 'Visualize seus gastos em gráficos claros e intuitivos' },
-  { icon: <PiggyBank className="w-6 h-6" />, title: 'Controle de Débitos', description: 'Gerencie suas contas a pagar com alertas de vencimento' },
-  { icon: <Bell className="w-6 h-6" />, title: 'Notificações Inteligentes', description: 'Receba alertas sobre despesas próximas do limite' },
-  { icon: <Shield className="w-6 h-6" />, title: 'Dados Seguros', description: 'Sua informação protegida com segurança AWS' },
-  { icon: <Smartphone className="w-6 h-6" />, title: 'Acesso Mobile', description: 'Use em qualquer dispositivo, a qualquer hora' },
-  { icon: <Wallet className="w-6 h-6" />, title: 'Gratuito', description: 'Todas as funcionalidades sem custo algum' },
-];
-
 export function FuncionalidadesSection() {
+  const { t } = useTranslation('home');
+  const funcionalidades = [
+    { icon: <TrendingUp className="w-6 h-6" />, title: t('funcionalidades.dashboard'), description: t('funcionalidades.dashboardDesc') },
+    { icon: <PiggyBank className="w-6 h-6" />, title: t('funcionalidades.debitos'), description: t('funcionalidades.debitosDesc') },
+    { icon: <Bell className="w-6 h-6" />, title: t('funcionalidades.notificacoes'), description: t('funcionalidades.notificacoesDesc') },
+    { icon: <Shield className="w-6 h-6" />, title: t('funcionalidades.dadosSeguros'), description: t('funcionalidades.dadosSegurosDesc') },
+    { icon: <Smartphone className="w-6 h-6" />, title: t('funcionalidades.acessoMobile'), description: t('funcionalidades.acessoMobileDesc') },
+    { icon: <Wallet className="w-6 h-6" />, title: t('funcionalidades.gratuito'), description: t('funcionalidades.gratuitoDesc') },
+  ];
+
   return (
     <section id="funcionalidades" className="py-20 px-6 bg-gray-50 dark:bg-neutral-900">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 border-green-500 text-green-700 dark:text-green-400">
-            Por que escolher a gente?
+            {t('funcionalidades.badge')}
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Funcionalidades que fazem a <span className="text-green-600 dark:text-green-400">diferença</span>
+            {t('funcionalidades.title')}
           </h2>
         </div>
 

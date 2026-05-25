@@ -1,9 +1,11 @@
 import { lazy, Suspense, useEffect, type ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Loader2 } from 'lucide-react';
 import LayoutApp from '@/core/components/LayoutApp';
 import UserProvider from '@/core/viewModels/UserProvider';
+import { OnboardingGuard } from '@/core/components/OnboardingGuard';
 import { AuthProvider, useAuth } from '@/core/viewModels/AuthContext';
 import { NotFoundPage } from '@/features/not-found/views/NotFoundPage';
 
@@ -17,6 +19,7 @@ const Settings = lazy(() => import('@/features/dashboard/views/SettingsPage'));
 const TermosDeUso = lazy(() => import('@/features/pages-legais/views/TermosPage'));
 const PoliticaPrivacidade = lazy(() => import('@/features/pages-legais/views/PrivacidadePage'));
 const FaleConosco = lazy(() => import('@/features/pages-legais/views/FaleConoscoPage'));
+const Onboarding = lazy(() => import('@/features/onboarding/views/OnboardingPage'));
 
 function AuthRedirect({ children }: { children: ReactNode }) {
   const { isLoggedIn } = useAuth();
@@ -48,11 +51,12 @@ function ContentFallback() {
 }
 
 function FullPageFallback() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-neutral-900 dark:to-neutral-800">
       <div className="flex flex-col items-center gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-blue-600 dark:text-blue-400" />
-        <p className="text-sm text-muted-foreground">Carregando...</p>
+        <p className="text-sm text-muted-foreground">{t('loading')}</p>
       </div>
     </div>
   );
@@ -83,13 +87,16 @@ const AppRoutes = () => {
         <Route path="/termos" element={<Suspense fallback={<FullPageFallback />}><TermosDeUso /></Suspense>} />
         <Route path="/privacidade" element={<Suspense fallback={<FullPageFallback />}><PoliticaPrivacidade /></Suspense>} />
         <Route path="/fale-conosco" element={<Suspense fallback={<FullPageFallback />}><FaleConosco /></Suspense>} />
+        <Route path="/onboarding" element={<Suspense fallback={<FullPageFallback />}><Onboarding /></Suspense>} />
 
         {/* Rotas Privadas */}
         <Route
           path="/dashboard"
           element={
             <UserProvider>
-              <LayoutApp children={<Suspense fallback={<ContentFallback />}><Dashboard /></Suspense>} />
+              <OnboardingGuard>
+                <LayoutApp children={<Suspense fallback={<ContentFallback />}><Dashboard /></Suspense>} />
+              </OnboardingGuard>
             </UserProvider>
           }
         />
@@ -97,7 +104,9 @@ const AppRoutes = () => {
           path="/financeiro"
           element={
             <UserProvider>
-              <LayoutApp children={<Suspense fallback={<ContentFallback />}><Financeiro /></Suspense>} />
+              <OnboardingGuard>
+                <LayoutApp children={<Suspense fallback={<ContentFallback />}><Financeiro /></Suspense>} />
+              </OnboardingGuard>
             </UserProvider>
           }
         />
@@ -105,7 +114,9 @@ const AppRoutes = () => {
           path="/metas"
           element={
             <UserProvider>
-              <LayoutApp children={<Suspense fallback={<ContentFallback />}><Metas /></Suspense>} />
+              <OnboardingGuard>
+                <LayoutApp children={<Suspense fallback={<ContentFallback />}><Metas /></Suspense>} />
+              </OnboardingGuard>
             </UserProvider>
           }
         />
@@ -113,7 +124,9 @@ const AppRoutes = () => {
           path="/extrato"
           element={
             <UserProvider>
-              <LayoutApp children={<Suspense fallback={<ContentFallback />}><Extrato /></Suspense>} />
+              <OnboardingGuard>
+                <LayoutApp children={<Suspense fallback={<ContentFallback />}><Extrato /></Suspense>} />
+              </OnboardingGuard>
             </UserProvider>
           }
         />
@@ -121,7 +134,9 @@ const AppRoutes = () => {
           path="/settings"
           element={
             <UserProvider>
-              <LayoutApp children={<Suspense fallback={<ContentFallback />}><Settings /></Suspense>} />
+              <OnboardingGuard>
+                <LayoutApp children={<Suspense fallback={<ContentFallback />}><Settings /></Suspense>} />
+              </OnboardingGuard>
             </UserProvider>
           }
         />

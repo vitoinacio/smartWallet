@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatedBrl } from '@/core/utils/formatedBrl';
@@ -14,19 +15,21 @@ interface GraficoBarrasProps {
   titulo?: string;
 }
 
-export function GraficoBarras({ dados, titulo = 'Receitas vs Despesas' }: GraficoBarrasProps) {
+export function GraficoBarras({ dados, titulo }: GraficoBarrasProps) {
+  const { t } = useTranslation('dashboard');
+  const tituloResolvido = titulo || t('graficoBarras.title');
   if (dados.length === 0) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>{titulo}</CardTitle>
+          <CardTitle>{tituloResolvido}</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col items-center justify-center h-[300px] gap-3">
           <BarChart3 className="w-12 h-12 text-muted-foreground/40" />
           <div className="text-center">
-            <p className="text-sm font-medium">Sem dados para exibir</p>
+            <p className="text-sm font-medium">{t('graficoBarras.empty')}</p>
             <p className="text-xs text-muted-foreground mt-1">
-              Adicione transações para visualizar o gráfico
+              {t('graficoBarras.emptyHint')}
             </p>
           </div>
         </CardContent>
@@ -37,7 +40,7 @@ export function GraficoBarras({ dados, titulo = 'Receitas vs Despesas' }: Grafic
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{titulo}</CardTitle>
+        <CardTitle>{tituloResolvido}</CardTitle>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
@@ -73,14 +76,14 @@ export function GraficoBarras({ dados, titulo = 'Receitas vs Despesas' }: Grafic
             />
             <Bar
               dataKey="receitas"
-              name="Receitas"
+              name={t('graficoBarras.receitas')}
               fill="#22c55e"
               radius={[4, 4, 0, 0]}
               maxBarSize={50}
             />
             <Bar
               dataKey="despesas"
-              name="Despesas"
+              name={t('graficoBarras.despesas')}
               fill="#ef4444"
               radius={[4, 4, 0, 0]}
               maxBarSize={50}

@@ -15,14 +15,17 @@ import {
 import { Input } from '@/components/ui/input';
 import Loading from '@/core/components/Loading';
 import { Mail, ArrowLeft, Send, CheckCircle, AlertCircle } from 'lucide-react';
-
-const recuperarSenhaSchema = z.object({
-  email: z.string().min(1, 'E-mail é obrigatório').email('Insira um e-mail válido'),
-});
-
-type RecuperarSenhaFormValues = z.infer<typeof recuperarSenhaSchema>;
+import { useTranslation } from 'react-i18next';
 
 export function RecuperarSenhaForm() {
+  const { t } = useTranslation('auth');
+
+  const recuperarSenhaSchema = z.object({
+    email: z.string().min(1, t('painel.email')).email(t('login.email')),
+  });
+
+  type RecuperarSenhaFormValues = z.infer<typeof recuperarSenhaSchema>;
+
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const navigate = useNavigate();
@@ -48,7 +51,7 @@ export function RecuperarSenhaForm() {
       }, 3000);
     } catch {
       setStatus('error');
-      setErrorMessage('Erro ao enviar e-mail. Tente novamente.');
+      setErrorMessage(t('recuperar.erroEnviar'));
     }
   };
 
@@ -61,13 +64,13 @@ export function RecuperarSenhaForm() {
               <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-              E-mail enviado!
+              {t('recuperar.emailEnviado')}
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Verifique sua caixa de entrada para redefinir sua senha.
+              {t('recuperar.verifiqueEmail')}
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-500">
-              Redirecionando para o login...
+              {t('recuperar.redirecionando')}
             </p>
           </div>
         </CardContent>
@@ -89,7 +92,7 @@ export function RecuperarSenhaForm() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="text-center mb-6">
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Informe seu e-mail para receber o link de recuperação de senha.
+                {t('recuperar.subtitle')}
               </p>
             </div>
 
@@ -99,13 +102,13 @@ export function RecuperarSenhaForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    E-mail
+                    {t('painel.email')}
                   </FormLabel>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <Input
                       type="email"
-                      placeholder="seu@email.com"
+                      placeholder={t('login.emailPlaceholder')}
                       className="pl-11 h-12 bg-gray-50 dark:bg-neutral-700 border-gray-200 dark:border-neutral-600 focus:ring-2 focus:ring-blue-500"
                       disabled={status === 'loading'}
                       {...field}
@@ -125,7 +128,7 @@ export function RecuperarSenhaForm() {
                 <Loading size={20} message="" className="text-white" />
               ) : (
                 <>
-                  Enviar
+                  {t('recuperar.enviar')}
                   <Send className="w-5 h-5 ml-2" />
                 </>
               )}
@@ -137,7 +140,7 @@ export function RecuperarSenhaForm() {
                 className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
               >
                 <ArrowLeft className="w-4 h-4" />
-                Voltar ao login
+                {t('recuperar.voltar')}
               </Link>
             </div>
           </form>

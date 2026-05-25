@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatedBrl } from '@/core/utils/formatedBrl';
@@ -19,7 +20,9 @@ const CORES_PADRAO = [
   '#ec4899', '#14b8a6', '#f97316', '#6366f1', '#84cc16',
 ];
 
-export function GraficoRosca({ dados, titulo = 'Despesas por Categoria' }: GraficoRoscaProps) {
+export function GraficoRosca({ dados, titulo }: GraficoRoscaProps) {
+  const { t } = useTranslation('dashboard');
+  const tituloResolvido = titulo || t('graficoRosca.title');
   const dadosFormatados = dados.map((item, index) => ({
     ...item,
     cor: item.cor || CORES_PADRAO[index % CORES_PADRAO.length],
@@ -31,14 +34,14 @@ export function GraficoRosca({ dados, titulo = 'Despesas por Categoria' }: Grafi
     return (
       <Card>
         <CardHeader>
-          <CardTitle>{titulo}</CardTitle>
+          <CardTitle>{tituloResolvido}</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col items-center justify-center h-[300px] gap-3">
           <PieChartIcon className="w-12 h-12 text-muted-foreground/40" />
           <div className="text-center">
-            <p className="text-sm font-medium">Sem dados para exibir</p>
+            <p className="text-sm font-medium">{t('graficoRosca.empty')}</p>
             <p className="text-xs text-muted-foreground mt-1">
-              Adicione despesas para visualizar o gráfico
+              {t('graficoRosca.emptyHint')}
             </p>
           </div>
         </CardContent>
@@ -49,7 +52,7 @@ export function GraficoRosca({ dados, titulo = 'Despesas por Categoria' }: Grafi
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{titulo}</CardTitle>
+        <CardTitle>{tituloResolvido}</CardTitle>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>

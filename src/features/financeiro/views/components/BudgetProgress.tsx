@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -35,19 +36,20 @@ function getCorBarra(status: BudgetProgress['status']) {
 }
 
 export function BudgetProgressList({ progressos, onRemover }: BudgetProgressListProps) {
+  const { t } = useTranslation('financeiro');
   if (progressos.length === 0) {
     return (
       <Card>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
-            Orçamentos do Mês
+            {t('orcamento.titulo')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <EmptyState
             icon={PiggyBank}
-            title="Nenhum orçamento definido"
-            description="Adicione orçamentos por categoria para controlar seus gastos"
+            title={t('orcamento.empty')}
+            description={t('orcamento.emptyHint')}
           />
         </CardContent>
       </Card>
@@ -58,7 +60,7 @@ export function BudgetProgressList({ progressos, onRemover }: BudgetProgressList
     <Card>
       <CardHeader>
         <CardTitle className="text-lg flex items-center gap-2">
-          Orçamentos do Mês
+          {t('orcamento.titulo')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -78,8 +80,8 @@ export function BudgetProgressList({ progressos, onRemover }: BudgetProgressList
                     R$ {formatedBrl(p.gasto.toString())} / R$ {formatedBrl(p.limite.toString())}
                   </span>
                   <ConfirmDialog
-                    title="Remover Orçamento"
-                    description={`Tem certeza que deseja remover o orçamento de "${categoria?.nome || p.categoria}"? Esta ação não pode ser desfeita.`}
+                    title={t('orcamento.remover')}
+                    description={`${t('orcamento.removerConfirm', { categoria: categoria?.nome || p.categoria })} ${t('item.excluirHint')}`}
                     onConfirm={() => onRemover(p.categoria)}
                   >
                     <Button
@@ -101,14 +103,14 @@ export function BudgetProgressList({ progressos, onRemover }: BudgetProgressList
               </div>
 
               <div className="flex justify-between text-xs text-muted-foreground">
-                <span>{p.percentual.toFixed(1)}% utilizado</span>
+                <span>{t('orcamento.utilizado', { percentual: p.percentual.toFixed(1) })}</span>
                 {restante >= 0 ? (
                   <span className="text-green-600">
-                    Restante: R$ {formatedBrl(restante.toString())}
+                    {t('orcamento.restante', { valor: formatedBrl(restante.toString()) })}
                   </span>
                 ) : (
                   <span className="text-red-600">
-                    Excedido: R$ {formatedBrl(Math.abs(restante).toString())}
+                    {t('orcamento.excedido', { valor: formatedBrl(Math.abs(restante).toString()) })}
                   </span>
                 )}
               </div>

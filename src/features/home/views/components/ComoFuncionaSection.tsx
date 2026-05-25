@@ -1,23 +1,25 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CreditCard, TrendingUp, Bell } from 'lucide-react';
 
 export function ComoFuncionaSection() {
+  const { t } = useTranslation('home');
   const features = [
     {
       icon: <CreditCard className="w-6 h-6" />,
-      title: 'Controle de Débitos',
-      description: 'Adicione, edite e acompanhe todas as suas contas a pagar. Nunca mais perca uma data de vencimento.',
+      title: t('comoFunciona.controleDebitos'),
+      description: t('comoFunciona.controleDebitosDesc'),
     },
     {
       icon: <TrendingUp className="w-6 h-6" />,
-      title: 'Dashboard Completo',
-      description: 'Visualize suas entradas, saídas e restante em um único painel. Gráficos claros para melhores decisões.',
+      title: t('comoFunciona.dashboardCompleto'),
+      description: t('comoFunciona.dashboardCompletoDesc'),
     },
     {
       icon: <Bell className="w-6 h-6" />,
-      title: 'Alertas de Vencimento',
-      description: 'Receba notificações sobre contas próximas do vencimento. Configure alertas personalizados.',
+      title: t('comoFunciona.alertasVencimento'),
+      description: t('comoFunciona.alertasVencimentoDesc'),
     },
   ];
 
@@ -26,10 +28,10 @@ export function ComoFuncionaSection() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 border-cyan-500 text-cyan-700 dark:text-cyan-400">
-            Como Funciona
+            {t('comoFunciona.subtitle')}
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Recursos em <span className="text-cyan-700 dark:text-cyan-400">destaque</span>
+            {t('comoFunciona.title')}
           </h2>
         </div>
 

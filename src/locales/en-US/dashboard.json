@@ -1,0 +1,52 @@
+{
+  "title": "Overview",
+  "saudacao": {
+    "bomDia": "Good morning",
+    "boaTarde": "Good afternoon",
+    "boaNoite": "Good evening",
+    "usuario": "User",
+    "subtitle": "Here's your financial summary"
+  },
+  "resumo": {
+    "entradaMensal": "Monthly Income",
+    "totalGasto": "Total Spent",
+    "saldoRestante": "Remaining Balance",
+    "orcamentoUsado": "Budget Used"
+  },
+  "rendaEditor": {
+    "title": "My Monthly Income",
+    "placeholder": "Monthly amount",
+    "salvar": "Save",
+    "informado": "Monthly income reported"
+  },
+  "transacoesRecentes": {
+    "title": "Recent Transactions",
+    "verTodas": "View all",
+    "empty": "No recent transactions",
+    "emptyHint": "Add your expenses to keep track",
+    "pago": "Paid",
+    "pendente": "Pending",
+    "vencido": "Overdue"
+  },
+  "acoesRapidas": {
+    "title": "Quick Actions",
+    "addDespesa": "Add Expense",
+    "novaTransacao": "New transaction",
+    "verFinancas": "View Finances",
+    "moduloCompleto": "Full module",
+    "configuracoes": "Settings",
+    "preferencias": "Preferences"
+  },
+  "graficoRosca": {
+    "title": "Expenses by Category",
+    "empty": "No data to display",
+    "emptyHint": "Add expenses to view the chart"
+  },
+  "graficoBarras": {
+    "title": "Income vs Expenses",
+    "empty": "No data to display",
+    "emptyHint": "Add transactions to view the chart",
+    "receitas": "Income",
+    "despesas": "Expenses"
+  }
+}

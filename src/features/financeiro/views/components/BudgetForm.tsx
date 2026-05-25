@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,6 +14,7 @@ interface BudgetFormProps {
 }
 
 export function BudgetForm({ categorias, budgetsExistentes, onAdicionar }: BudgetFormProps) {
+  const { t } = useTranslation('financeiro');
   const [categoria, setCategoria] = useState('');
   const [limite, setLimite] = useState('');
 
@@ -35,16 +37,16 @@ export function BudgetForm({ categorias, budgetsExistentes, onAdicionar }: Budge
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">Definir Orçamento</CardTitle>
+        <CardTitle className="text-lg">{t('orcamento.definir')}</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Categoria</Label>
+              <Label>{t('orcamento.categoria')}</Label>
               <Select value={categoria} onValueChange={setCategoria}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecione" />
+                  <SelectValue placeholder={t('orcamento.selecione')} />
                 </SelectTrigger>
                 <SelectContent>
                   {categoriasDisponiveis.map((cat) => (
@@ -57,7 +59,7 @@ export function BudgetForm({ categorias, budgetsExistentes, onAdicionar }: Budge
             </div>
 
             <div className="space-y-2">
-              <Label>Limite Mensal (R$)</Label>
+              <Label>{t('orcamento.limite')}</Label>
               <Input
                 type="number"
                 placeholder="0,00"
@@ -70,7 +72,7 @@ export function BudgetForm({ categorias, budgetsExistentes, onAdicionar }: Budge
           </div>
 
           <Button type="submit" disabled={!categoria || !limite} className="w-full">
-            Definir Orçamento
+            {t('orcamento.confirmar')}
           </Button>
         </form>
       </CardContent>

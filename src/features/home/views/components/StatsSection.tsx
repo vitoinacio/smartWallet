@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next';
+
 export function StatsSection() {
+  const { t } = useTranslation('home');
   const stats = [
-    { value: '10K+', label: 'Usuários' },
-    { value: 'R$ 2M+', label: 'Gerenciados' },
-    { value: '50K+', label: 'Débitos Controlados' },
-    { value: '4.9', label: 'Avaliação' },
+    { value: '10K+', label: t('stats.usuarios') },
+    { value: 'R$ 2M+', label: t('stats.gerenciados') },
+    { value: '50K+', label: t('stats.debitosControlados') },
+    { value: '4.9', label: t('stats.avaliacao') },
   ];
 
   return (

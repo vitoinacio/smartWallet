@@ -1,41 +1,43 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ChartLine, HandCoins, ClipboardPenLine } from 'lucide-react';
 
-const features = [
-  {
-    icon: <ChartLine className="w-8 h-8" />,
-    title: 'Análise de Categorias',
-    description: 'Divida suas despesas em categorias personalizáveis, como alimentação, transporte e lazer.',
-    highlight: 'Identifique onde você mais gasta',
-  },
-  {
-    icon: <HandCoins className="w-8 h-8" />,
-    title: 'Controle Total',
-    description: 'Mantenha suas finanças organizadas com facilidade. Acompanhe, ajuste e alcance suas metas.',
-    highlight: 'Simplifique a gestão do seu dinheiro',
-  },
-  {
-    icon: <ClipboardPenLine className="w-8 h-8" />,
-    title: 'Planejamento Financeiro',
-    description: 'Estabeleça metas de economia e planeje seus gastos com antecedência.',
-    highlight: 'Orçamentos personalizados',
-  },
-];
-
 export function FeaturesSection() {
+  const { t } = useTranslation('home');
+  const features = [
+    {
+      icon: <ChartLine className="w-8 h-8" />,
+      title: t('features.analiseCategorias'),
+      description: t('features.analiseDesc'),
+      highlight: t('features.highlight1'),
+    },
+    {
+      icon: <HandCoins className="w-8 h-8" />,
+      title: t('features.controleTotal'),
+      description: t('features.controleDesc'),
+      highlight: t('features.highlight2'),
+    },
+    {
+      icon: <ClipboardPenLine className="w-8 h-8" />,
+      title: t('features.planejamento'),
+      description: t('features.planejamentoDesc'),
+      highlight: t('features.highlight3'),
+    },
+  ];
+
   return (
     <section id="recursos" className="py-20 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 border-blue-500 text-blue-700 dark:text-blue-400">
-            Recursos Principais
+            {t('features.badge')}
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Tudo que você precisa para <span className="text-blue-700 dark:text-blue-500">controlar seu dinheiro</span>
+            {t('features.title')}
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Uma solução completa para gestão financeira pessoal, com ferramentas poderosas e interface intuitiva.
+            {t('features.subtitle')}
           </p>
         </div>
 

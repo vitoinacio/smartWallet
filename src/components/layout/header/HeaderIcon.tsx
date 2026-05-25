@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { cn } from "@/lib/utils"
 
 interface HeaderIconProps {
@@ -8,11 +9,12 @@ interface HeaderIconProps {
 }
 
 const HeaderIcon = ({isLogoName, className, variant, width}: HeaderIconProps) => {
+  const { t } = useTranslation('layout');
   return (
     <a href="/" className="flex items-center gap-2 group">
         <img 
             src={`/${variant}.svg`} 
-            alt="Logo SmartWallet" 
+            alt={t('header.title')}
             width={width} 
             className="transition-transform group-hover:scale-105"
         />

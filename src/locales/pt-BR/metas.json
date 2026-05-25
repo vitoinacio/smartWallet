@@ -1,0 +1,46 @@
+{
+  "title": "Metas de Economia",
+  "subtitle": "Defina metas de economia e acompanhe seu progresso",
+  "totalEconomizado": "Total Economizado",
+  "totalAlvo": "Total Alvo",
+  "metasAtivas": "Metas Ativas",
+  "empty": "Nenhuma meta definida",
+  "emptyHint": "Crie sua primeira meta de economia para começar",
+  "card": {
+    "emAndamento": "Em andamento",
+    "quaseLa": "Quase lá",
+    "atingida": "Atingida!",
+    "excluir": "Excluir Meta",
+    "excluirConfirm": "Tem certeza que deseja excluir a meta?",
+    "estender": "+ Estender",
+    "restante": "Restante:",
+    "economizado": "Economizado:",
+    "addValor": "Adicionar valor economizado",
+    "novoAlvo": "Novo alvo (R$):",
+    "salvar": "Salvar"
+  },
+  "form": {
+    "novaMeta": "Nova Meta de Economia",
+    "definir": "Definir Nova Meta",
+    "nome": "Nome da Meta",
+    "nomePlaceholder": "Ex: Reserva de emergência",
+    "valorAlvo": "Valor Alvo (R$)",
+    "tipo": "Tipo",
+    "mensal": "Mensal",
+    "anual": "Anual",
+    "categoria": "Categoria (opcional)",
+    "selecione": "Selecione uma categoria",
+    "criar": "Criar Meta",
+    "cancelar": "Cancelar",
+    "sugestao": "Sugestão:"
+  },
+  "dashboardCard": {
+    "title": "Metas de Economia",
+    "verTodas": "Ver todas",
+    "emptyCtaBefore": "Nenhuma meta definida ainda.",
+    "emptyCtaLink": "Criar meta",
+    "atingidas": "metas atingidas",
+    "total": "Total:",
+    "restantes": "metas restantes"
+  }
+}

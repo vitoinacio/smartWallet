@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -27,6 +28,7 @@ export function MetaDashboardCard({
   progressos,
   isLoading,
 }: MetaDashboardCardProps) {
+  const { t } = useTranslation('metas');
   const ativas = progressos.filter((p) => p.meta.ativa);
   const atingidas = ativas.filter((p) => p.status === 'atingida').length;
   const totalEconomizado = ativas.reduce(
@@ -70,11 +72,11 @@ export function MetaDashboardCard({
         <div className="flex items-center justify-between">
           <CardTitle className="text-base flex items-center gap-2">
             <Target className="w-4 h-4" />
-            Metas de Economia
+            {t('dashboardCard.title')}
           </CardTitle>
           <Link to="/metas">
             <Button variant="ghost" size="sm" className="h-7 text-xs gap-1">
-              Ver todas
+              {t('dashboardCard.verTodas')}
               <ChevronRight className="w-3 h-3" />
             </Button>
           </Link>
@@ -83,21 +85,21 @@ export function MetaDashboardCard({
       <CardContent className="space-y-3">
         {ativas.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-4">
-            Nenhuma meta definida ainda.{' '}
+            {t('dashboardCard.emptyCtaBefore')}{' '}
             <Link
               to="/metas"
               className="text-primary underline underline-offset-2"
             >
-              Criar meta
+              {t('dashboardCard.emptyCtaLink')}
             </Link>
           </p>
         ) : (
           <>
             <div className="flex justify-between text-sm text-muted-foreground">
               <span>
-                {atingidas}/{ativas.length} metas atingidas
+                {atingidas}/{ativas.length} {t('dashboardCard.atingidas')}
               </span>
-              <span>Total: R$ {formatedBrl(totalEconomizado.toString())}</span>
+              <span>{t('dashboardCard.total')} R$ {formatedBrl(totalEconomizado.toString())}</span>
             </div>
 
             <div className="space-y-2 max-h-48 overflow-y-auto">
@@ -132,7 +134,7 @@ export function MetaDashboardCard({
 
             {ativas.length > 4 && (
               <p className="text-xs text-muted-foreground text-center">
-                +{ativas.length - 4} metas restantes
+                +{ativas.length - 4} {t('dashboardCard.restantes')}
               </p>
             )}
           </>

@@ -1,0 +1,47 @@
+{
+  "stepLabels": ["Boas-vindas", "Renda", "Meta"],
+  "welcome": {
+    "title": "Bem-vindo ao SmartWallet",
+    "subtitle": "Vamos configurar seu perfil para começar",
+    "addPhoto": "Adicionar foto de perfil",
+    "yourPhoto": "Sua foto de perfil",
+    "clickToAdd": "Clique para adicionar foto (max 200KB)",
+    "nameLabel": "Qual seu nome?",
+    "namePlaceholder": "Seu nome",
+    "skip": "Pular",
+    "continue": "Continuar"
+  },
+  "income": {
+    "title": "Quase lá!",
+    "subtitle": "Conte-nos sobre sua situação financeira",
+    "rendaLabel": "Qual sua renda mensal?",
+    "categoriasLabel": "Quais categorias te interessam?",
+    "voltar": "Voltar",
+    "skip": "Pular",
+    "continue": "Continuar",
+    "categoriaSalario": "Salário",
+    "categoriaFreelance": "Freelance",
+    "categoriaInvestimentos": "Investimentos",
+    "categoriaAlimentacao": "Alimentação",
+    "categoriaTransporte": "Transporte",
+    "categoriaMoradia": "Moradia",
+    "categoriaLazer": "Lazer",
+    "categoriaSaude": "Saúde",
+    "categoriaEducacao": "Educação",
+    "categoriaContasFixas": "Contas Fixas"
+  },
+  "goal": {
+    "title": "Meta de Economia",
+    "subtitle": "Defina uma meta inicial para começar com foco",
+    "valorLabel": "Quanto você quer economizar?",
+    "prazoLabel": "Qual o prazo?",
+    "skipHint": "Você pode pular esta etapa e definir depois",
+    "voltar": "Voltar",
+    "skip": "Pular",
+    "finish": "Finalizar"
+  },
+  "toast": {
+    "complete": "Onboarding concluído! Bem-vindo ao SmartWallet",
+    "error": "Erro ao salvar onboarding"
+  }
+}

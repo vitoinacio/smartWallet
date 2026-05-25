@@ -16,13 +16,7 @@ import Loading from '@/core/components/Loading';
 import { Eye, EyeClosed, Mail, Lock, ArrowRight } from 'lucide-react';
 import { useLoginPage } from '../../viewModels/useLoginPage';
 import { Link } from 'react-router-dom';
-
-const signupSchema = z.object({
-  email: z.string().email('Insira um e-mail válido.'),
-  senha: z.string().min(8, 'A senha deve ter pelo menos 8 caracteres.'),
-});
-
-type SignupFormValues = z.infer<typeof signupSchema>;
+import { useTranslation } from 'react-i18next';
 
 interface LoginFormProps {
   onEsqueceuSenha?: () => void;
@@ -30,6 +24,15 @@ interface LoginFormProps {
 
 const LoginForm = ({ onEsqueceuSenha: _onEsqueceuSenha }: LoginFormProps) => {
   void _onEsqueceuSenha;
+  const { t } = useTranslation('auth');
+
+  const signupSchema = z.object({
+    email: z.string().email(t('login.email')),
+    senha: z.string().min(8, t('login.senha')),
+  });
+
+  type SignupFormValues = z.infer<typeof signupSchema>;
+
   const [showPassword, setShowPassword] = useState(false);
 
   const { setSenha, setEmail, isLoading, handleSubmit } = useLoginPage();
@@ -63,13 +66,13 @@ const LoginForm = ({ onEsqueceuSenha: _onEsqueceuSenha }: LoginFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Email
+                    {t('login.email')}
                   </FormLabel>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <Input
                       type="email"
-                      placeholder="seu@email.com"
+                      placeholder={t('login.emailPlaceholder')}
                       className="pl-11 h-12 bg-gray-50 dark:bg-neutral-700 border-gray-200 dark:border-neutral-600 focus:ring-2 focus:ring-blue-500"
                       {...field}
                       onChange={(e) => {
@@ -90,13 +93,13 @@ const LoginForm = ({ onEsqueceuSenha: _onEsqueceuSenha }: LoginFormProps) => {
                 <FormItem>
                   <div className="flex justify-between items-center">
                     <FormLabel className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      Senha
+                      {t('login.senha')}
                     </FormLabel>
                     <Link
                       to="/recuperar"
                       className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400"
                     >
-                      Esqueceu a senha?
+                      {t('login.esqueceuSenha')}
                     </Link>
                   </div>
                   <div className="relative">
@@ -137,7 +140,7 @@ const LoginForm = ({ onEsqueceuSenha: _onEsqueceuSenha }: LoginFormProps) => {
                 <Loading size={20} message="" className="text-white" />
               ) : (
                 <>
-                  Entrar
+                  {t('login.entrar')}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </>
               )}

@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -44,24 +45,26 @@ function getBarColor(status: EconomiaProgress['status']) {
   }
 }
 
-function getStatusLabel(status: EconomiaProgress['status']) {
-  switch (status) {
-    case 'ok':
-      return 'Em andamento';
-    case 'warning':
-      return 'Quase lá';
-    case 'atingida':
-      return 'Atingida!';
-  }
-}
-
 export function MetaCard({
   progress,
   onExcluir,
   onAdicionarProgresso,
   onEstender,
 }: MetaCardProps) {
+  const { t } = useTranslation('metas');
   const { meta, percentual, restante, status } = progress;
+
+  const getStatusLabel = (status: EconomiaProgress['status']) => {
+    switch (status) {
+      case 'ok':
+        return t('card.emAndamento');
+      case 'warning':
+        return t('card.quaseLa');
+      case 'atingida':
+        return t('card.atingida');
+    }
+  };
+
   const [mostrarAdicionar, setMostrarAdicionar] = useState(false);
   const [valorAdicionar, setValorAdicionar] = useState('');
   const [valorEstender, setValorEstender] = useState('');
@@ -113,21 +116,21 @@ export function MetaCard({
                 size="sm"
                 className="h-7 text-xs text-green-600"
                 onClick={() => setMostrarEstender(!mostrarEstender)}
-                aria-label="Estender meta"
+                aria-label={t('card.estender')}
               >
-                + Estender
+                + {t('card.estender')}
               </Button>
             )}
             <ConfirmDialog
-              title="Excluir Meta"
-              description={`Tem certeza que deseja excluir a meta "${meta.nome}"? Esta ação não pode ser desfeita.`}
+              title={t('card.excluir')}
+              description={t('card.excluirConfirm', { nome: meta.nome })}
               onConfirm={() => onExcluir(meta.id)}
             >
               <Button
                 variant="ghost"
                 size="icon"
                 className="h-7 w-7 text-red-500 hover:text-red-600"
-                aria-label={`Excluir meta ${meta.nome}`}
+                aria-label={t('card.excluir')}
               >
                 <Trash2 className="w-3.5 h-3.5" />
               </Button>
@@ -165,11 +168,11 @@ export function MetaCard({
           <span>{getStatusLabel(status)}</span>
           {status !== 'atingida' ? (
             <span>
-              Restante: R$ {formatedBrl(String(Math.max(restante, 0)))}
+              {t('card.restante')}: R$ {formatedBrl(String(Math.max(restante, 0)))}
             </span>
           ) : (
             <span className="text-green-600 font-medium">
-              Economizado: R$ {formatedBrl(meta.valorAtual.toString())}
+              {t('card.economizado')}: R$ {formatedBrl(meta.valorAtual.toString())}
             </span>
           )}
         </div>
@@ -188,14 +191,14 @@ export function MetaCard({
                   value={valorAdicionar}
                   onChange={(e) => setValorAdicionar(formatValorMeta(e.target.value))}
                   className="h-8 text-sm"
-                  aria-label="Valor para adicionar à meta"
+                  aria-label={t('card.addValor')}
                 />
                 <Button
                   type="submit"
                   size="sm"
                   className="h-8"
                   disabled={maskParaCentavos(valorAdicionar) <= 0}
-                  aria-label="Confirmar adição"
+                  aria-label={t('card.addValor')}
                 >
                   <Plus className="w-3.5 h-3.5" />
                 </Button>
@@ -208,7 +211,7 @@ export function MetaCard({
                     setMostrarAdicionar(false);
                     setValorAdicionar('');
                   }}
-                  aria-label="Cancelar"
+                  aria-label={t('cancel')}
                 >
                   <X className="w-3.5 h-3.5" />
                 </Button>
@@ -221,7 +224,7 @@ export function MetaCard({
                 onClick={() => setMostrarAdicionar(true)}
               >
                 <Plus className="w-3 h-3 mr-1" />
-                Adicionar valor economizado
+                {t('card.addValor')}
               </Button>
             )}
           </div>
@@ -230,7 +233,7 @@ export function MetaCard({
         {mostrarEstender && (
           <form onSubmit={handleEstender} className="flex items-center gap-2 pt-1 border-t">
             <span className="text-xs text-muted-foreground shrink-0">
-              Novo alvo (R$):
+              {t('card.novoAlvo')} (R$):
             </span>
             <Input
               type="text"
@@ -239,7 +242,7 @@ export function MetaCard({
               value={valorEstender}
               onChange={(e) => setValorEstender(formatValorMeta(e.target.value))}
               className="h-8 text-sm"
-              aria-label="Novo valor alvo"
+              aria-label={t('card.novoAlvo')}
             />
             <Button
               type="submit"
@@ -247,7 +250,7 @@ export function MetaCard({
               className="h-8 text-xs"
               disabled={maskParaCentavos(valorEstender) <= meta.valorAlvo}
             >
-              Salvar
+              {t('card.salvar')}
             </Button>
             <Button
               type="button"
@@ -258,7 +261,7 @@ export function MetaCard({
                 setMostrarEstender(false);
                 setValorEstender('');
               }}
-              aria-label="Cancelar estender"
+              aria-label={t('cancel')}
             >
               <X className="w-3.5 h-3.5" />
             </Button>

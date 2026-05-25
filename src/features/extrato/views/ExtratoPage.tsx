@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useExtrato } from '../viewModels';
 import { ExtratoFiltroMes, ExtratoResumo, ExtratoTabela } from './components';
 import { FileText } from 'lucide-react';
 
 const ExtratoPage = () => {
+  const { t } = useTranslation('extrato');
   const [exportandoPDF, setExportandoPDF] = useState(false);
 
   const {
@@ -34,10 +36,10 @@ const ExtratoPage = () => {
         <section>
           <div className="flex items-center gap-3 mb-1">
             <FileText className="w-6 h-6 text-primary" />
-            <h2 className="text-2xl font-bold">Extrato Mensal</h2>
+            <h2 className="text-2xl font-bold">{t('title')}</h2>
           </div>
           <p className="text-sm text-muted-foreground">
-            Visualize e exporte suas transações por mês
+            {t('subtitle')}
           </p>
         </section>
 

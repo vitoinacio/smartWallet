@@ -1,0 +1,52 @@
+{
+  "title": "Visão Geral",
+  "saudacao": {
+    "bomDia": "Bom dia",
+    "boaTarde": "Boa tarde",
+    "boaNoite": "Boa noite",
+    "usuario": "Usuário",
+    "subtitle": "Aqui está o resumo das suas finanças"
+  },
+  "resumo": {
+    "entradaMensal": "Entrada Mensal",
+    "totalGasto": "Total Gasto",
+    "saldoRestante": "Saldo Restante",
+    "orcamentoUsado": "Orçamento Usado"
+  },
+  "rendaEditor": {
+    "title": "Minha Renda Mensal",
+    "placeholder": "Valor mensal",
+    "salvar": "Salvar",
+    "informado": "Valor mensal informado"
+  },
+  "transacoesRecentes": {
+    "title": "Transações Recentes",
+    "verTodas": "Ver todas",
+    "empty": "Nenhuma transação recente",
+    "emptyHint": "Adicione suas despesas para acompanhar",
+    "pago": "Pago",
+    "pendente": "Pendente",
+    "vencido": "Vencido"
+  },
+  "acoesRapidas": {
+    "title": "Ações Rápidas",
+    "addDespesa": "Adicionar Despesa",
+    "novaTransacao": "Nova transação",
+    "verFinancas": "Ver Finanças",
+    "moduloCompleto": "Módulo completo",
+    "configuracoes": "Configurações",
+    "preferencias": "Preferências"
+  },
+  "graficoRosca": {
+    "title": "Despesas por Categoria",
+    "empty": "Sem dados para exibir",
+    "emptyHint": "Adicione despesas para visualizar o gráfico"
+  },
+  "graficoBarras": {
+    "title": "Receitas vs Despesas",
+    "empty": "Sem dados para exibir",
+    "emptyHint": "Adicione transações para visualizar o gráfico",
+    "receitas": "Receitas",
+    "despesas": "Despesas"
+  }
+}

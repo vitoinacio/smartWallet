@@ -1,0 +1,96 @@
+{
+  "hero": {
+    "title": "Simplified Financial Management",
+    "subtitle": "Take full control of your finances in one place",
+    "cta": "Get Started Now",
+    "emailPlaceholder": "Your best email",
+    "start": "Get Started",
+    "freeTag": "It's fast and free. No commitment.",
+    "noCard": "No card",
+    "noMonthly": "No monthly fee",
+    "noAds": "No ads",
+    "free": "100% Free",
+    "emailInvalid": "Enter a valid email.",
+    "dashboardAlt": "SmartWallet Dashboard"
+  },
+  "features": {
+    "title": "Main Features",
+    "subtitle": "Everything you need to manage your money",
+    "analiseCategorias": "Category Analysis",
+    "analiseDesc": "Identify where you spend the most",
+    "controleTotal": "Total Control",
+    "controleDesc": "Simplify your money management",
+    "planejamento": "Financial Planning",
+    "planejamentoDesc": "Custom budgets",
+    "badge": "Main Features",
+    "highlight1": "Identify where you spend the most",
+    "highlight2": "Simplify your money management",
+    "highlight3": "Custom budgets"
+  },
+  "funcionalidades": {
+    "title": "Why Choose Us?",
+    "subtitle": "Features that make a difference",
+    "dashboard": "Interactive Dashboard",
+    "debitos": "Debt Control",
+    "notificacoes": "Smart Notifications",
+    "dadosSeguros": "Secure Data",
+    "acessoMobile": "Mobile Access",
+    "gratuito": "Free",
+    "badge": "Why Choose Us?",
+    "dashboardDesc": "View your expenses in clear, intuitive charts",
+    "debitosDesc": "Manage your bills with due date alerts",
+    "notificacoesDesc": "Receive alerts about expenses near the limit",
+    "dadosSegurosDesc": "Your information protected with AWS security",
+    "acessoMobileDesc": "Use on any device, anytime",
+    "gratuitoDesc": "All features at no cost"
+  },
+  "comoFunciona": {
+    "title": "How It Works",
+    "subtitle": "Highlighted Features",
+    "controleDebitos": "Debt Control",
+    "controleDebitosDesc": "Add, edit and track all your bills. Never miss a due date again.",
+    "dashboardCompleto": "Complete Dashboard",
+    "dashboardCompletoDesc": "View your income, expenses and balance in a single panel. Clear charts for better decisions.",
+    "alertasVencimento": "Due Date Alerts",
+    "alertasVencimentoDesc": "Receive notifications about upcoming due dates. Set custom alerts."
+  },
+  "beneficios": {
+    "title": "Benefits",
+    "badge": "Benefits",
+    "subtitle": "Why use SmartWallet?",
+    "planoGratuito": "Free Plan",
+    "planoDesc": "Use all features",
+    "paraSempre": "Forever",
+    "cta": "Get Started Free",
+    "item1": "Complete view of your finances",
+    "item2": "Automatic organization by categories",
+    "item3": "Bill payment alerts",
+    "item4": "Custom savings goals",
+    "item5": "Detailed expense reports",
+    "item6": "Simple and intuitive interface"
+  },
+  "cta": {
+    "title": "Ready to take control of your finances?",
+    "subtitle": "Join thousands of users who have transformed their financial lives",
+    "criarConta": "Create Free Account",
+    "jaTenhoConta": "I already have an account"
+  },
+  "sobre": {
+    "title": "About Us",
+    "subtitle": "Who We Are",
+    "welcome": "Welcome to Smart Wallet!",
+    "equipe": "Our Team",
+    "missao": "Our Mission",
+    "fundado": "Founded",
+    "gratuito": "Free",
+    "paragrafo1": "We are leaders in innovative solutions for personal financial management. Our mission is to empower you to make smarter, more informed financial decisions.",
+    "paragrafo2": "We understand that expense management can be a challenge. That's why we developed tools that make tracking your spending simple and straightforward, offering a clear and detailed view of your finances.",
+    "quote": "\"Transforming how you manage your personal finances\""
+  },
+  "stats": {
+    "usuarios": "Users",
+    "gerenciados": "Managed",
+    "debitosControlados": "Controlled Debts",
+    "avaliacao": "Rating"
+  }
+}

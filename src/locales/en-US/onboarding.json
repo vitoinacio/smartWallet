@@ -1,0 +1,47 @@
+{
+  "stepLabels": ["Welcome", "Income", "Goal"],
+  "welcome": {
+    "title": "Welcome to SmartWallet",
+    "subtitle": "Let's set up your profile to get started",
+    "addPhoto": "Add profile picture",
+    "yourPhoto": "Your profile picture",
+    "clickToAdd": "Click to add photo (max 200KB)",
+    "nameLabel": "What's your name?",
+    "namePlaceholder": "Your name",
+    "skip": "Skip",
+    "continue": "Continue"
+  },
+  "income": {
+    "title": "Almost there!",
+    "subtitle": "Tell us about your financial situation",
+    "rendaLabel": "What's your monthly income?",
+    "categoriasLabel": "Which categories interest you?",
+    "voltar": "Back",
+    "skip": "Skip",
+    "continue": "Continue",
+    "categoriaSalario": "Salary",
+    "categoriaFreelance": "Freelance",
+    "categoriaInvestimentos": "Investments",
+    "categoriaAlimentacao": "Food",
+    "categoriaTransporte": "Transportation",
+    "categoriaMoradia": "Housing",
+    "categoriaLazer": "Leisure",
+    "categoriaSaude": "Health",
+    "categoriaEducacao": "Education",
+    "categoriaContasFixas": "Fixed Bills"
+  },
+  "goal": {
+    "title": "Savings Goal",
+    "subtitle": "Set an initial goal to start with focus",
+    "valorLabel": "How much do you want to save?",
+    "prazoLabel": "What's the deadline?",
+    "skipHint": "You can skip this step and set it later",
+    "voltar": "Back",
+    "skip": "Skip",
+    "finish": "Finish"
+  },
+  "toast": {
+    "complete": "Onboarding complete! Welcome to SmartWallet",
+    "error": "Error saving onboarding"
+  }
+}

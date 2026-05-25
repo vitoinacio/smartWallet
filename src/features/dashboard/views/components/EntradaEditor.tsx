@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -38,6 +39,7 @@ export function EntradaEditor({
   onIniciarEdicao,
   onCancelarEdicao,
 }: EntradaEditorProps) {
+  const { t } = useTranslation('dashboard');
   const form = useForm<EntradaFormValues>({
     resolver: zodResolver(entradaSchema),
     defaultValues: { valor: entrada },
@@ -74,7 +76,7 @@ export function EntradaEditor({
       <CardHeader className="pb-3">
         <CardTitle className="text-lg flex items-center gap-2">
           <DollarSign className="w-5 h-5" />
-          Minha Renda Mensal
+          {t('rendaEditor.title')}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -86,7 +88,7 @@ export function EntradaEditor({
                 name="valor"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Valor mensal</FormLabel>
+                    <FormLabel>{t('rendaEditor.placeholder')}</FormLabel>
                     <FormControl>
                       <Input
                         type="text"
@@ -109,7 +111,7 @@ export function EntradaEditor({
               <div className="flex gap-2">
                 <Button type="submit" className="flex-1" disabled={isLoading}>
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Check className="w-4 h-4 mr-2" />}
-                  Salvar
+                  {t('rendaEditor.salvar')}
                 </Button>
                 <Button type="button" variant="outline" onClick={onCancelarEdicao}>
                   <X className="w-4 h-4" />
@@ -124,7 +126,7 @@ export function EntradaEditor({
                 R$ {entrada || '0,00'}
               </p>
               <p className="text-sm text-muted-foreground mt-1">
-                Valor mensal informado
+                {t('rendaEditor.informado')}
               </p>
             </div>
             <Button variant="outline" size="icon" onClick={onIniciarEdicao}>

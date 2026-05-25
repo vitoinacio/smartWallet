@@ -1,0 +1,48 @@
+{
+  "header": {
+    "title": "SmartWallet",
+    "nav": {
+      "recursos": "Recursos",
+      "funcionalidades": "Funcionalidades",
+      "beneficios": "Benefícios",
+      "sobre": "Sobre Nós",
+      "comoFunciona": "Como Funciona"
+    },
+    "login": "Entrar",
+    "criarConta": "Criar Conta",
+    "criarContaGratis": "Criar Conta Grátis",
+    "toggleTheme": "Alternar tema",
+    "lightMode": "Modo Claro",
+    "darkMode": "Modo Escuro"
+  },
+  "sidebar": {
+    "title": "SmartWallet",
+    "subtitle": "Gestão Financeira",
+    "nav": {
+      "dashboard": "Dashboard",
+      "financeiro": "Financeiro",
+      "metas": "Metas",
+      "extrato": "Extrato",
+      "configuracoes": "Configurações"
+    },
+    "sair": "Sair da Conta",
+    "user": "Usuário"
+  },
+  "footer": {
+    "description": "Sua plataforma gratuita para gestão financeira pessoal",
+    "comecarAgora": "Começar Agora",
+    "navegacao": "Navegação",
+    "termos": "Termos de uso",
+    "privacidade": "Política de privacidade",
+    "faleConosco": "Fale conosco",
+    "redesSociais": "Redes Sociais",
+    "direitosReservados": "© 2025 SmartWallet. Todos os direitos reservados.",
+    "cnpj": "CNPJ: 00.000.000/0000-00"
+  },
+  "navUser": {
+    "perfil": "Perfil",
+    "sair": "Sair",
+    "sairConfirmTitle": "Sair da Conta",
+    "sairConfirmMessage": "Tem certeza que deseja sair da sua conta?"
+  }
+}

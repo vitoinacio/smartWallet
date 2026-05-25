@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -16,6 +17,7 @@ interface TransacaoFormProps {
 }
 
 export function TransacaoForm({ onSubmit, isLoading }: TransacaoFormProps) {
+  const { t } = useTranslation('financeiro');
   const { form, tipo, handleTipoChange, handleSubmit, formatValor } = useTransacaoForm(onSubmit);
 
   if (isLoading) {
@@ -59,7 +61,7 @@ export function TransacaoForm({ onSubmit, isLoading }: TransacaoFormProps) {
       <CardHeader className="pb-4">
         <CardTitle className="flex items-center gap-2 text-lg">
           <Plus className="w-5 h-5" />
-          Nova Transação
+          {t('form.novaTransacao')}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -81,7 +83,7 @@ export function TransacaoForm({ onSubmit, isLoading }: TransacaoFormProps) {
               disabled={isLoading}
               className="w-full bg-blue-600 hover:bg-blue-700"
             >
-              {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Adicionar Transação'}
+              {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : t('form.adicionar')}
             </Button>
           </form>
         </Form>

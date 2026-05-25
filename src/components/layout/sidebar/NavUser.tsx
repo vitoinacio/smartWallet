@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { BadgeCheck, ChevronsUpDown, LogOut } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -40,6 +41,7 @@ interface NavUserProps {
 }
 
 const NavUser = ({ user }: NavUserProps) => {
+  const { t } = useTranslation('layout');
   const { userData, loading } = useUserInfo();
   const { isMobile } = useSidebar();
   const navigate = useNavigate();
@@ -139,28 +141,28 @@ const NavUser = ({ user }: NavUserProps) => {
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
-                Perfil
+                {t('navUser.perfil')}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => setShowLogoutDialog(true)}>
               <LogOut />
-              Sair
+              {t('navUser.sair')}
             </DropdownMenuItem>
           </DropdownMenuContent>
 
           <AlertDialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Sair da Conta</AlertDialogTitle>
+                <AlertDialogTitle>{t('navUser.sairConfirmTitle')}</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Tem certeza que deseja sair da sua conta?
+                  {t('navUser.sairConfirmMessage')}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogCancel>{t('common:cancel')}</AlertDialogCancel>
                 <AlertDialogAction onClick={logout} className="bg-red-600 hover:bg-red-700">
-                  Sair
+                  {t('navUser.sair')}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>

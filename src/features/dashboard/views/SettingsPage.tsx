@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import { useSettings } from '../viewModels';
 import { SettingsNav, SettingsPerfil, SettingsApp, SettingsSeguranca, SettingsDados, SettingsSobre } from './components';
 
 const SettingsPage = () => {
+  const { t } = useTranslation('settings');
   const {
     activeTab,
     setActiveTab,
@@ -25,7 +27,7 @@ const SettingsPage = () => {
             onLogout={logout}
           />
         );
-      case 'app':
+      case 'aplicativo':
         return (
           <SettingsApp
             settings={appSettings}
@@ -53,9 +55,9 @@ const SettingsPage = () => {
     <main className="w-full mt-6 px-4 lg:px-6 pb-8 max-w-[1600px] mx-auto">
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-2xl font-bold">Configurações</h1>
+          <h1 className="text-2xl font-bold">{t('title')}</h1>
           <p className="text-muted-foreground">
-            Gerencie suas preferências e dados
+            {t('subtitle')}
           </p>
         </div>
 

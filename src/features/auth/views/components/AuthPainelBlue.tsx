@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Wallet, TrendingUp, PiggyBank, ArrowRight, CheckCircle2, Star, LucideIcon, Lock, ShieldCheck } from 'lucide-react';
 
 interface AuthPainelBlueProps {
@@ -7,8 +8,16 @@ interface AuthPainelBlueProps {
 }
 
 export function AuthPainelBlue({ variant, onToggle, isAnimating }: AuthPainelBlueProps) {
+  const { t } = useTranslation('auth');
   const isLogin = variant === 'login';
   const isRecuperar = variant === 'recuperar';
+
+  const authFeatures = [
+    { icon: TrendingUp, text: t('painel.controle'), color: 'text-green-400' },
+    { icon: PiggyBank, text: t('painel.economia'), color: 'text-orange-400' },
+    { icon: Wallet, text: t('painel.graficos'), color: 'text-purple-400' },
+    { icon: CheckCircle2, text: t('painel.simples'), color: 'text-blue-400' },
+  ];
 
   return (
     <div className="hidden lg:flex flex-col justify-center px-8 lg:px-16 xl:px-24 bg-gradient-to-br from-blue-700 via-blue-600 to-blue-800 text-white w-1/2 relative overflow-hidden">
@@ -29,17 +38,16 @@ export function AuthPainelBlue({ variant, onToggle, isAnimating }: AuthPainelBlu
         {isLogin && (
           <>
             <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-              Controle suas<br />
-              <span className="text-blue-200">finanças</span>
+              {t('painel.title')}
             </h1>
             <p className="text-base text-blue-100 mb-6 max-w-md">
-              Tenha o controle total das suas finanças pessoais de forma simples.
+              {t('painel.subtitle')}
             </p>
 
             <div className="grid grid-cols-3 gap-3 mb-6">
-              <AuthPainelFeature icon={TrendingUp} text="Gráficos" />
-              <AuthPainelFeature icon={PiggyBank} text="Economia" />
-              <AuthPainelFeature icon={Wallet} text="Controle" />
+              <AuthPainelFeature icon={TrendingUp} text={t('painel.graficos')} />
+              <AuthPainelFeature icon={PiggyBank} text={t('painel.economia')} />
+              <AuthPainelFeature icon={Wallet} text={t('painel.controle')} />
             </div>
           </>
         )}
@@ -47,18 +55,17 @@ export function AuthPainelBlue({ variant, onToggle, isAnimating }: AuthPainelBlu
         {isRecuperar && (
           <>
             <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-              Esqueceu sua<br />
-              <span className="text-blue-200">senha?</span>
+              {t('painel.esqueceuSenha')}
             </h1>
             <p className="text-base text-blue-100 mb-6 max-w-md">
-              Não se preocupe! Vamos ajudá-lo a recuperar o acesso à sua conta.
+              {t('painel.naoSePreocupe')}
             </p>
 
             <div className="grid grid-cols-2 gap-3 mb-6">
-              <AuthPainelFeature icon={Lock} text="Segurança" />
-              <AuthPainelFeature icon={ShieldCheck} text="Rápido" />
-              <AuthPainelFeature icon={Mail} text="E-mail" />
-              <AuthPainelFeature icon={CheckCircle2} text="Simple" />
+              <AuthPainelFeature icon={Lock} text={t('painel.seguranca')} />
+              <AuthPainelFeature icon={ShieldCheck} text={t('painel.rapido')} />
+              <AuthPainelFeature icon={Mail} text={t('painel.email')} />
+              <AuthPainelFeature icon={CheckCircle2} text={t('painel.simples')} />
             </div>
           </>
         )}
@@ -66,11 +73,10 @@ export function AuthPainelBlue({ variant, onToggle, isAnimating }: AuthPainelBlu
         {!isRecuperar && !isLogin && (
           <>
             <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-              Transforme suas<br />
-              <span className="text-blue-200">finanças agora</span>
+              {t('painel.transforme')}
             </h1>
             <p className="text-base text-blue-100 mb-6 max-w-md">
-              Tudo que você precisa para organizar sua vida financeira em um só lugar.
+              {t('painel.subtitle')}
             </p>
 
             <div className="grid grid-cols-2 gap-3 mb-6">
@@ -84,7 +90,7 @@ export function AuthPainelBlue({ variant, onToggle, isAnimating }: AuthPainelBlu
 
             <div className="flex items-center gap-2 bg-yellow-500/20 backdrop-blur-sm rounded-lg px-3 py-2 w-fit mb-6">
               <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              <span className="text-yellow-100 text-sm font-medium">100% Gratuito</span>
+              <span className="text-yellow-100 text-sm font-medium">{t('painel.gratuito')}</span>
             </div>
           </>
         )}
@@ -96,18 +102,18 @@ export function AuthPainelBlue({ variant, onToggle, isAnimating }: AuthPainelBlu
         >
           {isLogin ? (
             <>
-              <span className="text-white font-medium">Criar conta grátis</span>
+              <span className="text-white font-medium">{t('painel.criarContaGratis')}</span>
               <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
             </>
           ) : isRecuperar ? (
             <>
               <ArrowRight className="w-4 h-4 text-white rotate-180 group-hover:-translate-x-1 transition-transform" />
-              <span className="text-white font-medium">Voltar ao login</span>
+              <span className="text-white font-medium">{t('painel.voltarLogin')}</span>
             </>
           ) : (
             <>
               <ArrowRight className="w-4 h-4 text-white rotate-180 group-hover:-translate-x-1 transition-transform" />
-              <span className="text-white font-medium">Fazer login</span>
+              <span className="text-white font-medium">{t('painel.fazerLogin')}</span>
             </>
           )}
         </button>
@@ -125,11 +131,6 @@ function AuthPainelFeature({ icon: Icon, text }: { icon: LucideIcon; text: strin
   );
 }
 
-const authFeatures = [
-  { icon: TrendingUp, text: 'Controle', color: 'text-green-400' },
-  { icon: PiggyBank, text: 'Economia', color: 'text-orange-400' },
-  { icon: Wallet, text: 'Metas', color: 'text-purple-400' },
-  { icon: CheckCircle2, text: 'Simples', color: 'text-blue-400' },
-];
+
 
 import { Mail } from 'lucide-react';

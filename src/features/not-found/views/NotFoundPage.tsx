@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
@@ -5,6 +6,7 @@ import { useAuth } from '@/core/viewModels/AuthContext';
 import { Home, ArrowLeft, SearchX } from 'lucide-react';
 
 export function NotFoundPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
 
@@ -20,23 +22,23 @@ export function NotFoundPage() {
             404
           </span>
           <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">
-            Página não encontrada
+            {t('pageNotFound')}
           </h1>
           <p className="text-muted-foreground mb-8 max-w-sm mx-auto leading-relaxed">
-            A página que você procura não existe, foi movida ou está temporariamente indisponível.
+            {t('pageNotFoundHint')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button variant="outline" onClick={() => navigate(-1)} className="gap-2">
               <ArrowLeft className="w-4 h-4" />
-              Voltar
+              {t('back')}
             </Button>
             <Button
               onClick={() => navigate(isLoggedIn ? '/dashboard' : '/')}
               className="gap-2 bg-blue-600 hover:bg-blue-700"
             >
               <Home className="w-4 h-4" />
-              {isLoggedIn ? 'Ir para o Dashboard' : 'Página Inicial'}
+              {isLoggedIn ? t('goToDashboard') : t('homePage')}
             </Button>
           </div>
         </CardContent>

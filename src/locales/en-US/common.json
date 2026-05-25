@@ -1,0 +1,18 @@
+{
+  "loading": "Loading...",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "delete": "Delete",
+  "save": "Save",
+  "back": "Back",
+  "next": "Continue",
+  "skip": "Skip",
+  "finish": "Finish",
+  "error": "Error",
+  "success": "Success",
+  "noData": "No data found",
+  "pageNotFound": "Page not found",
+  "pageNotFoundHint": "The page you are looking for does not exist, has been moved, or is temporarily unavailable.",
+  "goToDashboard": "Go to Dashboard",
+  "homePage": "Home"
+}

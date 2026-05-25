@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   FormField,
   FormItem,
@@ -20,25 +21,26 @@ interface TransacaoTipoSelectProps {
 }
 
 export function TransacaoTipoSelect({ form, onTipoChange }: TransacaoTipoSelectProps) {
+  const { t } = useTranslation('financeiro');
   return (
     <FormField
       control={form.control}
       name="tipo"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Tipo</FormLabel>
+          <FormLabel>{t('form.tipo')}</FormLabel>
           <Select
             value={field.value}
             onValueChange={onTipoChange}
           >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Selecione" />
+                <SelectValue placeholder={t('form.selecione')} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              <SelectItem value="receita">Receita</SelectItem>
-              <SelectItem value="despesa">Despesa</SelectItem>
+              <SelectItem value="receita">{t('form.receita')}</SelectItem>
+              <SelectItem value="despesa">{t('form.despesa')}</SelectItem>
             </SelectContent>
           </Select>
         </FormItem>

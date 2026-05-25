@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useEntrada, useResumo, useTransacoesRecentes } from '../viewModels';
 import { useMetas } from '@/features/metas/viewModels';
 import { MetaDashboardCard } from '@/features/metas/views/components';
@@ -26,6 +27,7 @@ const CORES_CATEGORIAS: Record<string, string> = {
 };
 
 const Dashboard = () => {
+  const { t } = useTranslation('dashboard');
   const { entrada, isLoading, isEditing, atualizarEntrada, iniciarEdicao, cancelarEdicao } =
     useEntrada();
   const { transacoes, isLoading: isLoadingTransacoes } = useTransacoesRecentes(5);
@@ -77,7 +79,7 @@ const Dashboard = () => {
         <SaudacaoUsuario />
 
         <section>
-          <h2 className="text-xl font-semibold mb-4">Visão Geral</h2>
+          <h2 className="text-xl font-semibold mb-4">{t('title')}</h2>
           <ResumoFinanceiro resumo={resumoCalculado} />
         </section>
 

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,13 +26,14 @@ export function FiltrosBar({
   onLimpar,
   temFiltros,
 }: FiltrosBarProps) {
+  const { t } = useTranslation('financeiro');
   return (
     <Card className="bg-muted/30">
       <CardContent className="p-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Filter className="w-4 h-4" />
-            <span className="text-sm font-medium">Filtros:</span>
+            <span className="text-sm font-medium">{t('filtros.title')}</span>
           </div>
 
           <Select
@@ -41,12 +43,12 @@ export function FiltrosBar({
             }
           >
             <SelectTrigger className="w-[140px] h-9">
-              <SelectValue placeholder="Período" />
+              <SelectValue placeholder={t('filtros.periodo')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="semana">Última semana</SelectItem>
-              <SelectItem value="mes">Último mês</SelectItem>
-              <SelectItem value="ano">Último ano</SelectItem>
+              <SelectItem value="semana">{t('filtros.ultimaSemana')}</SelectItem>
+              <SelectItem value="mes">{t('filtros.ultimoMes')}</SelectItem>
+              <SelectItem value="ano">{t('filtros.ultimoAno')}</SelectItem>
             </SelectContent>
           </Select>
 
@@ -57,12 +59,12 @@ export function FiltrosBar({
             }
           >
             <SelectTrigger className="w-[140px] h-9">
-              <SelectValue placeholder="Tipo" />
+              <SelectValue placeholder={t('filtros.tipo')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="todos">Todos</SelectItem>
-              <SelectItem value="receita">Receitas</SelectItem>
-              <SelectItem value="despesa">Despesas</SelectItem>
+              <SelectItem value="todos">{t('filtros.todos')}</SelectItem>
+              <SelectItem value="receita">{t('filtros.receitas')}</SelectItem>
+              <SelectItem value="despesa">{t('filtros.despesas')}</SelectItem>
             </SelectContent>
           </Select>
 
@@ -74,7 +76,7 @@ export function FiltrosBar({
               className="text-muted-foreground hover:text-foreground"
             >
               <X className="w-4 h-4 mr-1" />
-              Limpar
+              {t('filtros.limpar')}
             </Button>
           )}
         </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   FormField,
   FormItem,
@@ -25,6 +26,7 @@ const CATEGORIAS_RECEITA = ['salario', 'investimento', 'freelance', 'outros_rece
 const CATEGORIAS_DESPESA = ['alimentacao', 'transporte', 'moradia', 'lazer', 'saude', 'educacao', 'contas', 'outros_despesa'];
 
 export function TransacaoCategoriaSelect({ form, tipo }: TransacaoCategoriaSelectProps) {
+  const { t } = useTranslation('financeiro');
   const categoriasFiltradas = CATEGORIAS.filter((c) =>
     tipo === 'receita' ? CATEGORIAS_RECEITA.includes(c.id) : CATEGORIAS_DESPESA.includes(c.id)
   );
@@ -35,11 +37,11 @@ export function TransacaoCategoriaSelect({ form, tipo }: TransacaoCategoriaSelec
       name="categoria"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Categoria</FormLabel>
+          <FormLabel>{t('form.categoria')}</FormLabel>
           <Select value={field.value} onValueChange={field.onChange}>
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Selecione" />
+                <SelectValue placeholder={t('form.selecione')} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

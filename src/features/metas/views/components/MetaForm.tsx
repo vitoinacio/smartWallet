@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -34,6 +35,7 @@ const CATEGORIAS_SUGESTAO = [
 ];
 
 export function MetaForm({ sugestaoValor, onCriar }: MetaFormProps) {
+  const { t } = useTranslation('metas');
   const [mostrarForm, setMostrarForm] = useState(false);
   const [nome, setNome] = useState('');
   const [valorAlvo, setValorAlvo] = useState('');
@@ -86,7 +88,7 @@ export function MetaForm({ sugestaoValor, onCriar }: MetaFormProps) {
         className="w-full"
       >
         <Plus className="w-4 h-4 mr-2" />
-        Nova Meta de Economia
+        {t('form.novaMeta')}
       </Button>
     );
   }
@@ -96,24 +98,24 @@ export function MetaForm({ sugestaoValor, onCriar }: MetaFormProps) {
       <CardHeader className="pb-3">
         <CardTitle className="text-lg flex items-center gap-2">
           <Target className="w-5 h-5" />
-          Definir Nova Meta
+          {t('form.definir')}
         </CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="meta-nome">Nome da Meta</Label>
+            <Label htmlFor="meta-nome">{t('form.nome')}</Label>
             <Input
               id="meta-nome"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
-              placeholder="Ex: Reserva de emergência"
+              placeholder={t('form.nomePlaceholder')}
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="meta-valor">Valor Alvo (R$)</Label>
+              <Label htmlFor="meta-valor">{t('form.valorAlvo')} (R$)</Label>
               <div className="flex gap-2">
                 <Input
                   id="meta-valor"
@@ -131,7 +133,7 @@ export function MetaForm({ sugestaoValor, onCriar }: MetaFormProps) {
                     size="sm"
                     className="shrink-0 text-xs"
                     onClick={usarSugestao}
-                    title="Usar 10% da renda como sugestão"
+                    title={t('form.sugestao')}
                   >
                     10%
                   </Button>
@@ -139,13 +141,13 @@ export function MetaForm({ sugestaoValor, onCriar }: MetaFormProps) {
               </div>
               {sugestaoValor > 0 && (
                 <p className="text-xs text-muted-foreground">
-                  Sugestão: R$ {formatedBrl(sugestaoValor.toString())} (10% da renda)
+                  {t('form.sugestao')}: R$ {formatedBrl(sugestaoValor.toString())} (10% da renda)
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="meta-tipo">Tipo</Label>
+              <Label htmlFor="meta-tipo">{t('form.tipo')}</Label>
               <Select
                 value={tipo}
                 onValueChange={(v) => setTipo(v as 'mensal' | 'anual')}
@@ -154,18 +156,18 @@ export function MetaForm({ sugestaoValor, onCriar }: MetaFormProps) {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="mensal">Mensal</SelectItem>
-                  <SelectItem value="anual">Anual</SelectItem>
+                  <SelectItem value="mensal">{t('form.mensal')}</SelectItem>
+                  <SelectItem value="anual">{t('form.anual')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="meta-categoria">Categoria (opcional)</Label>
+            <Label htmlFor="meta-categoria">{t('form.categoria')} (opcional)</Label>
             <Select value={categoria} onValueChange={setCategoria}>
               <SelectTrigger id="meta-categoria">
-                <SelectValue placeholder="Selecione uma categoria" />
+                <SelectValue placeholder={t('form.selecione')} />
               </SelectTrigger>
               <SelectContent>
                 {CATEGORIAS_SUGESTAO.map((cat) => (
@@ -183,7 +185,7 @@ export function MetaForm({ sugestaoValor, onCriar }: MetaFormProps) {
               className="flex-1"
               disabled={!nome || maskParaCentavos(valorAlvo) <= 0}
             >
-              Criar Meta
+              {t('form.criar')}
             </Button>
             <Button
               type="button"
@@ -194,7 +196,7 @@ export function MetaForm({ sugestaoValor, onCriar }: MetaFormProps) {
                 setValorAlvo('');
               }}
             >
-              Cancelar
+              {t('form.cancelar')}
             </Button>
           </div>
         </form>

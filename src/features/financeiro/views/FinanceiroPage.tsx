@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useTransacoes, useResumo, useFiltros, useBudget, useRecorrencia } from '../viewModels';
 import {
   ResumoCards,
@@ -11,6 +12,7 @@ import {
 } from './components';
 
 const Financeiro = () => {
+  const { t } = useTranslation('financeiro');
   const { transacoes, isLoading, criarTransacao, excluirTransacao } =
     useTransacoes();
   const resumo = useResumo(transacoes);
@@ -36,7 +38,7 @@ const Financeiro = () => {
     <main className="w-full mt-6 px-4 lg:px-6 pb-8 max-w-[1600px] mx-auto">
       <div className="flex flex-col gap-6">
         <section>
-          <h2 className="text-2xl font-bold mb-4">Resumo Financeiro</h2>
+          <h2 className="text-2xl font-bold mb-4">{t('title')}</h2>
           <ResumoCards resumo={resumo} />
         </section>
 
@@ -73,7 +75,7 @@ const Financeiro = () => {
 
               <div>
                 <h3 className="text-lg font-semibold mb-3">
-                  Transações ({transacoesFiltradas.length})
+                  {t('transacoes')} ({transacoesFiltradas.length})
                 </h3>
                 <TransacaoLista
                   transacoes={transacoesFiltradas}

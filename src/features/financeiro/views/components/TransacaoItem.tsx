@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
@@ -21,9 +22,6 @@ interface TransacaoItemProps {
   onExcluir: (id: number) => void;
 }
 
-const obterCategoria = (id: string) =>
-  CATEGORIAS.find((c) => c.id === id) || { nome: 'Outros', cor: 'bg-gray-500' };
-
 function IconeStatus({ status }: { status: string }) {
   switch (status) {
     case 'pago':
@@ -36,6 +34,9 @@ function IconeStatus({ status }: { status: string }) {
 }
 
 export function TransacaoItem({ transacao, onExcluir }: TransacaoItemProps) {
+  const { t } = useTranslation('financeiro');
+  const obterCategoria = (id: string) =>
+    CATEGORIAS.find((c) => c.id === id) || { nome: 'Outros', cor: 'bg-gray-500' };
   const categoria = obterCategoria(transacao.categoria);
   const isDespesa = transacao.tipo === 'despesa';
 
@@ -56,7 +57,7 @@ export function TransacaoItem({ transacao, onExcluir }: TransacaoItemProps) {
                 <span>•</span>
                 <span className="flex items-center gap-1">
                   <IconeStatus status={transacao.status} />
-                  <span className="capitalize">{transacao.status}</span>
+                  <span className="capitalize">{t('item.' + transacao.status)}</span>
                 </span>
               </div>
             </div>
@@ -75,16 +76,16 @@ export function TransacaoItem({ transacao, onExcluir }: TransacaoItemProps) {
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Excluir Transação</AlertDialogTitle>
+                  <AlertDialogTitle>{t('item.excluir')}</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Tem certeza que deseja excluir "{transacao.descricao}"?
-                    Esta ação não pode ser desfeita.
+                    {t('item.excluirConfirm', { nome: transacao.descricao })}
+                    {t('item.excluirHint')}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                  <AlertDialogCancel>{t('item.cancelar')}</AlertDialogCancel>
                   <AlertDialogAction onClick={() => onExcluir(transacao.id)} className="bg-red-600 hover:bg-red-700">
-                    Excluir
+                    {t('item.excluir')}
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
@@ -94,7 +95,7 @@ export function TransacaoItem({ transacao, onExcluir }: TransacaoItemProps) {
 
         {transacao.observacao && (
           <p className="text-sm text-muted-foreground mt-2 pl-13">
-            Obs: {transacao.observacao}
+            {t('item.obs')}: {transacao.observacao}
           </p>
         )}
       </CardContent>

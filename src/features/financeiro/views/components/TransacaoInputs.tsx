@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   FormField,
   FormItem,
@@ -15,6 +16,7 @@ interface TransacaoInputsProps {
 }
 
 export function TransacaoInputs({ form, onFormatValor }: TransacaoInputsProps) {
+  const { t } = useTranslation('financeiro');
   return (
     <>
       <FormField
@@ -22,9 +24,9 @@ export function TransacaoInputs({ form, onFormatValor }: TransacaoInputsProps) {
         name="descricao"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Descrição</FormLabel>
+            <FormLabel>{t('form.descricao')}</FormLabel>
             <FormControl>
-              <Input placeholder="Ex: Supermercado" {...field} />
+              <Input placeholder={t('form.descricaoPlaceholder')} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -36,7 +38,7 @@ export function TransacaoInputs({ form, onFormatValor }: TransacaoInputsProps) {
         name="valor"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Valor (R$)</FormLabel>
+            <FormLabel>{t('form.valor')}</FormLabel>
             <FormControl>
               <Input
                 type="text"
@@ -55,7 +57,7 @@ export function TransacaoInputs({ form, onFormatValor }: TransacaoInputsProps) {
         name="data"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Data de Vencimento</FormLabel>
+            <FormLabel>{t('form.dataVencimento')}</FormLabel>
             <FormControl>
               <Input type="date" {...field} />
             </FormControl>
@@ -69,9 +71,9 @@ export function TransacaoInputs({ form, onFormatValor }: TransacaoInputsProps) {
         name="observacao"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Observação (opcional)</FormLabel>
+            <FormLabel>{t('form.observacao')}</FormLabel>
             <FormControl>
-              <Input placeholder="Detalhes..." {...field} />
+              <Input placeholder={t('form.observacaoPlaceholder')} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DashboardResumo } from '../../models';
 import { formatedBrl } from '@/core/utils/formatedBrl';
@@ -8,6 +9,7 @@ interface ResumoFinanceiroProps {
 }
 
 export function ResumoFinanceiro({ resumo }: ResumoFinanceiroProps) {
+  const { t } = useTranslation('dashboard');
   const getCorPercentual = () => {
     if (resumo.percentualGasto >= 90) return 'bg-red-500';
     if (resumo.percentualGasto >= 70) return 'bg-amber-500';
@@ -20,7 +22,7 @@ export function ResumoFinanceiro({ resumo }: ResumoFinanceiroProps) {
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
             <TrendingUp className="w-4 h-4 text-green-500" />
-            Entrada Mensal
+            {t('resumo.entradaMensal')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -34,7 +36,7 @@ export function ResumoFinanceiro({ resumo }: ResumoFinanceiroProps) {
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
             <TrendingDown className="w-4 h-4 text-red-500" />
-            Total Gasto
+            {t('resumo.totalGasto')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -48,7 +50,7 @@ export function ResumoFinanceiro({ resumo }: ResumoFinanceiroProps) {
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
             <Wallet className="w-4 h-4 text-blue-500" />
-            Saldo Remaining
+            {t('resumo.saldoRestante')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -66,7 +68,7 @@ export function ResumoFinanceiro({ resumo }: ResumoFinanceiroProps) {
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
             <Percent className="w-4 h-4 text-purple-500" />
-            Orçamento Used
+            {t('resumo.orcamentoUsado')}
           </CardTitle>
         </CardHeader>
         <CardContent>

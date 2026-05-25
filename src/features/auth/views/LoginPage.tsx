@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import LoginForm from "../views/components/LoginForm"
 import { Wallet, TrendingUp, PiggyBank } from "lucide-react"
 
 const Login = () => {
+  const { t } = useTranslation('auth');
   return (
     <div className="min-h-screen flex">
       {/* Lado esquerdo - Decorativo */}
@@ -23,26 +25,26 @@ const Login = () => {
           </div>
           
           <h1 className="text-4xl font-bold mb-6 leading-tight">
-            Controle suas finanças<br />
-            <span className="text-blue-200">de forma inteligente</span>
+            {t('painel.title')}<br />
+            <span className="text-blue-200">{t('painel.subtitle')}</span>
           </h1>
           
           <p className="text-lg text-blue-100 mb-12 max-w-md">
-            Acesse sua conta e tenha o controle total das suas finanças pessoais de forma simples e eficiente.
+            {t('login.subtitle')}
           </p>
           
           <div className="grid grid-cols-3 gap-6">
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
               <TrendingUp className="w-6 h-6 mx-auto mb-2 text-blue-200" />
-              <span className="text-sm">Gráficos</span>
+              <span className="text-sm">{t('painel.graficos')}</span>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
               <PiggyBank className="w-6 h-6 mx-auto mb-2 text-blue-200" />
-              <span className="text-sm">Economia</span>
+              <span className="text-sm">{t('painel.economia')}</span>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
               <Wallet className="w-6 h-6 mx-auto mb-2 text-blue-200" />
-              <span className="text-sm">Controle</span>
+              <span className="text-sm">{t('painel.controle')}</span>
             </div>
           </div>
         </div>

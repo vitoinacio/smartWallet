@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { User, Smartphone, Shield, Database, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SETTINGS_TABS, SettingsTab } from '../../models';
@@ -17,6 +18,7 @@ interface SettingsNavProps {
 }
 
 export function SettingsNav({ activeTab, onTabChange }: SettingsNavProps) {
+  const { t } = useTranslation('settings');
   return (
     <div className="flex flex-col gap-1 w-full">
       {SETTINGS_TABS.map((tab) => {
@@ -34,7 +36,7 @@ export function SettingsNav({ activeTab, onTabChange }: SettingsNavProps) {
             onClick={() => onTabChange(tab.id)}
           >
             <Icon className="h-5 w-5" />
-            <span>{tab.label}</span>
+            <span>{t(`nav.${tab.id}`)}</span>
           </Button>
         );
       })}

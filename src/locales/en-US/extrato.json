@@ -1,0 +1,28 @@
+{
+  "title": "Monthly Statement",
+  "subtitle": "View and export your transactions by month",
+  "resumo": {
+    "receitas": "Income",
+    "despesas": "Expenses",
+    "saldo": "Balance",
+    "negativo": "(negative)"
+  },
+  "tabela": {
+    "empty": "No transactions in this period",
+    "emptyHint": "Select another month or add transactions in the Financial page",
+    "data": "Date",
+    "descricao": "Description",
+    "categoria": "Category",
+    "valor": "Amount",
+    "status": "Status",
+    "pago": "Paid",
+    "pendente": "Pending",
+    "vencido": "Overdue",
+    "encontradas": "{{count}} transaction found",
+    "encontradas_plural": "{{count}} transactions found",
+    "gerando": "Generating...",
+    "csv": "CSV",
+    "excel": "Excel",
+    "pdf": "PDF"
+  }
+}

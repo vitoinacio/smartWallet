@@ -1,9 +1,11 @@
+import { useTranslation } from "react-i18next"
 import { Wallet, ArrowLeft, Shield, Eye, Lock, Database, Bell, UserCheck, Sun, Moon } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import useTheme from "@/core/viewModels/useTheme"
 
 const PoliticaPrivacidade = () => {
+  const { t } = useTranslation('legal')
   const { handleTheme, theme } = useTheme()
 
   return (
@@ -26,7 +28,7 @@ const PoliticaPrivacidade = () => {
             <Link to="/">
               <Button variant="ghost" className="gap-2">
                 <ArrowLeft className="w-4 h-4" />
-                Voltar
+                {t('common:back')}
               </Button>
             </Link>
           </div>
@@ -42,10 +44,10 @@ const PoliticaPrivacidade = () => {
               <Shield className="w-8 h-8 text-green-700 dark:text-green-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-              Política de Privacidade
+              {t('privacidade.title')}
             </h1>
             <p className="text-gray-600 dark:text-gray-400">
-              Última atualização: Janeiro de 2025
+              {t('termos.ultimaAtualizacao')}
             </p>
           </div>
 
@@ -53,12 +55,10 @@ const PoliticaPrivacidade = () => {
           <section className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <Eye className="w-5 h-5 text-blue-500" />
-              Nossa Commitment com a Privacidade
+              {t('privacidade.compromisso')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              A SmartWallet leva sua privacidade a sério. Esta Política de Privacidade descreve 
-              como coletamos, usamos, compartilhamos e protegemos suas informações pessoais. 
-              Ao usar nosso aplicativo, você concorda com as práticas descritas nesta política.
+              {t('privacidade.compromissoTexto')}
             </p>
           </section>
 
@@ -66,37 +66,34 @@ const PoliticaPrivacidade = () => {
           <section className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <Database className="w-5 h-5 text-purple-500" />
-              Informações que Coletamos
+              {t('privacidade.coletamos')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-              Coletamos as seguintes categorias de informações:
+              {t('privacidade.coletamosTexto')}
             </p>
             <div className="space-y-4">
               <div className="bg-gray-50 dark:bg-neutral-700 rounded-lg p-4">
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                  Informações de Conta
+                  {t('privacidade.coletamosConta')}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Nome, email, senha criptografada, data de nascimento e sexo fornecidos 
-                  durante o cadastro.
+                  {t('privacidade.coletamosContaTexto')}
                 </p>
               </div>
               <div className="bg-gray-50 dark:bg-neutral-700 rounded-lg p-4">
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                  Dados Financeiros
+                  {t('privacidade.coletamosFinanceiros')}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Informações sobre suas receitas, débitos e transações financeiras 
-                  que você adiciona manualmente ao aplicativo.
+                  {t('privacidade.coletamosFinanceirosTexto')}
                 </p>
               </div>
               <div className="bg-gray-50 dark:bg-neutral-700 rounded-lg p-4">
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                  Dados de Uso
+                  {t('privacidade.coletamosUso')}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Informações sobre como você usa o aplicativo, incluindo preferências 
-                  de tema e configurações.
+                  {t('privacidade.coletamosUsoTexto')}
                 </p>
               </div>
             </div>
@@ -106,18 +103,18 @@ const PoliticaPrivacidade = () => {
           <section className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <UserCheck className="w-5 h-5 text-green-500" />
-              Como Usamos suas Informações
+              {t('privacidade.usamos')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-              Utilizamos suas informações para:
+              {t('privacidade.usamosTexto')}
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400 ml-4">
-              <li>Fornecer e manter nossos serviços</li>
-              <li>Personalizar sua experiência no aplicativo</li>
-              <li>Enviar notificações sobre débitos e lembretes</li>
-              <li>Melhorar e desenvolver novos recursos</li>
-              <li>Comunicar atualizações e suporte</li>
-              <li>Cumprir obrigações legais</li>
+              <li>{t('privacidade.usamosItem1')}</li>
+              <li>{t('privacidade.usamosItem2')}</li>
+              <li>{t('privacidade.usamosItem3')}</li>
+              <li>{t('privacidade.usamosItem4')}</li>
+              <li>{t('privacidade.usamosItem5')}</li>
+              <li>{t('privacidade.usamosItem6')}</li>
             </ul>
           </section>
 
@@ -125,16 +122,15 @@ const PoliticaPrivacidade = () => {
           <section className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <Lock className="w-5 h-5 text-amber-500" />
-              Compartilhamento de Dados
+              {t('privacidade.compartilhamento')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-              A SmartWallet <strong>nunca</strong> vende suas informações pessoais. 
-              Compartilhamos seus dados apenas nas seguintes circunstâncias:
+              {t('privacidade.compartilhamentoTexto1')}<strong>{t('privacidade.compartilhamentoNunca')}</strong>{t('privacidade.compartilhamentoTexto2')}
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400 ml-4">
-              <li><strong>Prestadores de serviços:</strong> Empresas que nos ajudam a operar o aplicativo (hospedagem, infraestrutura)</li>
-              <li><strong>Requisitos legais:</strong> Quando exigido por lei ou autoridades competentes</li>
-              <li><strong>Proteção de direitos:</strong> Para proteger nossos direitos ou segurança</li>
+              <li><strong>{t('privacidade.compartilhamentoItem1Strong')}</strong>{t('privacidade.compartilhamentoItem1Texto')}</li>
+              <li><strong>{t('privacidade.compartilhamentoItem2Strong')}</strong>{t('privacidade.compartilhamentoItem2Texto')}</li>
+              <li><strong>{t('privacidade.compartilhamentoItem3Strong')}</strong>{t('privacidade.compartilhamentoItem3Texto')}</li>
             </ul>
           </section>
 
@@ -142,10 +138,10 @@ const PoliticaPrivacidade = () => {
           <section className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <Shield className="w-5 h-5 text-blue-500" />
-              Segurança dos Dados
+              {t('privacidade.seguranca')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-              Implementamos medidas de segurança robustas para proteger suas informações:
+              {t('privacidade.segurancaTexto')}
             </p>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="flex items-start gap-3">
@@ -153,8 +149,8 @@ const PoliticaPrivacidade = () => {
                   <Lock className="w-4 h-4 text-green-600 dark:text-green-400" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white">Criptografia</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Dados criptografados em repouso e em trânsito</p>
+                  <h4 className="font-medium text-gray-900 dark:text-white">{t('privacidade.segurancaTitulo1')}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{t('privacidade.segurancaTexto1')}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -162,8 +158,8 @@ const PoliticaPrivacidade = () => {
                   <Shield className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white">Autenticação</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Login seguro com credenciais criptografadas</p>
+                  <h4 className="font-medium text-gray-900 dark:text-white">{t('privacidade.segurancaTitulo2')}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{t('privacidade.segurancaTexto2')}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -171,8 +167,8 @@ const PoliticaPrivacidade = () => {
                   <Database className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white">AWS</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Infraestrutura segura em nuvem AWS</p>
+                  <h4 className="font-medium text-gray-900 dark:text-white">{t('privacidade.segurancaTitulo3')}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{t('privacidade.segurancaTexto3')}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -180,8 +176,8 @@ const PoliticaPrivacidade = () => {
                   <Bell className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white">Monitoramento</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Monitoramento contínuo de segurança</p>
+                  <h4 className="font-medium text-gray-900 dark:text-white">{t('privacidade.segurancaTitulo4')}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{t('privacidade.segurancaTexto4')}</p>
                 </div>
               </div>
             </div>
@@ -191,17 +187,17 @@ const PoliticaPrivacidade = () => {
           <section className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <UserCheck className="w-5 h-5 text-green-500" />
-              Seus Direitos
+              {t('privacidade.direitos')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-              Você tem os seguintes direitos sobre seus dados:
+              {t('privacidade.direitosTexto')}
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400 ml-4">
-              <li><strong>Acesso:</strong> Solicitar uma cópia dos seus dados</li>
-              <li><strong>Correção:</strong> Solicitar correção de dados incorretos</li>
-              <li><strong>Exclusão:</strong> Solicitar a remoção dos seus dados</li>
-              <li><strong>Portabilidade:</strong> Receber seus dados em formato legível</li>
-              <li><strong>Retirada:</strong> Retirar o consentimento a qualquer momento</li>
+              <li><strong>{t('privacidade.direitosItem1Strong')}</strong>{t('privacidade.direitosItem1Texto')}</li>
+              <li><strong>{t('privacidade.direitosItem2Strong')}</strong>{t('privacidade.direitosItem2Texto')}</li>
+              <li><strong>{t('privacidade.direitosItem3Strong')}</strong>{t('privacidade.direitosItem3Texto')}</li>
+              <li><strong>{t('privacidade.direitosItem4Strong')}</strong>{t('privacidade.direitosItem4Texto')}</li>
+              <li><strong>{t('privacidade.direitosItem5Strong')}</strong>{t('privacidade.direitosItem5Texto')}</li>
             </ul>
           </section>
 
@@ -209,11 +205,10 @@ const PoliticaPrivacidade = () => {
           <section className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <Bell className="w-5 h-5 text-orange-500" />
-              Notificações
+              {t('privacidade.notificacoes')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-              Você pode configurar as notificações que deseja receber nas configurações do aplicativo. 
-              Você pode desativar notificações a qualquer momento.
+              {t('privacidade.notificacoesTexto')}
             </p>
           </section>
 
@@ -221,52 +216,45 @@ const PoliticaPrivacidade = () => {
           <section className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <Database className="w-5 h-5 text-purple-500" />
-              Retenção de Dados
+              {t('privacidade.retencao')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              Mantemos seus dados apenas pelo tempo necessário para fornecer nossos serviços. 
-              Quando você excluir sua conta, removeremos seus dados dentro de 30 dias, exceto 
-              quando exigido por lei manter certos dados por mais tempo.
+              {t('privacidade.retencaoTexto')}
             </p>
           </section>
 
           {/* Crianças */}
           <section className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-              Crianças
+              {t('privacidade.criancas')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              O SmartWallet não é direcionado a crianças menores de 13 anos. Não coletamos 
-              intencionalmente informações de crianças. Se você acredita que coletamos informações 
-              de uma criança, entre em contato conosco imediatamente.
+              {t('privacidade.criancasTexto')}
             </p>
           </section>
 
           {/* Alterações */}
           <section className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-              Alterações nesta Política
+              {t('privacidade.alteracoes')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              Podemos atualizar esta Política de Privacidade periodicamente. Notificaremos sobre 
-              alterações significativas através do aplicativo. A data no topo desta página 
-              indica quando a política foi atualizada pela última vez.
+              {t('privacidade.alteracoesTexto')}
             </p>
           </section>
 
           {/* Contato */}
           <section className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-              Entre em Contato
+              {t('privacidade.contato')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-              Se você tiver dúvidas ou preocupações sobre esta Política de Privacidade, 
-              entre em contato conosco:
+              {t('privacidade.contatoTexto')}
             </p>
             <div className="bg-gray-50 dark:bg-neutral-700 rounded-lg p-4">
               <p className="text-gray-700 dark:text-gray-300">
-                <strong>Email:</strong> smartwallet@example.com<br />
-                <strong>Website:</strong> www.smartwallet.com.br
+                <strong>Email:</strong> {t('privacidade.contatoEmail')}<br />
+                <strong>Website:</strong> {t('privacidade.contatoSite')}
               </p>
             </div>
           </section>
@@ -275,7 +263,7 @@ const PoliticaPrivacidade = () => {
 
       {/* Footer simples */}
       <footer className="py-6 text-center text-sm text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-neutral-700">
-        <p>© 2025 SmartWallet. Todos os direitos reservados.</p>
+        <p>{t('privacidade.footer')}</p>
       </footer>
     </div>
   )
