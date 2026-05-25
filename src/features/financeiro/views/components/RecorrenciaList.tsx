@@ -3,7 +3,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Recorrencia, CATEGORIAS } from '@/features/financeiro/models';
 import { formatedBrl } from '@/core/utils/formatedBrl';
-import { Pause, Play, Trash2, Repeat } from 'lucide-react';
+import { Pause, Play, Trash2, Repeat, CalendarClock } from 'lucide-react';
+import { EmptyState } from '@/core/components/EmptyState';
+import { ConfirmDialog } from '@/core/components/ConfirmDialog';
 
 interface RecorrenciaListProps {
   recorrencias: Recorrencia[];
@@ -22,7 +24,25 @@ function getFrequenciaLabel(freq: string): string {
 }
 
 export function RecorrenciaList({ recorrencias, onToggle, onExcluir }: RecorrenciaListProps) {
-  if (recorrencias.length === 0) return null;
+  if (recorrencias.length === 0) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Repeat className="w-5 h-5" />
+            Transações Recorrentes
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <EmptyState
+            icon={CalendarClock}
+            title="Nenhuma recorrência cadastrada"
+            description="Crie transações recorrentes para automatizar seu controle financeiro"
+          />
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>
@@ -74,14 +94,19 @@ export function RecorrenciaList({ recorrencias, onToggle, onExcluir }: Recorrenc
                       <Play className="w-4 h-4" />
                     )}
                   </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 text-red-500"
-                    onClick={() => onExcluir(rec.id)}
+                  <ConfirmDialog
+                    title="Excluir Recorrência"
+                    description={`Tem certeza que deseja excluir a recorrência "${rec.descricao}"? Esta ação não pode ser desfeita.`}
+                    onConfirm={() => onExcluir(rec.id)}
                   >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 text-red-500"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </ConfirmDialog>
                 </div>
               </div>
             );

@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { Wallet, LayoutDashboard, TrendingUp, Target, FileText, Settings, LogOut, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import useUserInfo from '@/core/viewModels/useUserInfo';
-import Loading from '@/core/components/Loading';
+import { ConfirmDialog } from '@/core/components/ConfirmDialog';
 import { useSidebarState } from '@/core/viewModels/useSidebar';
 
 interface NavItem {
@@ -156,8 +157,14 @@ export function AppSidebar() {
 
       <div className={cn("p-3 border-t border-sidebar-border", (isCollapsed || isOverlay) && !isMobileView ? "p-1" : "")}>
         {loading ? (
-          <div className="p-4 flex justify-center">
-            <Loading size={32} />
+          <div className={cn("flex items-center gap-3", (isCollapsed || isOverlay) && !isMobileView ? "justify-center" : "")}>
+            <Skeleton className="h-9 w-9 rounded-full shrink-0" />
+            {(!isCollapsed || isOverlay) && (
+              <div className="flex-1 min-w-0 space-y-1.5">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-3 w-32" />
+              </div>
+            )}
           </div>
         ) : (
           <div className={cn("flex items-center gap-3", (isCollapsed || isOverlay) && !isMobileView ? "justify-center" : "")}>
@@ -180,15 +187,22 @@ export function AppSidebar() {
             )}
             
             {(!isCollapsed || isOverlay) && (
+            <ConfirmDialog
+              title="Sair da Conta"
+              description="Tem certeza que deseja sair da sua conta?"
+              confirmText="Sair"
+              confirmClassName="bg-red-600 hover:bg-red-700"
+              onConfirm={logout}
+            >
               <Button
                 variant="ghost"
                 size="icon"
                 className="h-8 w-8 shrink-0 text-red-500 hover:text-red-600 hover:bg-red-50"
-                onClick={logout}
                 title="Sair"
               >
                 <LogOut className="h-4 w-4" />
               </Button>
+            </ConfirmDialog>
             )}
           </div>
         )}

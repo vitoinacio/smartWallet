@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Form,
   FormField,
@@ -12,8 +13,7 @@ import {
   FormControl,
   FormMessage,
 } from '@/components/ui/form';
-import Loading from '@/core/components/Loading';
-import { DollarSign, Pencil, X, Check } from 'lucide-react';
+import { DollarSign, Pencil, X, Check, Loader2 } from 'lucide-react';
 
 const entradaSchema = z.object({
   valor: z.string().min(1, 'Valor é obrigatório'),
@@ -50,8 +50,20 @@ export function EntradaEditor({
   if (isLoading) {
     return (
       <Card className="w-full">
-        <CardContent className="p-6">
-          <Loading message="Carregando..." />
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Skeleton className="w-5 h-5 rounded" />
+            <Skeleton className="h-6 w-44" />
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-between">
+            <div className="space-y-2">
+              <Skeleton className="h-9 w-40" />
+              <Skeleton className="h-4 w-36" />
+            </div>
+            <Skeleton className="h-9 w-9 rounded-md" />
+          </div>
         </CardContent>
       </Card>
     );
@@ -96,7 +108,7 @@ export function EntradaEditor({
               />
               <div className="flex gap-2">
                 <Button type="submit" className="flex-1" disabled={isLoading}>
-                  {isLoading ? <Loading size={16} /> : <Check className="w-4 h-4 mr-2" />}
+                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Check className="w-4 h-4 mr-2" />}
                   Salvar
                 </Button>
                 <Button type="button" variant="outline" onClick={onCancelarEdicao}>

@@ -28,7 +28,7 @@ const CORES_CATEGORIAS: Record<string, string> = {
 const Dashboard = () => {
   const { entrada, isLoading, isEditing, atualizarEntrada, iniciarEdicao, cancelarEdicao } =
     useEntrada();
-  const { transacoes, isLoading: isLoadingTransacoes } = useTransacoesRecentes(4);
+  const { transacoes, isLoading: isLoadingTransacoes } = useTransacoesRecentes(5);
   const { progressos, isLoading: isLoadingMetas } = useMetas();
 
   const entradaNumerica = useMemo(() => {

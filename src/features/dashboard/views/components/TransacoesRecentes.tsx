@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { TransacaoRecente } from '../../models';
 import { formatedBrl } from '@/core/utils/formatedBrl';
 import { formatarDate } from '@/core/utils/formatedDate';
-import Loading from '@/core/components/Loading';
 import { ArrowRight, Receipt, TrendingDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -29,9 +29,35 @@ const StatusBadge = ({ status }: { status: string }) => {
 export function TransacoesRecentes({ transacoes, isLoading }: TransacoesRecentesProps) {
   if (isLoading) {
     return (
-      <Card>
-        <CardContent className="p-6">
-          <Loading message="Carregando transações..." />
+      <Card className="w-full">
+        <CardHeader className="flex flex-row items-center justify-between pb-4">
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Skeleton className="w-5 h-5 rounded" />
+            <Skeleton className="h-6 w-44" />
+          </CardTitle>
+          <Skeleton className="h-8 w-28 rounded" />
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex items-center justify-between p-3 rounded-lg border"
+              >
+                <div className="flex items-center gap-3">
+                  <Skeleton className="w-10 h-10 rounded-full" />
+                  <div className="space-y-1.5">
+                    <Skeleton className="h-4 w-36" />
+                    <Skeleton className="h-3 w-24" />
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Skeleton className="h-4 w-16" />
+                  <Skeleton className="h-6 w-14 rounded-full" />
+                </div>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
     );

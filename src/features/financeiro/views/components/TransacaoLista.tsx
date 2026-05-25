@@ -1,5 +1,5 @@
 import { Transacao } from '../../models';
-import Loading from '@/core/components/Loading';
+import { SkeletonTransacoes } from './SkeletonTransacoes';
 import { TransacaoItem } from './TransacaoItem';
 import { TransacaoEmpty } from './TransacaoEmpty';
 
@@ -11,7 +11,7 @@ interface TransacaoListaProps {
 
 export function TransacaoLista({ transacoes, isLoading, onExcluir }: TransacaoListaProps) {
   if (isLoading) {
-    return <Loading message="Carregando transações..." />;
+    return <SkeletonTransacoes />;
   }
 
   if (transacoes.length === 0) {

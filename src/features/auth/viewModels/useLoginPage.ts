@@ -7,7 +7,6 @@ export function useLoginPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [senha, setSenha] = useState<string>('');
-
   const navigate = useNavigate();
 
   const isValidEmail = (email: string): boolean => {
@@ -15,9 +14,14 @@ export function useLoginPage() {
     return regex.test(email);
   };
 
+  const getRedirectAfterLogin = (): string => {
+    const saved = sessionStorage.getItem('redirectAfterLogin');
+    sessionStorage.removeItem('redirectAfterLogin');
+    return saved || '/dashboard';
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
     setIsLoading(true);
 
     if (!email || !senha) {
@@ -25,7 +29,6 @@ export function useLoginPage() {
       setIsLoading(false);
       return;
     }
-
     if (!isValidEmail(email)) {
       toast.error('Por favor, insira um e-mail válido.');
       setIsLoading(false);
@@ -33,15 +36,11 @@ export function useLoginPage() {
     }
 
     try {
-      const response = await login({
-        email,
-        senha,
-      });
-
+      const response = await login({ email, senha });
       if (response?.status === 200 || response?.status === 201) {
         sessionStorage.setItem('UserProvider', email);
         toast.success('Login realizado com sucesso!');
-        navigate('/dashboard');
+        navigate(getRedirectAfterLogin());
       }
     } catch (error: unknown) {
       const err = error as { message?: string }
@@ -52,12 +51,5 @@ export function useLoginPage() {
     }
   };
 
-  return {
-    email,
-    setEmail,
-    senha,
-    setSenha,
-    handleSubmit,
-    isLoading,
-  };
+  return { email, setEmail, senha, setSenha, handleSubmit, isLoading };
 }

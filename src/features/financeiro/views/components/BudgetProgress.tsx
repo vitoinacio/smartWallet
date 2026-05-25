@@ -3,7 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { BudgetProgress, CATEGORIAS } from '@/features/financeiro/models';
 import { formatedBrl } from '@/core/utils/formatedBrl';
-import { Trash2, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
+import { Trash2, AlertTriangle, CheckCircle, XCircle, PiggyBank } from 'lucide-react';
+import { EmptyState } from '@/core/components/EmptyState';
+import { ConfirmDialog } from '@/core/components/ConfirmDialog';
 
 interface BudgetProgressListProps {
   progressos: BudgetProgress[];
@@ -34,7 +36,22 @@ function getCorBarra(status: BudgetProgress['status']) {
 
 export function BudgetProgressList({ progressos, onRemover }: BudgetProgressListProps) {
   if (progressos.length === 0) {
-    return null;
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg flex items-center gap-2">
+            Orçamentos do Mês
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <EmptyState
+            icon={PiggyBank}
+            title="Nenhum orçamento definido"
+            description="Adicione orçamentos por categoria para controlar seus gastos"
+          />
+        </CardContent>
+      </Card>
+    );
   }
 
   return (
@@ -60,14 +77,19 @@ export function BudgetProgressList({ progressos, onRemover }: BudgetProgressList
                   <span className="text-sm text-muted-foreground">
                     R$ {formatedBrl(p.gasto.toString())} / R$ {formatedBrl(p.limite.toString())}
                   </span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-6 w-6"
-                    onClick={() => onRemover(p.categoria)}
+                  <ConfirmDialog
+                    title="Remover Orçamento"
+                    description={`Tem certeza que deseja remover o orçamento de "${categoria?.nome || p.categoria}"? Esta ação não pode ser desfeita.`}
+                    onConfirm={() => onRemover(p.categoria)}
                   >
-                    <Trash2 className="w-3 h-3" />
-                  </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                    </Button>
+                  </ConfirmDialog>
                 </div>
               </div>
 

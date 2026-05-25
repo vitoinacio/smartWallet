@@ -1,6 +1,7 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatedBrl } from '@/core/utils/formatedBrl';
+import { PieChart as PieChartIcon } from 'lucide-react';
 
 interface DadosCategoria {
   nome: string;
@@ -32,8 +33,14 @@ export function GraficoRosca({ dados, titulo = 'Despesas por Categoria' }: Grafi
         <CardHeader>
           <CardTitle>{titulo}</CardTitle>
         </CardHeader>
-        <CardContent className="flex items-center justify-center h-[300px]">
-          <p className="text-muted-foreground">Sem dados para exibir</p>
+        <CardContent className="flex flex-col items-center justify-center h-[300px] gap-3">
+          <PieChartIcon className="w-12 h-12 text-muted-foreground/40" />
+          <div className="text-center">
+            <p className="text-sm font-medium">Sem dados para exibir</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Adicione despesas para visualizar o gráfico
+            </p>
+          </div>
         </CardContent>
       </Card>
     );

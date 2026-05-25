@@ -18,7 +18,18 @@ import {
 } from '@/components/ui/sidebar';
 import { useNavigate } from 'react-router-dom';
 import useUserInfo from '@/core/viewModels/useUserInfo';
-import Loading from '@/core/components/Loading';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useState } from 'react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 interface NavUserProps {
   user: {
@@ -32,6 +43,7 @@ const NavUser = ({ user }: NavUserProps) => {
   const { userData, loading } = useUserInfo();
   const { isMobile } = useSidebar();
   const navigate = useNavigate();
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
   const logout = () => {
     sessionStorage.removeItem('UserProvider');
@@ -49,7 +61,13 @@ const NavUser = ({ user }: NavUserProps) => {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               {loading ? (
-                <Loading size={35} message="" />
+                <>
+                  <Skeleton className="h-8 w-8 rounded-lg shrink-0" />
+                  <div className="grid flex-1 text-left text-sm leading-tight gap-1">
+                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="h-3 w-32" />
+                  </div>
+                </>
               ) : (
                 <>
                   <Avatar className="h-8 w-8 rounded-lg">
@@ -88,7 +106,13 @@ const NavUser = ({ user }: NavUserProps) => {
             <DropdownMenuLabel id="user-dropdown-menu" className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 {loading ? (
-                  <Loading size={35} message="" />
+                  <>
+                    <Skeleton className="h-8 w-8 rounded-lg shrink-0" />
+                    <div className="grid flex-1 text-left text-sm leading-tight gap-1">
+                      <Skeleton className="h-4 w-24" />
+                      <Skeleton className="h-3 w-32" />
+                    </div>
+                  </>
                 ) : (
                   <>
                     <Avatar className="h-8 w-8 rounded-lg">
@@ -119,11 +143,28 @@ const NavUser = ({ user }: NavUserProps) => {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={logout}>
+            <DropdownMenuItem onClick={() => setShowLogoutDialog(true)}>
               <LogOut />
               Sair
             </DropdownMenuItem>
           </DropdownMenuContent>
+
+          <AlertDialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Sair da Conta</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Tem certeza que deseja sair da sua conta?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick={logout} className="bg-red-600 hover:bg-red-700">
+                  Sair
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>

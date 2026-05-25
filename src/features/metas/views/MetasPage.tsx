@@ -1,6 +1,5 @@
 import { useMetas } from '../viewModels';
-import { MetaCard, MetaForm } from './components';
-import Loading from '@/core/components/Loading';
+import { MetaCard, MetaForm, SkeletonMetas } from './components';
 import { formatedBrl } from '@/core/utils/formatedBrl';
 import { Target, AlertCircle } from 'lucide-react';
 
@@ -17,11 +16,7 @@ const MetasPage = () => {
   } = useMetas();
 
   if (isLoading) {
-    return (
-      <main className="w-full mt-6 px-4 lg:px-6 pb-8 max-w-[1600px] mx-auto">
-        <Loading message="Carregando metas..." />
-      </main>
-    );
+    return <SkeletonMetas />;
   }
 
   if (error) {

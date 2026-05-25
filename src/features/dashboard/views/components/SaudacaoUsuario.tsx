@@ -1,7 +1,7 @@
+import { Skeleton } from '@/components/ui/skeleton';
 import useUserInfo from '@/core/viewModels/useUserInfo';
 import { Card, CardContent } from '@/components/ui/card';
 import { User, Calendar } from 'lucide-react';
-import Loading from '@/core/components/Loading';
 
 export function SaudacaoUsuario() {
   const { userData, loading } = useUserInfo();
@@ -24,9 +24,20 @@ export function SaudacaoUsuario() {
 
   if (loading) {
     return (
-      <Card className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-        <CardContent className="p-6">
-          <Loading size={32} message="" className="text-white" />
+      <Card className="bg-gradient-to-r from-blue-600 to-blue-700 text-white overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
+        <CardContent className="p-6 relative">
+          <div className="flex items-center justify-between">
+            <div className="space-y-3">
+              <Skeleton className="h-8 w-56 bg-white/20" />
+              <Skeleton className="h-4 w-48 bg-white/20" />
+            </div>
+            <div className="hidden sm:flex items-center gap-4">
+              <Skeleton className="h-4 w-40 bg-white/20" />
+              <Skeleton className="h-4 w-24 bg-white/20" />
+            </div>
+          </div>
         </CardContent>
       </Card>
     );

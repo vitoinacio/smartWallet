@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { EconomiaProgress } from '../../models';
 import { Progress } from '@/components/ui/progress';
 import { formatedBrl } from '@/core/utils/formatedBrl';
@@ -34,7 +35,33 @@ export function MetaDashboardCard({
   );
 
   if (isLoading) {
-    return null;
+    return (
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-base flex items-center gap-2">
+              <Skeleton className="w-4 h-4 rounded" />
+              <Skeleton className="h-5 w-36" />
+            </CardTitle>
+            <Skeleton className="h-7 w-20 rounded" />
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <Skeleton className="h-4 w-48" />
+          <div className="space-y-3">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="space-y-1.5">
+                <div className="flex justify-between">
+                  <Skeleton className="h-3.5 w-28" />
+                  <Skeleton className="h-3.5 w-8" />
+                </div>
+                <Skeleton className="h-1.5 w-full rounded-full" />
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
   }
 
   return (

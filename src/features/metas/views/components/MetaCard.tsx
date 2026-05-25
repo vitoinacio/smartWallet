@@ -13,6 +13,7 @@ import {
   Plus,
   X,
 } from 'lucide-react';
+import { ConfirmDialog } from '@/core/components/ConfirmDialog';
 
 interface MetaCardProps {
   progress: EconomiaProgress;
@@ -117,15 +118,20 @@ export function MetaCard({
                 + Estender
               </Button>
             )}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-7 w-7 text-red-500 hover:text-red-600"
-              onClick={() => onExcluir(meta.id)}
-              aria-label={`Excluir meta ${meta.nome}`}
+            <ConfirmDialog
+              title="Excluir Meta"
+              description={`Tem certeza que deseja excluir a meta "${meta.nome}"? Esta ação não pode ser desfeita.`}
+              onConfirm={() => onExcluir(meta.id)}
             >
-              <Trash2 className="w-3.5 h-3.5" />
-            </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 text-red-500 hover:text-red-600"
+                aria-label={`Excluir meta ${meta.nome}`}
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </Button>
+            </ConfirmDialog>
           </div>
         </div>
       </CardHeader>

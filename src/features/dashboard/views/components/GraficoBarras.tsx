@@ -1,6 +1,7 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatedBrl } from '@/core/utils/formatedBrl';
+import { BarChart3 } from 'lucide-react';
 
 interface DadosMes {
   mes: string;
@@ -20,8 +21,14 @@ export function GraficoBarras({ dados, titulo = 'Receitas vs Despesas' }: Grafic
         <CardHeader>
           <CardTitle>{titulo}</CardTitle>
         </CardHeader>
-        <CardContent className="flex items-center justify-center h-[300px]">
-          <p className="text-muted-foreground">Sem dados para exibir</p>
+        <CardContent className="flex flex-col items-center justify-center h-[300px] gap-3">
+          <BarChart3 className="w-12 h-12 text-muted-foreground/40" />
+          <div className="text-center">
+            <p className="text-sm font-medium">Sem dados para exibir</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Adicione transações para visualizar o gráfico
+            </p>
+          </div>
         </CardContent>
       </Card>
     );
