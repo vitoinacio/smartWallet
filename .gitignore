@@ -32,7 +32,4 @@ playwright/.cache/
 *.test.js
 *.spec.js
 
-#agents
-.synapos/
-.opencode/
-docs/
+

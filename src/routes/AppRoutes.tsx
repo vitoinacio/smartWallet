@@ -2,6 +2,7 @@ import LayoutApp from '@/core/components/LayoutApp';
 import Home from '@/features/home/views/HomePage';
 import Dashboard from '@/features/dashboard/views/DashboardPage';
 import Financeiro from '@/features/financeiro/views/FinanceiroPage';
+import Metas from '@/features/metas/views/MetasPage';
 import Settings from '@/features/dashboard/views/SettingsPage';
 import AuthPage from '@/features/auth/views/AuthPage';
 import TermosDeUso from '@/features/pages-legais/views/TermosPage';
@@ -50,6 +51,14 @@ const AppRoutes = () => {
           element={
             <UserProvider>
               <LayoutApp children={<Financeiro />} />
+            </UserProvider>
+          }
+        />
+        <Route
+          path="/metas"
+          element={
+            <UserProvider>
+              <LayoutApp children={<Metas />} />
             </UserProvider>
           }
         />

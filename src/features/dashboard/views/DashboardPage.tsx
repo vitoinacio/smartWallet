@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 import { useEntrada, useResumo, useTransacoesRecentes } from '../viewModels';
+import { useMetas } from '@/features/metas/viewModels';
+import { MetaDashboardCard } from '@/features/metas/views/components';
 import {
   SaudacaoUsuario,
   ResumoFinanceiro,
@@ -27,6 +29,7 @@ const Dashboard = () => {
   const { entrada, isLoading, isEditing, atualizarEntrada, iniciarEdicao, cancelarEdicao } =
     useEntrada();
   const { transacoes, isLoading: isLoadingTransacoes } = useTransacoesRecentes(4);
+  const { progressos, isLoading: isLoadingMetas } = useMetas();
 
   const entradaNumerica = useMemo(() => {
     const valor = entrada.valor.replace(/[^0-9]/g, '');
@@ -90,6 +93,12 @@ const Dashboard = () => {
             />
             <div className="mt-4">
               <AcoesRapidas />
+            </div>
+            <div className="mt-4">
+              <MetaDashboardCard
+                progressos={progressos}
+                isLoading={isLoadingMetas}
+              />
             </div>
           </section>
 

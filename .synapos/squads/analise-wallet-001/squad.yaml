@@ -1,0 +1,27 @@
+name: analise-wallet-001
+domain: engineer
+displayName: "Squad Engineer — Análise SmartWallet"
+description: "Análise completa + implementação: testes, CI/CD, refatoração, gráficos, orçamentos, transações recorrentes e mock interativo"
+status: completed
+mode: solo
+execution_mode: complete
+created_at: 2026-05-20
+completed_at: 2026-05-20
+updated_at: 2026-05-20
+feature: analise-portfolio
+session: analise-portfolio
+roles:
+  - Lead Engineer
+  - Product Manager
+  - UX Designer
+agents:
+  - leo-engenheiro
+pipeline:
+  default: feature-development
+  file: pipeline/pipeline.yaml
+project_context:
+  company: docs/_memory/company.md
+  docs_business: docs/business/
+  docs_tech: docs/tech/
+  docs_context: docs/tech-context/
+  session: docs/.squads/sessions/analise-portfolio
