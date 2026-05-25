@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Wallet, LayoutDashboard, TrendingUp, Target, Settings, LogOut, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
+import { Wallet, LayoutDashboard, TrendingUp, Target, FileText, Settings, LogOut, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -18,6 +18,7 @@ const navItems: NavItem[] = [
   { title: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { title: 'Financeiro', href: '/financeiro', icon: TrendingUp },
   { title: 'Metas', href: '/metas', icon: Target },
+  { title: 'Extrato', href: '/extrato', icon: FileText },
 ];
 
 const bottomNavItems: NavItem[] = [

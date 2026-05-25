@@ -3,6 +3,7 @@ import Home from '@/features/home/views/HomePage';
 import Dashboard from '@/features/dashboard/views/DashboardPage';
 import Financeiro from '@/features/financeiro/views/FinanceiroPage';
 import Metas from '@/features/metas/views/MetasPage';
+import Extrato from '@/features/extrato/views/ExtratoPage';
 import Settings from '@/features/dashboard/views/SettingsPage';
 import AuthPage from '@/features/auth/views/AuthPage';
 import TermosDeUso from '@/features/pages-legais/views/TermosPage';
@@ -59,6 +60,14 @@ const AppRoutes = () => {
           element={
             <UserProvider>
               <LayoutApp children={<Metas />} />
+            </UserProvider>
+          }
+        />
+        <Route
+          path="/extrato"
+          element={
+            <UserProvider>
+              <LayoutApp children={<Extrato />} />
             </UserProvider>
           }
         />

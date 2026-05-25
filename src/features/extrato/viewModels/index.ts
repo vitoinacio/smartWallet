@@ -1,0 +1,1 @@
+export { useExtrato } from './useExtrato';
