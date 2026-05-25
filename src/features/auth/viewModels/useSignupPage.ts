@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createAccount } from '@/core/utils/cognito';
 import { toast } from '@/components/ui/sonner';
+import { getRedirectAfterLogin } from '@/core/utils/redirectAfterLogin';
 
 export function useSignupPage() {
   const [nome, setNome] = useState<string>('');
@@ -13,12 +14,6 @@ export function useSignupPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
-
-  const getRedirectAfterLogin = (): string => {
-    const saved = sessionStorage.getItem('redirectAfterLogin');
-    sessionStorage.removeItem('redirectAfterLogin');
-    return saved || '/dashboard';
-  };
 
   const handleSubmit = async (e?: FormEvent) => {
     if (e) e.preventDefault();

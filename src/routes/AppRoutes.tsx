@@ -1,9 +1,10 @@
-import { lazy, Suspense, useEffect } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { lazy, Suspense, useEffect, type ReactNode } from 'react';
+import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Loader2 } from 'lucide-react';
 import LayoutApp from '@/core/components/LayoutApp';
 import UserProvider from '@/core/viewModels/UserProvider';
+import { AuthProvider, useAuth } from '@/core/viewModels/AuthContext';
 import { NotFoundPage } from '@/features/not-found/views/NotFoundPage';
 
 const Home = lazy(() => import('@/features/home/views/HomePage'));
@@ -16,6 +17,14 @@ const Settings = lazy(() => import('@/features/dashboard/views/SettingsPage'));
 const TermosDeUso = lazy(() => import('@/features/pages-legais/views/TermosPage'));
 const PoliticaPrivacidade = lazy(() => import('@/features/pages-legais/views/PrivacidadePage'));
 const FaleConosco = lazy(() => import('@/features/pages-legais/views/FaleConoscoPage'));
+
+function AuthRedirect({ children }: { children: ReactNode }) {
+  const { isLoggedIn } = useAuth();
+  if (isLoggedIn) {
+    return <Navigate to="/dashboard" />;
+  }
+  return <>{children}</>;
+}
 
 function ContentFallback() {
   return (
@@ -63,13 +72,14 @@ const AppRoutes = () => {
   return (
     <>
       <ScrollToTop />
+      <AuthProvider>
       <Routes>
         {/* Rotas publicas */}
         <Route path="/" element={<Suspense fallback={<FullPageFallback />}><Home /></Suspense>} />
-        <Route path="/login" element={<Suspense fallback={<FullPageFallback />}><AuthPage /></Suspense>} />
-        <Route path="/criar" element={<Suspense fallback={<FullPageFallback />}><AuthPage /></Suspense>} />
-        <Route path="/recuperar" element={<Suspense fallback={<FullPageFallback />}><AuthPage /></Suspense>} />
-        <Route path="/CreateAccount" element={<Suspense fallback={<FullPageFallback />}><AuthPage /></Suspense>} />
+        <Route path="/login" element={<Suspense fallback={<FullPageFallback />}><AuthRedirect><AuthPage /></AuthRedirect></Suspense>} />
+        <Route path="/criar" element={<Suspense fallback={<FullPageFallback />}><AuthRedirect><AuthPage /></AuthRedirect></Suspense>} />
+        <Route path="/recuperar" element={<Suspense fallback={<FullPageFallback />}><AuthRedirect><AuthPage /></AuthRedirect></Suspense>} />
+        <Route path="/CreateAccount" element={<Suspense fallback={<FullPageFallback />}><AuthRedirect><AuthPage /></AuthRedirect></Suspense>} />
         <Route path="/termos" element={<Suspense fallback={<FullPageFallback />}><TermosDeUso /></Suspense>} />
         <Route path="/privacidade" element={<Suspense fallback={<FullPageFallback />}><PoliticaPrivacidade /></Suspense>} />
         <Route path="/fale-conosco" element={<Suspense fallback={<FullPageFallback />}><FaleConosco /></Suspense>} />
@@ -119,6 +129,7 @@ const AppRoutes = () => {
         {/* Rota 404 - catch-all */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      </AuthProvider>
     </>
   );
 };

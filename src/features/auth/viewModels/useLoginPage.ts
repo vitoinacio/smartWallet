@@ -2,6 +2,7 @@ import { login } from '@/core/utils/cognito';
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/components/ui/sonner';
+import { getRedirectAfterLogin } from '@/core/utils/redirectAfterLogin';
 
 export function useLoginPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -12,12 +13,6 @@ export function useLoginPage() {
   const isValidEmail = (email: string): boolean => {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regex.test(email);
-  };
-
-  const getRedirectAfterLogin = (): string => {
-    const saved = sessionStorage.getItem('redirectAfterLogin');
-    sessionStorage.removeItem('redirectAfterLogin');
-    return saved || '/dashboard';
   };
 
   const handleSubmit = async (e: FormEvent) => {

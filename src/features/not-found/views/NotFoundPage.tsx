@@ -1,11 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/core/viewModels/AuthContext';
 import { Home, ArrowLeft, SearchX } from 'lucide-react';
 
 export function NotFoundPage() {
   const navigate = useNavigate();
-  const isAuthenticated = !!sessionStorage.getItem('UserProvider');
+  const { isLoggedIn } = useAuth();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-neutral-900 dark:to-neutral-800 p-4">
@@ -31,11 +32,11 @@ export function NotFoundPage() {
               Voltar
             </Button>
             <Button
-              onClick={() => navigate(isAuthenticated ? '/dashboard' : '/')}
+              onClick={() => navigate(isLoggedIn ? '/dashboard' : '/')}
               className="gap-2 bg-blue-600 hover:bg-blue-700"
             >
               <Home className="w-4 h-4" />
-              {isAuthenticated ? 'Ir para o Dashboard' : 'Página Inicial'}
+              {isLoggedIn ? 'Ir para o Dashboard' : 'Página Inicial'}
             </Button>
           </div>
         </CardContent>

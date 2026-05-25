@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import { AuthProvider } from './AuthContext';
 
 interface UserProviderProps {
   children: ReactNode;
@@ -7,18 +8,15 @@ interface UserProviderProps {
 
 const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const location = useLocation();
+  const userEmail = sessionStorage.getItem('UserProvider');
+  const isLoggedIn = !!userEmail;
 
-  const isLoggedIn = (): boolean => {
-    const user = sessionStorage.getItem('UserProvider');
-    return !!user;
-  };
-
-  if (!isLoggedIn()) {
+  if (!isLoggedIn) {
     sessionStorage.setItem('redirectAfterLogin', location.pathname + location.search);
     return <Navigate to="/login" />;
   }
 
-  return <>{children}</>;
+  return <AuthProvider>{children}</AuthProvider>;
 };
 
 export default UserProvider;

@@ -2,39 +2,38 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { NotFoundPage } from '@/features/not-found/views/NotFoundPage';
+import { AuthProvider } from '@/core/viewModels/AuthContext';
 
 describe('NotFoundPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('should render 404 title and message', () => {
-    render(
+  function renderPage() {
+    return render(
       <MemoryRouter>
-        <NotFoundPage />
+        <AuthProvider>
+          <NotFoundPage />
+        </AuthProvider>
       </MemoryRouter>
     );
+  }
+
+  it('should render 404 title and message', () => {
+    renderPage();
 
     expect(screen.getByText('404')).toBeInTheDocument();
     expect(screen.getByText('Página não encontrada')).toBeInTheDocument();
   });
 
   it('should show "Voltar" button', () => {
-    render(
-      <MemoryRouter>
-        <NotFoundPage />
-      </MemoryRouter>
-    );
+    renderPage();
 
     expect(screen.getByText('Voltar')).toBeInTheDocument();
   });
 
   it('should show "Página Inicial" when user is not authenticated', () => {
-    render(
-      <MemoryRouter>
-        <NotFoundPage />
-      </MemoryRouter>
-    );
+    renderPage();
 
     expect(screen.getByText('Página Inicial')).toBeInTheDocument();
   });
@@ -47,7 +46,9 @@ describe('NotFoundPage', () => {
 
     render(
       <MemoryRouter>
-        <NotFoundPage />
+        <AuthProvider>
+          <NotFoundPage />
+        </AuthProvider>
       </MemoryRouter>
     );
 
