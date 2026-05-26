@@ -36,11 +36,10 @@ mockResizeObserver.mockReturnValue({
 })
 window.ResizeObserver = mockResizeObserver
 
-Storage.prototype.getItem = vi.fn((key: string) => {
-  if (key === 'transacoes') return '[]'
-  if (key === 'theme') return 'light'
-  return null
-})
-Storage.prototype.setItem = vi.fn()
-Storage.prototype.removeItem = vi.fn()
-Storage.prototype.clear = vi.fn()
+const storageMap = new Map<string, string>()
+storageMap.set('transacoes', '[]')
+storageMap.set('theme', 'light')
+Storage.prototype.getItem = vi.fn((key: string) => storageMap.get(key) ?? null)
+Storage.prototype.setItem = vi.fn((key: string, value: string) => { storageMap.set(key, value) })
+Storage.prototype.removeItem = vi.fn((key: string) => { storageMap.delete(key) })
+Storage.prototype.clear = vi.fn(() => { storageMap.clear() })

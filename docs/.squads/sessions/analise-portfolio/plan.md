@@ -91,5 +91,65 @@ Implementar fluxo de onboarding para novos usuários com 3 etapas:
 
 ---
 
-## FASE 6: Acessibilidade WCAG AA [Não Iniciada ⏳]
+## FASE 6: Testes P0 — Cobertura de Fluxos Críticos [Concluída ✅]
+> Estimativa: ~4h (real: ~2h com task agents)
+> Depende de: FASE 1 + FASE 5
+
+### Resultados
+- **17 test files, 125 testes — todos passando** ✅
+- Build TypeScript + Vite — 0 erros
+
+### Mapa de Cobertura (antes → depois)
+
+| Área | Antes | Depois |
+|------|-------|--------|
+| Auth (cognito, login, signup) | 0% | 24 testes (P0) |
+| AuthContext + OnboardingGuard | 0% | 8 testes (P0) |
+| Onboarding service + schemas | 0% | 25 testes (P0) |
+| Zod schemas (transação + onboarding) | 0% | 27 testes (P0) |
+| Core utils (isTestUser, redirect) | 0% | 8 testes (P0) |
+| Dashboard useEntrada | 0% | 11 testes (P0) |
+| Hooks existentes (useResumo, useFiltros) | 14 testes | 14 testes (mantidos) |
+| Utils existentes (cn, formatedBrl, formatedDate) | 19 testes | 19 testes (mantidos) |
+| NotFoundPage | 4 testes | 4 testes (mantidos) |
+
+### Arquivos criados (11 novos)
+```
+src/__tests__/
+├── core/
+│   ├── AuthContext.test.tsx
+│   ├── cognito.test.ts
+│   ├── isTestUser.test.ts
+│   └── redirectAfterLogin.test.ts
+├── components/
+│   └── OnboardingGuard.test.tsx
+├── schemas/
+│   ├── onboarding.schemas.test.ts
+│   └── transacao.schemas.test.ts
+├── services/
+│   └── onboarding.service.test.ts
+└── viewModels/
+    ├── useEntrada.test.ts
+    ├── useLoginPage.test.ts
+    └── useSignupPage.test.ts
+```
+
+### Arquivos alterados
+- `src/test/setup.ts` — Storage mock trocado para transparente (Map-based)
+- `vitest.config.ts` — Adicionado VITE_USE_MOCK=true para testes
+
+### Próximos testes recomendados (P1)
+- useTransacoes (CRUD transações)
+- useBudget (orcamentos)
+- useRecorrencia (recorrencias)
+- useMetas (metas)
+- useExtrato (extrato/exportação)
+- Componentes de formulário (LoginForm, CadastroForm, TransacaoForm)
+- Fluxos E2E (signup, onboarding, CRUD transação, extrato, metas)
+- useSettings (configurações)
+- Dashboard page + Financeiro page (integração)
+
+---
+
+## FASE 7: Acessibilidade WCAG AA [Não Iniciada ⏳]
 > Estimativa: ~3h

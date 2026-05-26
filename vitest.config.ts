@@ -24,6 +24,9 @@ export default defineConfig({
         '**/vite-env.d.ts'
       ],
     },
+    env: {
+      VITE_USE_MOCK: 'true',
+    },
   },
   resolve: {
     alias: {
