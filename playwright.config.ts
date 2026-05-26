@@ -11,6 +11,8 @@ export default defineConfig({
   reporter: 'html',
   use: {
     baseURL: 'http://localhost:5173',
+    locale: 'pt-BR',
+    timezoneId: 'America/Sao_Paulo',
     trace: 'on-first-retry',
     channel: process.env.CI ? undefined : 'chrome',
     launchOptions: {

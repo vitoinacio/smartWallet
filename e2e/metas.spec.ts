@@ -1,0 +1,230 @@
+import { test, expect } from '@playwright/test'
+import { loginAndSetup } from './helpers'
+
+test.describe('Metas', () => {
+  test.beforeEach(async ({ page }) => {
+    await loginAndSetup(page)
+    await page.goto('/metas')
+  })
+
+  test('Page renders', async ({ page }) => {
+    await expect(page.locator('h2, h1').filter({ hasText: /metas/i })).toBeVisible({ timeout: 10000 })
+  })
+
+  test('Empty state when no goals', async ({ page }) => {
+    await expect(page.getByText(/nenhuma meta/i)).toBeVisible({ timeout: 10000 })
+  })
+
+  test('Open meta form', async ({ page }) => {
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await expect(page.getByText(/definir nova meta/i)).toBeVisible({ timeout: 10000 })
+  })
+
+  test('Create a meta', async ({ page }) => {
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await page.getByLabel(/nome da meta/i).fill('Reserva de Emergência')
+    await page.getByPlaceholder('0,00').first().fill('100000')
+    await page.locator('#meta-tipo').click()
+    await page.getByRole('option', { name: /mensal/i }).click()
+    await page.locator('#meta-categoria').click()
+    await page.getByRole('option', { name: /reserva de emergência/i }).click()
+    await page.getByRole('button').filter({ hasText: /criar meta/i }).click()
+    await page.waitForTimeout(500)
+    await expect(page.getByText('Reserva de Emergência').first()).toBeVisible({ timeout: 10000 })
+    await expect(page.getByText(/1\.000,00/).first()).toBeVisible({ timeout: 10000 })
+  })
+
+  test('Create multiple metas', async ({ page }) => {
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await page.getByLabel(/nome da meta/i).fill('Viagem Europa')
+    await page.getByPlaceholder('0,00').first().fill('500000')
+    await page.locator('#meta-tipo').click()
+    await page.getByRole('option', { name: /anual/i }).click()
+    await page.locator('#meta-categoria').click()
+    await page.getByRole('option', { name: /viagem/i }).click()
+    await page.getByRole('button').filter({ hasText: /criar meta/i }).click()
+    await page.waitForTimeout(500)
+
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await page.getByLabel(/nome da meta/i).fill('Curso Online')
+    await page.getByPlaceholder('0,00').first().fill('300000')
+    await page.locator('#meta-tipo').click()
+    await page.getByRole('option', { name: /mensal/i }).click()
+    await page.locator('#meta-categoria').click()
+    await page.getByRole('option', { name: /educação/i }).click()
+    await page.getByRole('button').filter({ hasText: /criar meta/i }).click()
+    await page.waitForTimeout(500)
+
+    await expect(page.getByText('Viagem Europa').first()).toBeVisible({ timeout: 10000 })
+    await expect(page.getByText('Curso Online').first()).toBeVisible({ timeout: 10000 })
+  })
+
+  test('Meta stat cards render', async ({ page }) => {
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await page.getByLabel(/nome da meta/i).fill('Teste Metas')
+    await page.getByPlaceholder('0,00').first().fill('50000')
+    await page.locator('#meta-tipo').click()
+    await page.getByRole('option', { name: /mensal/i }).click()
+    await page.locator('#meta-categoria').click()
+    await page.getByRole('option', { name: /reserva de emergência/i }).click()
+    await page.getByRole('button').filter({ hasText: /criar meta/i }).click()
+    await page.waitForTimeout(500)
+    await expect(page.getByText(/total economizado/i)).toBeVisible({ timeout: 10000 })
+    await expect(page.getByText(/total alvo/i)).toBeVisible({ timeout: 10000 })
+    await expect(page.getByText(/metas ativas/i)).toBeVisible({ timeout: 10000 })
+  })
+
+  test('Add progress to meta', async ({ page }) => {
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await page.getByLabel(/nome da meta/i).fill('Reserva de Emergência')
+    await page.getByPlaceholder('0,00').first().fill('100000')
+    await page.locator('#meta-tipo').click()
+    await page.getByRole('option', { name: /mensal/i }).click()
+    await page.locator('#meta-categoria').click()
+    await page.getByRole('option', { name: /reserva de emergência/i }).click()
+    await page.getByRole('button').filter({ hasText: /criar meta/i }).click()
+    await page.waitForTimeout(500)
+
+    const addBtn = page.getByRole('button').filter({ hasText: /adicionar valor economizado/i }).first()
+    await addBtn.scrollIntoViewIfNeeded()
+    await addBtn.click()
+    const input = page.getByLabel('Adicionar valor economizado').first()
+    await input.fill('50000')
+    await input.press('Enter')
+    await page.waitForTimeout(500)
+  })
+
+  test('Verify progress percentage', async ({ page }) => {
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await page.getByLabel(/nome da meta/i).fill('Reserva de Emergência')
+    await page.getByPlaceholder('0,00').first().fill('100000')
+    await page.locator('#meta-tipo').click()
+    await page.getByRole('option', { name: /mensal/i }).click()
+    await page.locator('#meta-categoria').click()
+    await page.getByRole('option', { name: /reserva de emergência/i }).click()
+    await page.getByRole('button').filter({ hasText: /criar meta/i }).click()
+    await page.waitForTimeout(500)
+
+    const addBtn = page.getByRole('button').filter({ hasText: /adicionar valor economizado/i }).first()
+    await addBtn.scrollIntoViewIfNeeded()
+    await addBtn.click()
+    const input = page.getByLabel('Adicionar valor economizado').first()
+    await input.fill('50000')
+    await input.press('Enter')
+    await page.waitForTimeout(500)
+
+    await expect(page.getByText('50.0%')).toBeVisible({ timeout: 10000 })
+    const progressBar = page.locator('[role="progressbar"]').first()
+    await expect(progressBar).toBeVisible({ timeout: 10000 })
+  })
+
+  test('Meta atingida status', async ({ page }) => {
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await page.getByLabel(/nome da meta/i).fill('Reserva de Emergência')
+    await page.getByPlaceholder('0,00').first().fill('10000')
+    await page.locator('#meta-tipo').click()
+    await page.getByRole('option', { name: /mensal/i }).click()
+    await page.locator('#meta-categoria').click()
+    await page.getByRole('option', { name: /reserva de emergência/i }).click()
+    await page.getByRole('button').filter({ hasText: /criar meta/i }).click()
+    await page.waitForTimeout(500)
+
+    const addBtn = page.getByRole('button').filter({ hasText: /adicionar valor economizado/i }).first()
+    await addBtn.scrollIntoViewIfNeeded()
+    await addBtn.click()
+    await page.waitForTimeout(300)
+    const input = page.getByLabel('Adicionar valor economizado').first()
+    await input.fill('10000')
+    await input.press('Enter')
+    await page.waitForTimeout(500)
+    await expect(page.getByText('Atingida!').first()).toBeVisible({ timeout: 10000 })
+    await expect(page.getByText('Estender').first()).toBeVisible({ timeout: 10000 })
+  })
+
+  test('Estender meta', async ({ page }) => {
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await page.getByLabel(/nome da meta/i).fill('Reserva de Emergência')
+    await page.getByPlaceholder('0,00').first().fill('10000')
+    await page.locator('#meta-tipo').click()
+    await page.getByRole('option', { name: /mensal/i }).click()
+    await page.locator('#meta-categoria').click()
+    await page.getByRole('option', { name: /reserva de emergência/i }).click()
+    await page.getByRole('button').filter({ hasText: /criar meta/i }).click()
+    await page.waitForTimeout(500)
+
+    const addBtn = page.getByRole('button').filter({ hasText: /adicionar valor economizado/i }).first()
+    await addBtn.scrollIntoViewIfNeeded()
+    await addBtn.click()
+    await page.waitForTimeout(300)
+    const input = page.getByLabel('Adicionar valor economizado').first()
+    await input.fill('10000')
+    await input.press('Enter')
+    await page.waitForTimeout(500)
+
+    await page.getByRole('button').filter({ hasText: /estender/i }).first().click()
+    await page.waitForTimeout(300)
+    const novoAlvo = page.getByLabel(/novo alvo/i).first()
+    await novoAlvo.fill('200000')
+    await page.getByRole('button').filter({ hasText: /salvar/i }).first().click()
+    await page.waitForTimeout(500)
+    await expect(page.getByText(/2\.000,00/).first()).toBeVisible({ timeout: 10000 })
+  })
+
+  test('Delete a meta', async ({ page }) => {
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await page.getByLabel(/nome da meta/i).fill('Reserva de Emergência')
+    await page.getByPlaceholder('0,00').first().fill('100000')
+    await page.locator('#meta-tipo').click()
+    await page.getByRole('option', { name: /mensal/i }).click()
+    await page.locator('#meta-categoria').click()
+    await page.getByRole('option', { name: /reserva de emergência/i }).click()
+    await page.getByRole('button').filter({ hasText: /criar meta/i }).click()
+    await page.waitForTimeout(500)
+
+    await page.getByLabel('Excluir Meta').first().click()
+    const dialog = page.getByRole('alertdialog')
+    await expect(dialog).toBeVisible({ timeout: 10000 })
+    await dialog.getByRole('button').filter({ hasText: /excluir/i }).click()
+    await page.waitForTimeout(500)
+  })
+
+  test('Empty state returns after deleting all', async ({ page }) => {
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await page.getByLabel(/nome da meta/i).fill('Reserva de Emergência')
+    await page.getByPlaceholder('0,00').first().fill('100000')
+    await page.locator('#meta-tipo').click()
+    await page.getByRole('option', { name: /mensal/i }).click()
+    await page.locator('#meta-categoria').click()
+    await page.getByRole('option', { name: /reserva de emergência/i }).click()
+    await page.getByRole('button').filter({ hasText: /criar meta/i }).click()
+    await page.waitForTimeout(500)
+
+    const deleteButtons = page.getByLabel('Excluir Meta')
+    const count = await deleteButtons.count()
+    for (let i = 0; i < count; i++) {
+      await page.getByLabel('Excluir Meta').first().click()
+      const dialog = page.getByRole('alertdialog')
+      await expect(dialog).toBeVisible({ timeout: 10000 })
+      await dialog.getByRole('button').filter({ hasText: /excluir/i }).click()
+      await page.waitForTimeout(300)
+    }
+    await page.waitForTimeout(500)
+    await expect(page.getByText(/nenhuma meta/i)).toBeVisible({ timeout: 10000 })
+  })
+
+  test('Form validation', async ({ page }) => {
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await expect(page.getByLabel(/nome da meta/i)).toBeVisible({ timeout: 10000 })
+    await expect(page.getByRole('button').filter({ hasText: /criar meta/i })).toBeDisabled({ timeout: 10000 })
+  })
+
+  test('Form cancel', async ({ page }) => {
+    await page.getByRole('button').filter({ hasText: /nova meta/i }).click()
+    await page.getByLabel(/nome da meta/i).fill('Teste Cancelar')
+    await page.getByPlaceholder('0,00').first().fill('50000')
+    await page.getByRole('button').filter({ hasText: /cancelar/i }).click()
+    await page.waitForTimeout(300)
+    await expect(page.getByText(/definir nova meta/i)).not.toBeVisible({ timeout: 10000 })
+    await expect(page.getByText('Teste Cancelar')).not.toBeVisible({ timeout: 10000 })
+  })
+})

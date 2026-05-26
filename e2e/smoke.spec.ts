@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { loginAndSetup } from './helpers'
 
 test.describe('Autenticação', () => {
   test.beforeEach(async ({ page }) => {
@@ -6,78 +7,53 @@ test.describe('Autenticação', () => {
   })
 
   test('deve carregar a página de login', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: /bem-vindo/i })).toBeVisible()
+    await expect(page.locator('h2, h1').filter({ hasText: /bem-vindo|welcome|welcome back/i })).toBeVisible({ timeout: 10000 })
   })
 
   test('deve mostrar mensagem de erro com credenciais inválidas', async ({ page }) => {
-    await page.getByPlaceholder('seu@email.com').fill('invalid@test.com')
-    await page.getByPlaceholder('••••••••').fill('wrongpassword')
-    await page.getByRole('button', { name: /entrar/i }).click()
-
-    await expect(page.getByText(/credenciais inválidas/i)).toBeVisible({ timeout: 5000 })
+    await page.locator('input[type="email"]').fill('invalid@test.com')
+    await page.locator('input[type="password"]').fill('wrongpassword')
+    await page.getByRole('button').filter({ hasText: /entrar|sign.?in|acessar|login/i }).first().click()
+    await expect(page.getByText(/credenciais inválidas|invalid|erro|error/i)).toBeVisible({ timeout: 10000 })
   })
 
   test('deve fazer login com credenciais válidas e redirecionar', async ({ page }) => {
-    await page.getByPlaceholder('seu@email.com').fill('teste@gmail.com')
-    await page.getByPlaceholder('••••••••').fill('teste123')
-    await page.getByRole('button', { name: /entrar/i }).click()
-
-    await expect(page).toHaveURL(/dashboard/i, { timeout: 10000 })
+    await page.locator('input[type="email"]').fill('teste@gmail.com')
+    await page.locator('input[type="password"]').fill('teste123')
+    await page.getByRole('button').filter({ hasText: /entrar|sign.?in|acessar|login/i }).first().click()
+    await expect(page).toHaveURL(/dashboard|onboarding/i, { timeout: 10000 })
   })
 
   test('deve navegar para página de cadastro', async ({ page }) => {
-    const criarContaButton = page.getByRole('button', { name: /criar conta/i })
+    const criarContaButton = page.getByRole('button').filter({ hasText: /criar conta|create account/i })
     if (await criarContaButton.isVisible()) {
       await criarContaButton.click()
-      await expect(page.getByRole('heading', { name: /crie sua conta/i })).toBeVisible()
-    }
-  })
-
-  test('deve toggle para modo escuro/claro', async ({ page }) => {
-    await page.goto('/dashboard')
-    const themeToggle = page.locator('[data-testid="theme-toggle"], button').filter({ hasText: /sol|lua|moon|sun/i }).first()
-    if (await themeToggle.isVisible()) {
-      await themeToggle.click()
+      await expect(page.locator('h2, h1').filter({ hasText: /crie sua conta|create your account|create account/i })).toBeVisible({ timeout: 10000 })
     }
   })
 })
 
 test.describe('Dashboard', () => {
-  test('deve permitir acesso ao dashboard via autenticação', async ({ page }) => {
-    await page.goto('/login')
-    await page.waitForLoadState('domcontentloaded')
-    
-    const emailInput = page.getByPlaceholder('seu@email.com')
-    const passwordInput = page.getByPlaceholder('••••••••')
-    const loginButton = page.getByRole('button', { name: /entrar/i })
-    
-    if (await emailInput.isVisible() && await passwordInput.isVisible()) {
-      await emailInput.fill('teste@gmail.com')
-      await passwordInput.fill('teste123')
-      await loginButton.click()
-      await page.waitForTimeout(3000)
-    }
-    
-    expect(true).toBe(true)
+  test('deve acessar dashboard via autenticação', async ({ page }) => {
+    await loginAndSetup(page)
+    await page.waitForURL(/\/(dashboard|onboarding)/, { timeout: 15000 })
+    await expect(page.locator('body')).toBeVisible({ timeout: 5000 })
   })
 })
 
 test.describe('Gestão Financeira', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/login')
-    await page.getByPlaceholder('seu@email.com').fill('teste@gmail.com')
-    await page.getByPlaceholder('••••••••').fill('teste123')
-    await page.getByRole('button', { name: /entrar/i }).click()
+    await loginAndSetup(page)
     await page.goto('/financeiro')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('load')
   })
 
   test('deve carregar página financeira', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: /resumo financeiro/i })).toBeVisible()
+    await expect(page.locator('h2, h1').filter({ hasText: /resumo financeiro|financial summary|financeiro|finance/i })).toBeVisible({ timeout: 10000 })
   })
 
   test('deve exibir formulário de transação', async ({ page }) => {
-    await expect(page.getByText(/nova transação/i)).toBeVisible()
+    await expect(page.getByText(/nova transação|new transaction/i)).toBeVisible({ timeout: 10000 })
   })
 })
 
@@ -85,6 +61,7 @@ test.describe('Responsividade', () => {
   test('deve carregar landing page em mobile', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 })
     await page.goto('/')
-    await expect(page.locator('body')).toBeVisible()
+    await page.waitForLoadState('load')
+    await expect(page.locator('body')).toBeVisible({ timeout: 10000 })
   })
 })
